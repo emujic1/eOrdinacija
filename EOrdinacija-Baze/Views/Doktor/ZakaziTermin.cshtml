@@ -1,0 +1,27 @@
+﻿@model EOrdinacija_Baze.Termini
+
+@{
+    ViewBag.Title = "Zakazi termin pacijentu";
+}
+
+<h2>Zakaži termin</h2>
+@using (@Html.BeginForm("Zakazitermin","Doktor",FormMethod.Post))
+{
+<table>
+    <tr>
+        <td>@Html.LabelFor(a=>a.IdPacijenta)</td>
+        <td><input type="text"</td>
+
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(a=>a.DatumTermina)</td>
+        <td>@Html.EditorFor(a=>a.DatumTermina)</td>
+        <td>@Html.ValidationMessageFor(a=>a.DatumTermina)</td>
+
+    </tr>
+    <tr>
+        <td></td>
+        <td><input type="submit" value="Zakaži"</td>
+    </tr>
+</table>
+} 

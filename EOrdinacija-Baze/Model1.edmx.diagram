@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="7434bd08ebba42aebcbd6e799a8e72a6" Name="Diagram1">
+        <EntityTypeShape EntityType="BazaPodatakaModel.Doktori" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="BazaPodatakaModel.kartoni" Width="1.5" PointX="5.25" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="BazaPodatakaModel.Pacijenti" Width="1.5" PointX="3" PointY="6.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="BazaPodatakaModel.Pregledi" Width="1.5" PointX="10.5" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="BazaPodatakaModel.Termini" Width="1.5" PointX="8.25" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="BazaPodatakaModel.Users" Width="1.5" PointX="0.75" PointY="5.375" IsExpanded="true" />
+        <AssociationConnector Association="BazaPodatakaModel.FK_Doktori_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="BazaPodatakaModel.FK_Kartoni_ToTable_1" ManuallyRouted="false" />
+        <AssociationConnector Association="BazaPodatakaModel.FK_Pregledi_to_Doktori" ManuallyRouted="false" />
+        <AssociationConnector Association="BazaPodatakaModel.FK_Table_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="BazaPodatakaModel.FK_Kartoni_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="BazaPodatakaModel.FK_Pregledi_to_Kartoni" ManuallyRouted="false" />
+        <AssociationConnector Association="BazaPodatakaModel.FK_Pacijenti_ToTable" ManuallyRouted="false" />
+        <AssociationConnector Association="BazaPodatakaModel.FK_Pregledi_to_Pacijenti" ManuallyRouted="false" />
+        <AssociationConnector Association="BazaPodatakaModel.FK_Table_ToTable_1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

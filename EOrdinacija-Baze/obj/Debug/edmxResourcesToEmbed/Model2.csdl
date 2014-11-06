@@ -1,0 +1,177 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BazaPodatakaModel1" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="BazaPodatakaEntities1" p1:LazyLoadingEnabled="true">
+    <EntitySet Name="Doktori" EntityType="BazaPodatakaModel1.Doktori" />
+    <EntitySet Name="kartoni" EntityType="BazaPodatakaModel1.kartoni" />
+    <EntitySet Name="Pacijenti" EntityType="BazaPodatakaModel1.Pacijenti" />
+    <EntitySet Name="Termini" EntityType="BazaPodatakaModel1.Termini" />
+    <EntitySet Name="Users" EntityType="BazaPodatakaModel1.Users" />
+    <AssociationSet Name="FK_Doktori_ToTable" Association="BazaPodatakaModel1.FK_Doktori_ToTable">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Doktori" EntitySet="Doktori" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kartoni_ToTable_1" Association="BazaPodatakaModel1.FK_Kartoni_ToTable_1">
+      <End Role="Doktori" EntitySet="Doktori" />
+      <End Role="kartoni" EntitySet="kartoni" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_ToTable" Association="BazaPodatakaModel1.FK_Table_ToTable">
+      <End Role="Doktori" EntitySet="Doktori" />
+      <End Role="Termini" EntitySet="Termini" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kartoni_ToTable" Association="BazaPodatakaModel1.FK_Kartoni_ToTable">
+      <End Role="Pacijenti" EntitySet="Pacijenti" />
+      <End Role="kartoni" EntitySet="kartoni" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pacijenti_ToTable" Association="BazaPodatakaModel1.FK_Pacijenti_ToTable">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Pacijenti" EntitySet="Pacijenti" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_ToTable_1" Association="BazaPodatakaModel1.FK_Table_ToTable_1">
+      <End Role="Pacijenti" EntitySet="Pacijenti" />
+      <End Role="Termini" EntitySet="Termini" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Doktori">
+    <Key>
+      <PropertyRef Name="IdDoktora" />
+    </Key>
+    <Property Name="IdDoktora" Type="Int32" Nullable="false" />
+    <Property Name="Ime_" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="true" />
+    <Property Name="Prezime" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="true" />
+    <Property Name="Datum_rodjenja" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Mjesto_rodjenja" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="true" />
+    <Property Name="Titula" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="true" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="true" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="BazaPodatakaModel1.FK_Doktori_ToTable" FromRole="Doktori" ToRole="Users" />
+    <NavigationProperty Name="kartoni" Relationship="BazaPodatakaModel1.FK_Kartoni_ToTable_1" FromRole="Doktori" ToRole="kartoni" />
+    <NavigationProperty Name="Termini" Relationship="BazaPodatakaModel1.FK_Table_ToTable" FromRole="Doktori" ToRole="Termini" />
+  </EntityType>
+  <EntityType Name="kartoni">
+    <Key>
+      <PropertyRef Name="IdKartona" />
+    </Key>
+    <Property Name="IdKartona" Type="Int32" Nullable="false" />
+    <Property Name="IdDoktora" Type="Int32" Nullable="false" />
+    <Property Name="IdPacijenta" Type="Int32" Nullable="false" />
+    <Property Name="Ekg_slika" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="Misljenje_specijaliste" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="DatumZadnjePromjene" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Dijagnoza" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <Property Name="Primjedba" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Doktori" Relationship="BazaPodatakaModel1.FK_Kartoni_ToTable_1" FromRole="kartoni" ToRole="Doktori" />
+    <NavigationProperty Name="Pacijenti" Relationship="BazaPodatakaModel1.FK_Kartoni_ToTable" FromRole="kartoni" ToRole="Pacijenti" />
+  </EntityType>
+  <EntityType Name="Pacijenti">
+    <Key>
+      <PropertyRef Name="IdPacijenta" />
+    </Key>
+    <Property Name="IdPacijenta" Type="Int32" Nullable="false" />
+    <Property Name="Ime" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="true" />
+    <Property Name="Prezime" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="true" />
+    <Property Name="Godina_rodjenja" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Licna_karta" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="true" />
+    <Property Name="Mjesto_rodjenja" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="true" />
+    <Property Name="UsernamePacijenta" Type="String" Nullable="false" MaxLength="20" Unicode="true" FixedLength="true" />
+    <Property Name="PasswordPacijenta" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="Mjesto_prebivališta" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+    <NavigationProperty Name="kartoni" Relationship="BazaPodatakaModel1.FK_Kartoni_ToTable" FromRole="Pacijenti" ToRole="kartoni" />
+    <NavigationProperty Name="Users" Relationship="BazaPodatakaModel1.FK_Pacijenti_ToTable" FromRole="Pacijenti" ToRole="Users" />
+    <NavigationProperty Name="Termini" Relationship="BazaPodatakaModel1.FK_Table_ToTable_1" FromRole="Pacijenti" ToRole="Termini" />
+  </EntityType>
+  <EntityType Name="Termini">
+    <Key>
+      <PropertyRef Name="IdTermina" />
+    </Key>
+    <Property Name="IdTermina" Type="Int32" Nullable="false" />
+    <Property Name="IdDoktora" Type="Int32" Nullable="false" />
+    <Property Name="IdPacijenta" Type="Int32" Nullable="false" />
+    <Property Name="DatumTermina" Type="DateTime" Nullable="false" Precision="0" />
+    <NavigationProperty Name="Doktori" Relationship="BazaPodatakaModel1.FK_Table_ToTable" FromRole="Termini" ToRole="Doktori" />
+    <NavigationProperty Name="Pacijenti" Relationship="BazaPodatakaModel1.FK_Table_ToTable_1" FromRole="Termini" ToRole="Pacijenti" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <Property Name="Username" Type="String" Nullable="false" MaxLength="100" Unicode="true" FixedLength="true" />
+    <Property Name="Password" Type="String" Nullable="false" MaxLength="10" Unicode="true" FixedLength="true" />
+    <NavigationProperty Name="Doktori" Relationship="BazaPodatakaModel1.FK_Doktori_ToTable" FromRole="Users" ToRole="Doktori" />
+    <NavigationProperty Name="Pacijenti" Relationship="BazaPodatakaModel1.FK_Pacijenti_ToTable" FromRole="Users" ToRole="Pacijenti" />
+  </EntityType>
+  <Association Name="FK_Doktori_ToTable">
+    <End Role="Users" Type="BazaPodatakaModel1.Users" Multiplicity="1" />
+    <End Role="Doktori" Type="BazaPodatakaModel1.Doktori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Doktori">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kartoni_ToTable_1">
+    <End Role="Doktori" Type="BazaPodatakaModel1.Doktori" Multiplicity="1" />
+    <End Role="kartoni" Type="BazaPodatakaModel1.kartoni" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doktori">
+        <PropertyRef Name="IdDoktora" />
+      </Principal>
+      <Dependent Role="kartoni">
+        <PropertyRef Name="IdDoktora" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_ToTable">
+    <End Role="Doktori" Type="BazaPodatakaModel1.Doktori" Multiplicity="1" />
+    <End Role="Termini" Type="BazaPodatakaModel1.Termini" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doktori">
+        <PropertyRef Name="IdDoktora" />
+      </Principal>
+      <Dependent Role="Termini">
+        <PropertyRef Name="IdDoktora" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kartoni_ToTable">
+    <End Role="Pacijenti" Type="BazaPodatakaModel1.Pacijenti" Multiplicity="1" />
+    <End Role="kartoni" Type="BazaPodatakaModel1.kartoni" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pacijenti">
+        <PropertyRef Name="IdPacijenta" />
+      </Principal>
+      <Dependent Role="kartoni">
+        <PropertyRef Name="IdPacijenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pacijenti_ToTable">
+    <End Role="Users" Type="BazaPodatakaModel1.Users" Multiplicity="1" />
+    <End Role="Pacijenti" Type="BazaPodatakaModel1.Pacijenti" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Pacijenti">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_ToTable_1">
+    <End Role="Pacijenti" Type="BazaPodatakaModel1.Pacijenti" Multiplicity="1" />
+    <End Role="Termini" Type="BazaPodatakaModel1.Termini" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pacijenti">
+        <PropertyRef Name="IdPacijenta" />
+      </Principal>
+      <Dependent Role="Termini">
+        <PropertyRef Name="IdPacijenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

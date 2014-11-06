@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="BazaPodatakaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="BazaPodatakaModelStoreContainer">
+    <EntitySet Name="Doktori" EntityType="BazaPodatakaModel.Store.Doktori" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="kartoni" EntityType="BazaPodatakaModel.Store.kartoni" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Pacijenti" EntityType="BazaPodatakaModel.Store.Pacijenti" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Pregledi" EntityType="BazaPodatakaModel.Store.Pregledi" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Termini" EntityType="BazaPodatakaModel.Store.Termini" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Users" EntityType="BazaPodatakaModel.Store.Users" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Doktori_ToTable" Association="BazaPodatakaModel.Store.FK_Doktori_ToTable">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Doktori" EntitySet="Doktori" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kartoni_ToTable" Association="BazaPodatakaModel.Store.FK_Kartoni_ToTable">
+      <End Role="Pacijenti" EntitySet="Pacijenti" />
+      <End Role="kartoni" EntitySet="kartoni" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Kartoni_ToTable_1" Association="BazaPodatakaModel.Store.FK_Kartoni_ToTable_1">
+      <End Role="Doktori" EntitySet="Doktori" />
+      <End Role="kartoni" EntitySet="kartoni" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pacijenti_ToTable" Association="BazaPodatakaModel.Store.FK_Pacijenti_ToTable">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="Pacijenti" EntitySet="Pacijenti" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pregledi-to-Doktori" Association="BazaPodatakaModel.Store.FK_Pregledi-to-Doktori">
+      <End Role="Doktori" EntitySet="Doktori" />
+      <End Role="Pregledi" EntitySet="Pregledi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pregledi-to-Kartoni" Association="BazaPodatakaModel.Store.FK_Pregledi-to-Kartoni">
+      <End Role="kartoni" EntitySet="kartoni" />
+      <End Role="Pregledi" EntitySet="Pregledi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pregledi-to-Pacijenti" Association="BazaPodatakaModel.Store.FK_Pregledi-to-Pacijenti">
+      <End Role="Pacijenti" EntitySet="Pacijenti" />
+      <End Role="Pregledi" EntitySet="Pregledi" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_ToTable" Association="BazaPodatakaModel.Store.FK_Table_ToTable">
+      <End Role="Doktori" EntitySet="Doktori" />
+      <End Role="Termini" EntitySet="Termini" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Table_ToTable_1" Association="BazaPodatakaModel.Store.FK_Table_ToTable_1">
+      <End Role="Pacijenti" EntitySet="Pacijenti" />
+      <End Role="Termini" EntitySet="Termini" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Doktori">
+    <Key>
+      <PropertyRef Name="IdDoktora" />
+    </Key>
+    <Property Name="IdDoktora" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Ime " Type="nchar" Nullable="false" MaxLength="20" />
+    <Property Name="Prezime" Type="nchar" Nullable="false" MaxLength="20" />
+    <Property Name="Datum rodjenja" Type="date" Nullable="false" />
+    <Property Name="Mjesto rodjenja" Type="nchar" Nullable="false" MaxLength="20" />
+    <Property Name="Titula" Type="nchar" Nullable="false" MaxLength="20" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="kartoni">
+    <Key>
+      <PropertyRef Name="IdKartona" />
+    </Key>
+    <Property Name="IdKartona" Type="int" Nullable="false" />
+    <Property Name="IdDoktora" Type="int" Nullable="false" />
+    <Property Name="IdPacijenta" Type="int" Nullable="false" />
+    <Property Name="Ekg slika" Type="image" />
+    <Property Name="Misljenje specijaliste" Type="text" />
+    <Property Name="Datum zadnje promjene" Type="date" Nullable="false" />
+    <Property Name="Dijagnoza" Type="text" />
+    <Property Name="Primjedba" Type="text" />
+  </EntityType>
+  <EntityType Name="Pacijenti">
+    <Key>
+      <PropertyRef Name="IdPacijenta" />
+    </Key>
+    <Property Name="IdPacijenta" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Ime" Type="nchar" Nullable="false" MaxLength="20" />
+    <Property Name="Prezime" Type="nchar" Nullable="false" MaxLength="20" />
+    <Property Name="Datum rođenja" Type="datetime" Nullable="false" />
+    <Property Name="Licna karta" Type="nchar" Nullable="false" MaxLength="20" />
+    <Property Name="Mjesto rodjenja" Type="nchar" Nullable="false" MaxLength="20" />
+    <Property Name="UserID" Type="int" Nullable="false" />
+    <Property Name="Mjesto prebivališta" Type="nchar" Nullable="false" MaxLength="10" />
+  </EntityType>
+  <EntityType Name="Pregledi">
+    <Key>
+      <PropertyRef Name="IdPregleda" />
+    </Key>
+    <Property Name="IdPregleda" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Pregled izvrsio" Type="int" Nullable="false" />
+    <Property Name="Pacijent" Type="int" Nullable="false" />
+    <Property Name="Datum pregleda" Type="datetime" Nullable="false" />
+    <Property Name="Broj kartona" Type="int" Nullable="false" />
+    <Property Name="Cjena" Type="int" />
+  </EntityType>
+  <EntityType Name="Termini">
+    <Key>
+      <PropertyRef Name="IdTermina" />
+    </Key>
+    <Property Name="IdTermina" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="IdDoktora" Type="int" Nullable="false" />
+    <Property Name="IdPacijenta" Type="int" Nullable="false" />
+    <Property Name="DatumTermina" Type="date" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Users">
+    <Key>
+      <PropertyRef Name="UserID" />
+    </Key>
+    <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Username" Type="nchar" Nullable="false" MaxLength="100" />
+    <Property Name="Password" Type="nchar" Nullable="false" MaxLength="10" />
+  </EntityType>
+  <Association Name="FK_Doktori_ToTable">
+    <End Role="Users" Type="BazaPodatakaModel.Store.Users" Multiplicity="1" />
+    <End Role="Doktori" Type="BazaPodatakaModel.Store.Doktori" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Doktori">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kartoni_ToTable">
+    <End Role="Pacijenti" Type="BazaPodatakaModel.Store.Pacijenti" Multiplicity="1" />
+    <End Role="kartoni" Type="BazaPodatakaModel.Store.kartoni" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pacijenti">
+        <PropertyRef Name="IdPacijenta" />
+      </Principal>
+      <Dependent Role="kartoni">
+        <PropertyRef Name="IdPacijenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Kartoni_ToTable_1">
+    <End Role="Doktori" Type="BazaPodatakaModel.Store.Doktori" Multiplicity="1" />
+    <End Role="kartoni" Type="BazaPodatakaModel.Store.kartoni" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doktori">
+        <PropertyRef Name="IdDoktora" />
+      </Principal>
+      <Dependent Role="kartoni">
+        <PropertyRef Name="IdDoktora" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pacijenti_ToTable">
+    <End Role="Users" Type="BazaPodatakaModel.Store.Users" Multiplicity="1" />
+    <End Role="Pacijenti" Type="BazaPodatakaModel.Store.Pacijenti" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="Pacijenti">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pregledi-to-Doktori">
+    <End Role="Doktori" Type="BazaPodatakaModel.Store.Doktori" Multiplicity="1" />
+    <End Role="Pregledi" Type="BazaPodatakaModel.Store.Pregledi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doktori">
+        <PropertyRef Name="IdDoktora" />
+      </Principal>
+      <Dependent Role="Pregledi">
+        <PropertyRef Name="Pregled izvrsio" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pregledi-to-Kartoni">
+    <End Role="kartoni" Type="BazaPodatakaModel.Store.kartoni" Multiplicity="1" />
+    <End Role="Pregledi" Type="BazaPodatakaModel.Store.Pregledi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="kartoni">
+        <PropertyRef Name="IdKartona" />
+      </Principal>
+      <Dependent Role="Pregledi">
+        <PropertyRef Name="Broj kartona" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pregledi-to-Pacijenti">
+    <End Role="Pacijenti" Type="BazaPodatakaModel.Store.Pacijenti" Multiplicity="1" />
+    <End Role="Pregledi" Type="BazaPodatakaModel.Store.Pregledi" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pacijenti">
+        <PropertyRef Name="IdPacijenta" />
+      </Principal>
+      <Dependent Role="Pregledi">
+        <PropertyRef Name="Pacijent" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_ToTable">
+    <End Role="Doktori" Type="BazaPodatakaModel.Store.Doktori" Multiplicity="1" />
+    <End Role="Termini" Type="BazaPodatakaModel.Store.Termini" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Doktori">
+        <PropertyRef Name="IdDoktora" />
+      </Principal>
+      <Dependent Role="Termini">
+        <PropertyRef Name="IdDoktora" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Table_ToTable_1">
+    <End Role="Pacijenti" Type="BazaPodatakaModel.Store.Pacijenti" Multiplicity="1" />
+    <End Role="Termini" Type="BazaPodatakaModel.Store.Termini" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pacijenti">
+        <PropertyRef Name="IdPacijenta" />
+      </Principal>
+      <Dependent Role="Termini">
+        <PropertyRef Name="IdPacijenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

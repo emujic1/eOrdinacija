@@ -1,0 +1,17 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+@if (Session["LogedUser"] != null)    
+{
+    <text>
+ <h2> Dobrodošao,dr. @ViewBag.ime </h2>  
+ <p><b>@Html.ActionLink("Pregled rasporeda","PregledRasporeda","Doktor")</b></p>
+ <p><b>@Html.ActionLink("Registracija novog pacijenta","RegistracijaPacijenta","Doktor")</b></p>
+ <p><b>@Html.ActionLink("Izvrši pregled","IzvršiPregled","Doktor")</b></p>
+ <p><b>@Html.ActionLink("Pregled postoječih kartona","pregledKartona","Doktor")</b></p>
+ <p><b>@Html.ActionLink("Zakaži termin","ZakaziTermin","Doktor")</b></p>
+
+</text>
+
+}

@@ -1,0 +1,16 @@
+﻿@{
+    ViewBag.Title = "Upješno ste logovani";
+}
+
+<h2>Uspješno ste logovani</h2>
+<br />
+@if (Session["LogedUser"] != null)
+{
+<text>
+<table>
+  <tr> <td> Dobrodošao,dr.@ViewBag.ime </td>
+     </tr>
+<tr><td> @Html.ActionLink("Nastavite s radom","Index","Pacijent") </td></tr>
+
+</text>    
+}

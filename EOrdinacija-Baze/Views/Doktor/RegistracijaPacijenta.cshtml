@@ -1,0 +1,70 @@
+﻿@model EOrdinacija_Baze.Pacijenti 
+@{
+    ViewBag.Title = "Registracija Pacijenta";
+}
+
+<h2>Registracija pacijenta</h2>
+
+@using (Html.BeginForm("RegistracijaPacijenta", "Doktor", FormMethod.Post))
+{
+@Html.AntiForgeryToken()
+@Html.ValidationSummary(true)
+    if (@ViewBag.dodan != null)
+    { 
+        
+    <p style="color:red" ><b>@ViewBag.dodan</b></p>
+    
+   <p> @Html.ActionLink("Nazad", "Index", "Doktor") </p>
+    }
+    else
+    {
+<table>
+    <tr>
+        <td>@Html.LabelFor(a => a.Ime)</td>
+        <td>@Html.TextBoxFor(a => a.Ime)</td>
+        <td>@Html.ValidationMessageFor(a => a.Ime)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(a => a.Prezime)</td>
+        <td>@Html.TextBoxFor(a => a.Prezime)</td>
+        <td>@Html.ValidationMessageFor(a => a.Prezime)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(a => a.Datum_rođenja)</td>
+        <td>@Html.EditorFor(a => a.Datum_rođenja)</td>
+        <td>@Html.ValidationMessageFor(a => a.Datum_rođenja)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(a => a.Mjesto_rodjenja)</td>
+        <td>@Html.TextBoxFor(a => a.Mjesto_rodjenja)</td>
+        <td>@Html.ValidationMessageFor(a => a.Mjesto_rodjenja)</td>
+    </tr>
+   <tr>
+        <td>@Html.LabelFor(a => a.Licna_karta)</td>
+        <td>@Html.TextBoxFor(a => a.Licna_karta)</td>
+        <td>@Html.ValidationMessageFor(a => a.Licna_karta)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(a => a.Mjesto_prebivališta)</td>
+        <td>@Html.TextBoxFor(a => a.Mjesto_prebivališta)</td>
+        <td>@Html.ValidationMessageFor(a => a.Mjesto_prebivališta)</td>
+    </tr>
+    <tr>
+        <td>@Html.LabelFor(a => a.Users.Username)</td>
+        <td>@Html.TextBoxFor(a => a.Users.Username)</td>
+        <td style="color:red"><b>@ViewBag.postoji</b></td>
+    </tr>
+   <tr>
+        <td>@Html.LabelFor(a => a.Users.Password)</td>
+        <td>@Html.PasswordFor(a => a.Users.Password)</td>
+        <td>@Html.ValidationMessageFor(a => a.Users.Password)</td>
+    </tr>
+    <tr><td><input type="submit" value="Dodaj"</td></tr>
+    </table>
+    }
+    
+}
+
+@section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    }

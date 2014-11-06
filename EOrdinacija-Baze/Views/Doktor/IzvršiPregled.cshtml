@@ -1,0 +1,44 @@
+﻿@model EOrdinacija_Baze.Pregledi
+
+@{
+    ViewBag.Title = "IzvršiPregled";
+}
+
+<h2>Izvrši Pregled</h2>
+@using (Html.BeginForm("IzvršiPregled","Doktor",FormMethod.Post))
+{
+ @Html.ValidationSummary(true)
+@Html.AntiForgeryToken()
+<table>
+    <tr>
+        <td>Pregled_izvrsio</td>
+        <td><input type="text" name="ImeDoktora"</td>
+    </tr>
+    <tr>
+        <td>Pacijent</td>
+        <td><input type="text" name="ImePacijenta"</td>
+    </tr>
+    <tr>
+        <td>Datum pregleda</td>
+        <td><input type="date" name="datumPregleda"</td>
+    </tr>
+    <tr>
+        <td>Cjena</td>
+        <td><input type="number" name="Cjena"</td>
+    </tr>
+    <tr>
+        <td>Terapija </td>
+        <td><input type="text" name="Terapija"</td>
+    </tr>
+    <tr>
+        <td>Kreiraj karton za pacijenta</td>
+        <td><input type="button" name="kreiraj" value="Kreiraj"</td>
+    </tr>
+    
+     <tr>
+        <td><input type="submit" value="Spremi"</td>
+    </tr>
+
+</table>
+
+}
