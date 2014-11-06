@@ -70,6 +70,7 @@ namespace EOrdinacija_Baze.Controllers
                 return View();
             }
             else {
+                ViewBag.test = "bravisimo";
                 return RedirectToAction("Index");
             }
 
