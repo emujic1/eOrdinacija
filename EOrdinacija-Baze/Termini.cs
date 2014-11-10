@@ -11,23 +11,23 @@ namespace EOrdinacija_Baze
 {
     using System;
     using System.Collections.Generic;
+    using System.Web.Mvc;
+    using System.Web.WebPages.Html;
     
     public partial class Termini
     {
-        
         public int IdTermina { get; set; }
         public int IdDoktora { get; set; }
-        [Required(ErrorMessage = "Odaberite pacijenta")]
-        [Display(Name = "Odaberite pacijenta")]
         public int IdPacijenta { get; set; }
-        [Required(ErrorMessage = "Unesite datum")]
+        [Required(ErrorMessage = "Unesite datum termina")]
         [DataType(DataType.Date)]
+        [Display(Name = "Datum termina")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        [FutureDateValidator(ErrorMessage = "Datum mora biti u buduènosti")]
-        
         public System.DateTime DatumTermina { get; set; }
     
         public virtual Doktori Doktori { get; set; }
         public virtual Pacijenti Pacijenti { get; set; }
+
+        public SelectList imenaPacijenata { get; set; }
     }
 }

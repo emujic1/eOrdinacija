@@ -30,6 +30,11 @@
         <td>@Html.ValidationMessageFor(a => a.Prezime)</td>
     </tr>
     <tr>
+        <td>@Html.LabelFor(a => a.Ime_oca)</td>
+        <td>@Html.TextBoxFor(a => a.Ime_oca)</td>
+        <td>@Html.ValidationMessageFor(a => a.Ime_oca)</td>
+    </tr>
+    <tr>
         <td>@Html.LabelFor(a => a.Datum_rođenja)</td>
         <td>@Html.EditorFor(a => a.Datum_rođenja)</td>
         <td>@Html.ValidationMessageFor(a => a.Datum_rođenja)</td>

@@ -43,7 +43,10 @@ namespace EOrdinacija_Baze
         [Required(ErrorMessage = "Unesite mjesto prebivališta")]
         [Display(Name = "Mjesto prebivališta")]
         public string Mjesto_prebivališta { get; set; }
-    
+        [Required(ErrorMessage="Unesite ime oca")]
+        [Display(Name="Ime oca")]
+        public string Ime_oca { get; set; }
+
         public virtual ICollection<kartoni> kartoni { get; set; }
         public virtual Users Users { get; set; }
         public virtual ICollection<Pregledi> Pregledi { get; set; }

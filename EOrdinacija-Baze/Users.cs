@@ -6,7 +6,7 @@
 //    Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System.ComponentModel.DataAnnotations;
+
 namespace EOrdinacija_Baze
 {
     using System;
@@ -21,10 +21,7 @@ namespace EOrdinacija_Baze
         }
     
         public int UserID { get; set; }
-        [Required(ErrorMessage="Unesite username")]
         public string Username { get; set; }
-        [Required(ErrorMessage="Unesite password")]
-        [DataType(DataType.Password)]
         public string Password { get; set; }
     
         public virtual ICollection<Doktori> Doktori { get; set; }

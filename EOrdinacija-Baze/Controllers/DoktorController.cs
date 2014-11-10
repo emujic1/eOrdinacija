@@ -8,11 +8,15 @@ namespace EOrdinacija_Baze.Controllers
 {
     public class DoktorController : Controller
     {
-        //
+         private int id_logovanog_doktora;
         // GET: /Doktor/
-
-        public ActionResult Index()
+        
+        public ActionResult Index(string id_user)
         {
+            id_logovanog_doktora = Int16.Parse(id_user);
+           // var db = new BazaPodatakaEntities();
+           // var ime = db.Doktori.Where(a => a.IdDoktora.Equals(id_logovanog_doktora)).FirstOrDefault();
+           // ViewBag.ime = ime;
             return View();
         }
         public ActionResult RegistracijaPacijenta()
@@ -43,7 +47,8 @@ namespace EOrdinacija_Baze.Controllers
                             Datum_rođenja = p.Datum_rođenja,
                             Mjesto_prebivališta = p.Mjesto_prebivališta,
                             Licna_karta = p.Licna_karta,
-                            Mjesto_rodjenja = p.Mjesto_rodjenja
+                            Mjesto_rodjenja = p.Mjesto_rodjenja,
+                            Ime_oca=p.Ime_oca
                         });
                         db.SaveChanges();
                         ViewBag.dodan = "Pacijent uspješno dodan!";
@@ -71,18 +76,24 @@ namespace EOrdinacija_Baze.Controllers
             return View();
         }
         public ActionResult ZakaziTermin()
-        {/*
-            var db=( from Pacijenti).ToList(); 
-             List<string> imena = new List<string>();
-            foreach(var k in db){
-            imena.Add(k.Ime);
+        {
+            var db=new BazaPodatakaEntities();
+            var imena = db.Pacijenti.Select(a => a.Ime).ToList();
+            var prezimena = db.Pacijenti.Select(a => a.Prezime).ToList();
+            var ime_oceva = db.Pacijenti.Select(a => a.Ime_oca).ToList();
+
+            List<SelectListItem> items = new List<SelectListItem>();
+            for(int i=0; i<imena.Count; i++) {
+                items.Add(new SelectListItem { Text = imena[i].ToString()+"("+ime_oceva[i]+")"+prezimena[i].ToString(), Value = i.ToString() });
             }
-            ViewBag.pacijenti = imena;*/
+            ViewBag.imena = items;
+
+           
             return View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ZakaziTermin(Termini t)
+        public ActionResult ZakaziTermin(Termini t,int value)
         {
             return RedirectToAction("Index","Doktor");
         }

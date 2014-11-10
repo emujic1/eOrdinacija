@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="BazaPodatakaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="BazaPodatakaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityContainer Name="BazaPodatakaModelStoreContainer">
           <EntitySet Name="Doktori" EntityType="BazaPodatakaModel.Store.Doktori" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="kartoni" EntityType="BazaPodatakaModel.Store.kartoni" store:Type="Tables" Schema="dbo" />
@@ -86,6 +86,7 @@
           <Property Name="Mjesto rodjenja" Type="nchar" Nullable="false" MaxLength="20" />
           <Property Name="UserID" Type="int" Nullable="false" />
           <Property Name="Mjesto prebivališta" Type="nchar" Nullable="false" MaxLength="10" />
+          <Property Name="Ime oca" Type="nchar" MaxLength="20" />
         </EntityType>
         <EntityType Name="Pregledi">
           <Key>
@@ -223,8 +224,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="BazaPodatakaModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -320,6 +320,7 @@
           <NavigationProperty Name="Users" Relationship="BazaPodatakaModel.FK_Pacijenti_ToTable" FromRole="Pacijenti" ToRole="Users" />
           <NavigationProperty Name="Pregledi" Relationship="BazaPodatakaModel.FK_Pregledi_to_Pacijenti" FromRole="Pacijenti" ToRole="Pregledi" />
           <NavigationProperty Name="Termini" Relationship="BazaPodatakaModel.FK_Table_ToTable_1" FromRole="Pacijenti" ToRole="Termini" />
+          <Property Type="String" Name="Ime_oca" MaxLength="20" FixedLength="true" Unicode="true" />
         </EntityType>
         <EntityType Name="Pregledi">
           <Key>
@@ -500,6 +501,7 @@
           <EntitySetMapping Name="Pacijenti">
             <EntityTypeMapping TypeName="BazaPodatakaModel.Pacijenti">
               <MappingFragment StoreEntitySet="Pacijenti">
+                <ScalarProperty Name="Ime_oca" ColumnName="Ime oca" />
                 <ScalarProperty Name="IdPacijenta" ColumnName="IdPacijenta" />
                 <ScalarProperty Name="Ime" ColumnName="Ime" />
                 <ScalarProperty Name="Prezime" ColumnName="Prezime" />

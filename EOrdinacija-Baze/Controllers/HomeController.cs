@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Routing;
 
 namespace EOrdinacija_Baze.Controllers
 {
@@ -48,7 +49,8 @@ namespace EOrdinacija_Baze.Controllers
                         {
                             ViewBag.ime = c.Ime_;
                             Session["LogedUser"] = v.Username.ToString();
-                            return RedirectToAction("Index", "Doktor");
+                          string id_user = c.IdDoktora.ToString();
+                          return RedirectToAction("Index", new RouteValueDictionary( new { controller = "Doktor", action = "Index", id_user = id_user }));
                         }
                         else  {
                             Session["LogedUser"] = v.Username.ToString();

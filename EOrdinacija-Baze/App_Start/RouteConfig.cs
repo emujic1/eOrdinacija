@@ -12,7 +12,8 @@ namespace EOrdinacija_Baze
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
-           
+
+            routes.MapRoute("Doktor","halo/{id_user}", new { controller = "Doktor", action = "Index" });
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
