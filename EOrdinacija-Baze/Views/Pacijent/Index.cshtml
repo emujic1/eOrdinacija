@@ -2,4 +2,13 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+@if (Session["LogedUser"] != null)    
+{
+    <text>
+ <h2> Dobrodošao, @ViewBag.ime </h2>  
+ <p><b>@Html.ActionLink("Pregledaj moj karton","pregledKartona","Pacijent")</b></p>
+ <p><b>@Html.ActionLink("Zakaži termin","ZakaziTermin","Pacijent")</b></p>
+
+</text>
+
+}

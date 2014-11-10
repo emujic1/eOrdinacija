@@ -1,0 +1,19 @@
+﻿@model EOrdinacija_Baze.Pacijenti
+
+@{
+    ViewBag.Title = "PregledPostojecihKartona";
+}
+
+<h2>Pregled postojecih kartona</h2>
+@using (Html.BeginForm("PregledPostojecihKartona","Doktor",FormMethod.Post))
+{
+    <table>
+        <tr>
+            <td>Odaberite pacijenta</td>
+       </tr>
+        <tr><td><input type="text"> </td>
+    </tr>
+        <tr><td><input type="submit" value="Pregledaj"</td></tr>
+    </table>
+
+}

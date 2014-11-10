@@ -15,6 +15,14 @@ namespace EOrdinacija_Baze.Controllers
         {
             return View();
         }
+        public ActionResult pregledKartona()
+        {
+            return View();
+        }
+        public ActionResult ZakaziTermin()
+        {
+            return View();
+        }
 
     }
 }

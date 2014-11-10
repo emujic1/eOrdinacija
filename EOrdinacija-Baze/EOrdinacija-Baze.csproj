@@ -339,6 +339,9 @@
     <Content Include="Views\Doktor\IzvršiPregled.cshtml" />
     <Content Include="Views\Pacijent\Index.cshtml" />
     <Content Include="Views\Doktor\ZakaziTermin.cshtml" />
+    <Content Include="Views\Doktor\PregledPostojecihKartona.cshtml" />
+    <Content Include="Views\Doktor\KreirajKarton.cshtml" />
+    <Content Include="Views\Pacijent\pregledKartona.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />

@@ -13,7 +13,7 @@ namespace EOrdinacija_Baze.Controllers
         
         public ActionResult Index(string id_user)
         {
-            id_logovanog_doktora = Int16.Parse(id_user);
+           // id_logovanog_doktora = Int16.Parse(id_user);
            // var db = new BazaPodatakaEntities();
            // var ime = db.Doktori.Where(a => a.IdDoktora.Equals(id_logovanog_doktora)).FirstOrDefault();
            // ViewBag.ime = ime;
@@ -97,5 +97,17 @@ namespace EOrdinacija_Baze.Controllers
         {
             return RedirectToAction("Index","Doktor");
         }
-    }
+        public ActionResult PregledPostojecihKartona() {
+            return View();
+        }
+        public ActionResult KreirajKarton()
+        {
+            return View();
+        }
+
+       
+        }
+    
 }
+
+
