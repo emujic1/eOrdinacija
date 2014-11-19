@@ -12,19 +12,18 @@ namespace EOrdinacija_Baze
     using System;
     using System.Collections.Generic;
     
-    public partial class Users
+    public partial class Soba
     {
-        public Users()
+        public Soba()
         {
-            this.Doktori = new HashSet<Doktori>();
             this.Pacijenti = new HashSet<Pacijenti>();
         }
     
-        public int UserID { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
+        public int IdSobe { get; set; }
+        public int idOdjela { get; set; }
+        public int BrojKreveta { get; set; }
     
-        public virtual ICollection<Doktori> Doktori { get; set; }
+        public virtual Odjel Odjel { get; set; }
         public virtual ICollection<Pacijenti> Pacijenti { get; set; }
     }
 }

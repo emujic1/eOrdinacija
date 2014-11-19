@@ -6,28 +6,25 @@
 //    Manual changes to this file will be overwritten if the code is regenerated.
 // </auto-generated>
 //------------------------------------------------------------------------------
-using System.ComponentModel.DataAnnotations;
+
 namespace EOrdinacija_Baze
 {
     using System;
     using System.Collections.Generic;
-    using System.Web.Mvc;
-    using System.Web.WebPages.Html;
     
-    public partial class Termini
+    public partial class Karton
     {
-        public int IdTermina { get; set; }
-        public int IdDoktora { get; set; }
+        public int IdKartona { get; set; }
         public int IdPacijenta { get; set; }
-        [Required(ErrorMessage = "Unesite datum termina")]
-        [DataType(DataType.Date)]
-        [Display(Name = "Datum termina")]
-        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public System.DateTime DatumTermina { get; set; }
+        public byte[] Ekg_slika { get; set; }
+        public string Misljenje_specijaliste { get; set; }
+        public System.DateTime Datum_zadnje_ismjene { get; set; }
+        public string Dijagnoza { get; set; }
+        public string Primjedba { get; set; }
+        public string Sposobnost_kretanja { get; set; }
+        public string Zarazna_bolest { get; set; }
+        public bool Karton_on_off { get; set; }
     
-        public virtual Doktori Doktori { get; set; }
         public virtual Pacijenti Pacijenti { get; set; }
-
-        public SelectList imenaPacijenata { get; set; }
     }
 }

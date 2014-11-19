@@ -1,220 +1,378 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Schema Namespace="BazaPodatakaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <EntityContainer Name="BazaPodatakaModelStoreContainer">
-    <EntitySet Name="Doktori" EntityType="BazaPodatakaModel.Store.Doktori" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="kartoni" EntityType="BazaPodatakaModel.Store.kartoni" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Pacijenti" EntityType="BazaPodatakaModel.Store.Pacijenti" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Pregledi" EntityType="BazaPodatakaModel.Store.Pregledi" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Termini" EntityType="BazaPodatakaModel.Store.Termini" store:Type="Tables" Schema="dbo" />
-    <EntitySet Name="Users" EntityType="BazaPodatakaModel.Store.Users" store:Type="Tables" Schema="dbo" />
-    <AssociationSet Name="FK_Doktori_ToTable" Association="BazaPodatakaModel.Store.FK_Doktori_ToTable">
-      <End Role="Users" EntitySet="Users" />
-      <End Role="Doktori" EntitySet="Doktori" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Kartoni_ToTable" Association="BazaPodatakaModel.Store.FK_Kartoni_ToTable">
+<Schema Namespace="eOrdinacijaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="eOrdinacijaModelStoreContainer">
+    <EntitySet Name="Karton" EntityType="eOrdinacijaModel.Store.Karton" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Korisnik" EntityType="eOrdinacijaModel.Store.Korisnik" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Nalaz" EntityType="eOrdinacijaModel.Store.Nalaz" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Odjel" EntityType="eOrdinacijaModel.Store.Odjel" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Oprema" EntityType="eOrdinacijaModel.Store.Oprema" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Pacijenti" EntityType="eOrdinacijaModel.Store.Pacijenti" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Pregled" EntityType="eOrdinacijaModel.Store.Pregled" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Privilegije" EntityType="eOrdinacijaModel.Store.Privilegije" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Soba" EntityType="eOrdinacijaModel.Store.Soba" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Temini" EntityType="eOrdinacijaModel.Store.Temini" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="Uposlenik" EntityType="eOrdinacijaModel.Store.Uposlenik" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_Karton_Pacijenti" Association="eOrdinacijaModel.Store.FK_Karton_Pacijenti">
       <End Role="Pacijenti" EntitySet="Pacijenti" />
-      <End Role="kartoni" EntitySet="kartoni" />
+      <End Role="Karton" EntitySet="Karton" />
     </AssociationSet>
-    <AssociationSet Name="FK_Kartoni_ToTable_1" Association="BazaPodatakaModel.Store.FK_Kartoni_ToTable_1">
-      <End Role="Doktori" EntitySet="Doktori" />
-      <End Role="kartoni" EntitySet="kartoni" />
+    <AssociationSet Name="FK_Korisnik_Privilegije" Association="eOrdinacijaModel.Store.FK_Korisnik_Privilegije">
+      <End Role="Privilegije" EntitySet="Privilegije" />
+      <End Role="Korisnik" EntitySet="Korisnik" />
     </AssociationSet>
-    <AssociationSet Name="FK_Pacijenti_ToTable" Association="BazaPodatakaModel.Store.FK_Pacijenti_ToTable">
-      <End Role="Users" EntitySet="Users" />
+    <AssociationSet Name="FK_Nalaz_Pacijenti" Association="eOrdinacijaModel.Store.FK_Nalaz_Pacijenti">
+      <End Role="Pacijenti" EntitySet="Pacijenti" />
+      <End Role="Nalaz" EntitySet="Nalaz" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Nalaz_Uposlenik" Association="eOrdinacijaModel.Store.FK_Nalaz_Uposlenik">
+      <End Role="Uposlenik" EntitySet="Uposlenik" />
+      <End Role="Nalaz" EntitySet="Nalaz" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Oprema_Pregled" Association="eOrdinacijaModel.Store.FK_Oprema_Pregled">
+      <End Role="Pregled" EntitySet="Pregled" />
+      <End Role="Oprema" EntitySet="Oprema" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pacijenti_qKorisnik" Association="eOrdinacijaModel.Store.FK_Pacijenti_qKorisnik">
+      <End Role="Korisnik" EntitySet="Korisnik" />
       <End Role="Pacijenti" EntitySet="Pacijenti" />
     </AssociationSet>
-    <AssociationSet Name="FK_Pregledi-to-Doktori" Association="BazaPodatakaModel.Store.FK_Pregledi-to-Doktori">
-      <End Role="Doktori" EntitySet="Doktori" />
-      <End Role="Pregledi" EntitySet="Pregledi" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Pregledi-to-Kartoni" Association="BazaPodatakaModel.Store.FK_Pregledi-to-Kartoni">
-      <End Role="kartoni" EntitySet="kartoni" />
-      <End Role="Pregledi" EntitySet="Pregledi" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Pregledi-to-Pacijenti" Association="BazaPodatakaModel.Store.FK_Pregledi-to-Pacijenti">
+    <AssociationSet Name="FK_Pacijenti_Soba" Association="eOrdinacijaModel.Store.FK_Pacijenti_Soba">
+      <End Role="Soba" EntitySet="Soba" />
       <End Role="Pacijenti" EntitySet="Pacijenti" />
-      <End Role="Pregledi" EntitySet="Pregledi" />
     </AssociationSet>
-    <AssociationSet Name="FK_Table_ToTable" Association="BazaPodatakaModel.Store.FK_Table_ToTable">
-      <End Role="Doktori" EntitySet="Doktori" />
-      <End Role="Termini" EntitySet="Termini" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Table_ToTable_1" Association="BazaPodatakaModel.Store.FK_Table_ToTable_1">
+    <AssociationSet Name="FK_Pregled_Pacijenti" Association="eOrdinacijaModel.Store.FK_Pregled_Pacijenti">
       <End Role="Pacijenti" EntitySet="Pacijenti" />
-      <End Role="Termini" EntitySet="Termini" />
+      <End Role="Pregled" EntitySet="Pregled" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pregled_Uposlenik" Association="eOrdinacijaModel.Store.FK_Pregled_Uposlenik">
+      <End Role="Uposlenik" EntitySet="Uposlenik" />
+      <End Role="Pregled" EntitySet="Pregled" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Soba_Odjel" Association="eOrdinacijaModel.Store.FK_Soba_Odjel">
+      <End Role="Odjel" EntitySet="Odjel" />
+      <End Role="Soba" EntitySet="Soba" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Temini_Pacijenti" Association="eOrdinacijaModel.Store.FK_Temini_Pacijenti">
+      <End Role="Pacijenti" EntitySet="Pacijenti" />
+      <End Role="Temini" EntitySet="Temini" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Temini_Uposlenik" Association="eOrdinacijaModel.Store.FK_Temini_Uposlenik">
+      <End Role="Uposlenik" EntitySet="Uposlenik" />
+      <End Role="Temini" EntitySet="Temini" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Uposlenik_Korisnik1" Association="eOrdinacijaModel.Store.FK_Uposlenik_Korisnik1">
+      <End Role="Korisnik" EntitySet="Korisnik" />
+      <End Role="Uposlenik" EntitySet="Uposlenik" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Uposlenik_Odjel" Association="eOrdinacijaModel.Store.FK_Uposlenik_Odjel">
+      <End Role="Odjel" EntitySet="Odjel" />
+      <End Role="Uposlenik" EntitySet="Uposlenik" />
     </AssociationSet>
   </EntityContainer>
-  <EntityType Name="Doktori">
-    <Key>
-      <PropertyRef Name="IdDoktora" />
-    </Key>
-    <Property Name="IdDoktora" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Ime " Type="nchar" Nullable="false" MaxLength="20" />
-    <Property Name="Prezime" Type="nchar" Nullable="false" MaxLength="20" />
-    <Property Name="Datum rodjenja" Type="date" Nullable="false" />
-    <Property Name="Mjesto rodjenja" Type="nchar" Nullable="false" MaxLength="20" />
-    <Property Name="Titula" Type="nchar" Nullable="false" MaxLength="20" />
-    <Property Name="UserID" Type="int" Nullable="false" />
-  </EntityType>
-  <EntityType Name="kartoni">
+  <EntityType Name="Karton">
     <Key>
       <PropertyRef Name="IdKartona" />
     </Key>
     <Property Name="IdKartona" Type="int" Nullable="false" />
-    <Property Name="IdDoktora" Type="int" Nullable="false" />
     <Property Name="IdPacijenta" Type="int" Nullable="false" />
-    <Property Name="Ekg slika" Type="image" />
-    <Property Name="Misljenje specijaliste" Type="text" />
-    <Property Name="Datum zadnje promjene" Type="date" Nullable="false" />
+    <Property Name="Ekg_slika" Type="image" />
+    <Property Name="Misljenje_specijaliste" Type="text" />
+    <Property Name="Datum_zadnje_ismjene" Type="date" Nullable="false" />
     <Property Name="Dijagnoza" Type="text" />
     <Property Name="Primjedba" Type="text" />
+    <Property Name="Sposobnost_kretanja" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Zarazna_bolest" Type="varchar" MaxLength="50" />
+    <Property Name="Karton_on_off" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Korisnik">
+    <Key>
+      <PropertyRef Name="IdKorisnika" />
+    </Key>
+    <Property Name="IdKorisnika" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Ime" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Prezime" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Ime_oca" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Broj_licne" Type="varchar" MaxLength="10" />
+    <Property Name="Email" Type="varchar" MaxLength="20" />
+    <Property Name="Datum_rodjenja" Type="date" Nullable="false" />
+    <Property Name="Mjesto_rodjenja" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Prebivalište" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Username" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Password" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Telefon" Type="int" />
+    <Property Name="JMBG" Type="varchar" MaxLength="13" />
+    <Property Name="IdPrivilegije" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Nalaz">
+    <Key>
+      <PropertyRef Name="idNalaza" />
+    </Key>
+    <Property Name="idNalaza" Type="int" Nullable="false" />
+    <Property Name="IdUposlenika" Type="int" Nullable="false" />
+    <Property Name="IdPacijenta" Type="int" Nullable="false" />
+    <Property Name="Tip" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Vrijednost" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Norma" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="Odjel">
+    <Key>
+      <PropertyRef Name="IdOdjela" />
+    </Key>
+    <Property Name="IdOdjela" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="TipOdjela" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="BrojSoba" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Oprema">
+    <Key>
+      <PropertyRef Name="IdOpreme" />
+    </Key>
+    <Property Name="IdOpreme" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Naziv" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Proizvodjac" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Model" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Godina_proizvodnje" Type="int" />
+    <Property Name="Opis" Type="text" />
+    <Property Name="Cjena" Type="money" Nullable="false" />
+    <Property Name="idPregleda" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Pacijenti">
     <Key>
-      <PropertyRef Name="IdPacijenta" />
+      <PropertyRef Name="idPacijenta" />
     </Key>
-    <Property Name="IdPacijenta" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Ime" Type="nchar" Nullable="false" MaxLength="20" />
-    <Property Name="Prezime" Type="nchar" Nullable="false" MaxLength="20" />
-    <Property Name="Datum rođenja" Type="datetime" Nullable="false" />
-    <Property Name="Licna karta" Type="nchar" Nullable="false" MaxLength="20" />
-    <Property Name="Mjesto rodjenja" Type="nchar" Nullable="false" MaxLength="20" />
-    <Property Name="UserID" Type="int" Nullable="false" />
-    <Property Name="Mjesto prebivališta" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="idPacijenta" Type="int" Nullable="false" />
+    <Property Name="idKorisnika" Type="int" Nullable="false" />
+    <Property Name="idSobe" Type="int" />
+    <Property Name="Zaposlen" Type="bit" Nullable="false" />
+    <Property Name="Poslodavac" Type="varchar" MaxLength="50" />
+    <Property Name="Osiguran" Type="bit" Nullable="false" />
+    <Property Name="DatumIstekaOsiguranja" Type="date" />
   </EntityType>
-  <EntityType Name="Pregledi">
+  <EntityType Name="Pregled">
     <Key>
-      <PropertyRef Name="IdPregleda" />
+      <PropertyRef Name="idPregleda" />
     </Key>
-    <Property Name="IdPregleda" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Pregled izvrsio" Type="int" Nullable="false" />
-    <Property Name="Pacijent" Type="int" Nullable="false" />
-    <Property Name="Datum pregleda" Type="datetime" Nullable="false" />
-    <Property Name="Broj kartona" Type="int" Nullable="false" />
-    <Property Name="Cjena" Type="int" />
+    <Property Name="idPregleda" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Datum" Type="date" Nullable="false" />
+    <Property Name="Razlog_posjete" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Simptomi" Type="varchar" MaxLength="50" />
+    <Property Name="Dijagnoza" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Oprema" Type="int" />
+    <Property Name="idPacijenta" Type="int" Nullable="false" />
+    <Property Name="IdUposlenika" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="Termini">
+  <EntityType Name="Privilegije">
+    <Key>
+      <PropertyRef Name="idPrivilegije" />
+    </Key>
+    <Property Name="idPrivilegije" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Naziv" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Opis" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="add_doktor" Type="bit" Nullable="false" />
+    <Property Name="add_pacijent" Type="bit" Nullable="false" />
+    <Property Name="del_doktor" Type="bit" Nullable="false" />
+    <Property Name="del_pacijent" Type="bit" Nullable="false" />
+    <Property Name="modify_doktor" Type="bit" Nullable="false" />
+    <Property Name="modify_pacijent" Type="bit" Nullable="false" />
+    <Property Name="add_new_privilegije" Type="bit" Nullable="false" />
+    <Property Name="pregled_kartona" Type="bit" Nullable="false" />
+    <Property Name="modify_kartona" Type="bit" Nullable="false" />
+    <Property Name="ažuriranje_opreme" Type="bit" Nullable="false" />
+    <Property Name="zakazivanje_termina" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Soba">
+    <Key>
+      <PropertyRef Name="IdSobe" />
+    </Key>
+    <Property Name="IdSobe" Type="int" Nullable="false" />
+    <Property Name="idOdjela" Type="int" Nullable="false" />
+    <Property Name="BrojKreveta" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Temini">
     <Key>
       <PropertyRef Name="IdTermina" />
     </Key>
     <Property Name="IdTermina" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="IdDoktora" Type="int" Nullable="false" />
-    <Property Name="IdPacijenta" Type="int" Nullable="false" />
-    <Property Name="DatumTermina" Type="date" Nullable="false" />
+    <Property Name="Tip" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Datum_termina" Type="date" Nullable="false" />
+    <Property Name="idUposlenika" Type="int" Nullable="false" />
+    <Property Name="idPacijenta" Type="int" Nullable="false" />
   </EntityType>
-  <EntityType Name="Users">
+  <EntityType Name="Uposlenik">
     <Key>
-      <PropertyRef Name="UserID" />
+      <PropertyRef Name="idUposlenika" />
     </Key>
-    <Property Name="UserID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Username" Type="nchar" Nullable="false" MaxLength="100" />
-    <Property Name="Password" Type="nchar" Nullable="false" MaxLength="10" />
+    <Property Name="idUposlenika" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Titula" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Zanimanje" Type="varchar" Nullable="false" MaxLength="50" />
+    <Property Name="Biografija" Type="text" Nullable="false" />
+    <Property Name="idKorisnika" Type="int" Nullable="false" />
+    <Property Name="idOdjela" Type="int" Nullable="false" />
   </EntityType>
-  <Association Name="FK_Doktori_ToTable">
-    <End Role="Users" Type="BazaPodatakaModel.Store.Users" Multiplicity="1" />
-    <End Role="Doktori" Type="BazaPodatakaModel.Store.Doktori" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Users">
-        <PropertyRef Name="UserID" />
-      </Principal>
-      <Dependent Role="Doktori">
-        <PropertyRef Name="UserID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Kartoni_ToTable">
-    <End Role="Pacijenti" Type="BazaPodatakaModel.Store.Pacijenti" Multiplicity="1" />
-    <End Role="kartoni" Type="BazaPodatakaModel.Store.kartoni" Multiplicity="*" />
+  <Association Name="FK_Karton_Pacijenti">
+    <End Role="Pacijenti" Type="eOrdinacijaModel.Store.Pacijenti" Multiplicity="1" />
+    <End Role="Karton" Type="eOrdinacijaModel.Store.Karton" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Pacijenti">
-        <PropertyRef Name="IdPacijenta" />
+        <PropertyRef Name="idPacijenta" />
       </Principal>
-      <Dependent Role="kartoni">
+      <Dependent Role="Karton">
         <PropertyRef Name="IdPacijenta" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Kartoni_ToTable_1">
-    <End Role="Doktori" Type="BazaPodatakaModel.Store.Doktori" Multiplicity="1" />
-    <End Role="kartoni" Type="BazaPodatakaModel.Store.kartoni" Multiplicity="*" />
+  <Association Name="FK_Korisnik_Privilegije">
+    <End Role="Privilegije" Type="eOrdinacijaModel.Store.Privilegije" Multiplicity="1" />
+    <End Role="Korisnik" Type="eOrdinacijaModel.Store.Korisnik" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Doktori">
-        <PropertyRef Name="IdDoktora" />
+      <Principal Role="Privilegije">
+        <PropertyRef Name="idPrivilegije" />
       </Principal>
-      <Dependent Role="kartoni">
-        <PropertyRef Name="IdDoktora" />
+      <Dependent Role="Korisnik">
+        <PropertyRef Name="IdPrivilegije" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Pacijenti_ToTable">
-    <End Role="Users" Type="BazaPodatakaModel.Store.Users" Multiplicity="1" />
-    <End Role="Pacijenti" Type="BazaPodatakaModel.Store.Pacijenti" Multiplicity="*" />
+  <Association Name="FK_Nalaz_Pacijenti">
+    <End Role="Pacijenti" Type="eOrdinacijaModel.Store.Pacijenti" Multiplicity="1" />
+    <End Role="Nalaz" Type="eOrdinacijaModel.Store.Nalaz" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Users">
-        <PropertyRef Name="UserID" />
+      <Principal Role="Pacijenti">
+        <PropertyRef Name="idPacijenta" />
+      </Principal>
+      <Dependent Role="Nalaz">
+        <PropertyRef Name="IdPacijenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Nalaz_Uposlenik">
+    <End Role="Uposlenik" Type="eOrdinacijaModel.Store.Uposlenik" Multiplicity="1" />
+    <End Role="Nalaz" Type="eOrdinacijaModel.Store.Nalaz" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uposlenik">
+        <PropertyRef Name="idUposlenika" />
+      </Principal>
+      <Dependent Role="Nalaz">
+        <PropertyRef Name="IdUposlenika" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Oprema_Pregled">
+    <End Role="Pregled" Type="eOrdinacijaModel.Store.Pregled" Multiplicity="1" />
+    <End Role="Oprema" Type="eOrdinacijaModel.Store.Oprema" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pregled">
+        <PropertyRef Name="idPregleda" />
+      </Principal>
+      <Dependent Role="Oprema">
+        <PropertyRef Name="idPregleda" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pacijenti_qKorisnik">
+    <End Role="Korisnik" Type="eOrdinacijaModel.Store.Korisnik" Multiplicity="1" />
+    <End Role="Pacijenti" Type="eOrdinacijaModel.Store.Pacijenti" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Korisnik">
+        <PropertyRef Name="IdKorisnika" />
       </Principal>
       <Dependent Role="Pacijenti">
-        <PropertyRef Name="UserID" />
+        <PropertyRef Name="idKorisnika" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Pregledi-to-Doktori">
-    <End Role="Doktori" Type="BazaPodatakaModel.Store.Doktori" Multiplicity="1" />
-    <End Role="Pregledi" Type="BazaPodatakaModel.Store.Pregledi" Multiplicity="*" />
+  <Association Name="FK_Pacijenti_Soba">
+    <End Role="Soba" Type="eOrdinacijaModel.Store.Soba" Multiplicity="0..1" />
+    <End Role="Pacijenti" Type="eOrdinacijaModel.Store.Pacijenti" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Doktori">
-        <PropertyRef Name="IdDoktora" />
+      <Principal Role="Soba">
+        <PropertyRef Name="IdSobe" />
       </Principal>
-      <Dependent Role="Pregledi">
-        <PropertyRef Name="Pregled izvrsio" />
+      <Dependent Role="Pacijenti">
+        <PropertyRef Name="idSobe" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Pregledi-to-Kartoni">
-    <End Role="kartoni" Type="BazaPodatakaModel.Store.kartoni" Multiplicity="1" />
-    <End Role="Pregledi" Type="BazaPodatakaModel.Store.Pregledi" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="kartoni">
-        <PropertyRef Name="IdKartona" />
-      </Principal>
-      <Dependent Role="Pregledi">
-        <PropertyRef Name="Broj kartona" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Pregledi-to-Pacijenti">
-    <End Role="Pacijenti" Type="BazaPodatakaModel.Store.Pacijenti" Multiplicity="1" />
-    <End Role="Pregledi" Type="BazaPodatakaModel.Store.Pregledi" Multiplicity="*" />
+  <Association Name="FK_Pregled_Pacijenti">
+    <End Role="Pacijenti" Type="eOrdinacijaModel.Store.Pacijenti" Multiplicity="1" />
+    <End Role="Pregled" Type="eOrdinacijaModel.Store.Pregled" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Pacijenti">
-        <PropertyRef Name="IdPacijenta" />
+        <PropertyRef Name="idPacijenta" />
       </Principal>
-      <Dependent Role="Pregledi">
-        <PropertyRef Name="Pacijent" />
+      <Dependent Role="Pregled">
+        <PropertyRef Name="idPacijenta" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Table_ToTable">
-    <End Role="Doktori" Type="BazaPodatakaModel.Store.Doktori" Multiplicity="1" />
-    <End Role="Termini" Type="BazaPodatakaModel.Store.Termini" Multiplicity="*" />
+  <Association Name="FK_Pregled_Uposlenik">
+    <End Role="Uposlenik" Type="eOrdinacijaModel.Store.Uposlenik" Multiplicity="1" />
+    <End Role="Pregled" Type="eOrdinacijaModel.Store.Pregled" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Doktori">
-        <PropertyRef Name="IdDoktora" />
+      <Principal Role="Uposlenik">
+        <PropertyRef Name="idUposlenika" />
       </Principal>
-      <Dependent Role="Termini">
-        <PropertyRef Name="IdDoktora" />
+      <Dependent Role="Pregled">
+        <PropertyRef Name="IdUposlenika" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Table_ToTable_1">
-    <End Role="Pacijenti" Type="BazaPodatakaModel.Store.Pacijenti" Multiplicity="1" />
-    <End Role="Termini" Type="BazaPodatakaModel.Store.Termini" Multiplicity="*" />
+  <Association Name="FK_Soba_Odjel">
+    <End Role="Odjel" Type="eOrdinacijaModel.Store.Odjel" Multiplicity="1" />
+    <End Role="Soba" Type="eOrdinacijaModel.Store.Soba" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Odjel">
+        <PropertyRef Name="IdOdjela" />
+      </Principal>
+      <Dependent Role="Soba">
+        <PropertyRef Name="idOdjela" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Temini_Pacijenti">
+    <End Role="Pacijenti" Type="eOrdinacijaModel.Store.Pacijenti" Multiplicity="1" />
+    <End Role="Temini" Type="eOrdinacijaModel.Store.Temini" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Pacijenti">
-        <PropertyRef Name="IdPacijenta" />
+        <PropertyRef Name="idPacijenta" />
       </Principal>
-      <Dependent Role="Termini">
-        <PropertyRef Name="IdPacijenta" />
+      <Dependent Role="Temini">
+        <PropertyRef Name="idPacijenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Temini_Uposlenik">
+    <End Role="Uposlenik" Type="eOrdinacijaModel.Store.Uposlenik" Multiplicity="1" />
+    <End Role="Temini" Type="eOrdinacijaModel.Store.Temini" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Uposlenik">
+        <PropertyRef Name="idUposlenika" />
+      </Principal>
+      <Dependent Role="Temini">
+        <PropertyRef Name="idUposlenika" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Uposlenik_Korisnik1">
+    <End Role="Korisnik" Type="eOrdinacijaModel.Store.Korisnik" Multiplicity="1" />
+    <End Role="Uposlenik" Type="eOrdinacijaModel.Store.Uposlenik" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Korisnik">
+        <PropertyRef Name="IdKorisnika" />
+      </Principal>
+      <Dependent Role="Uposlenik">
+        <PropertyRef Name="idKorisnika" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Uposlenik_Odjel">
+    <End Role="Odjel" Type="eOrdinacijaModel.Store.Odjel" Multiplicity="1" />
+    <End Role="Uposlenik" Type="eOrdinacijaModel.Store.Uposlenik" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Odjel">
+        <PropertyRef Name="IdOdjela" />
+      </Principal>
+      <Dependent Role="Uposlenik">
+        <PropertyRef Name="idOdjela" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

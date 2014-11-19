@@ -13,10 +13,10 @@ namespace EOrdinacija_Baze
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class BazaPodatakaEntities : DbContext
+    public partial class eOrdinacijaEntities : DbContext
     {
-        public BazaPodatakaEntities()
-            : base("name=BazaPodatakaEntities")
+        public eOrdinacijaEntities()
+            : base("name=eOrdinacijaEntities")
         {
         }
     
@@ -25,11 +25,16 @@ namespace EOrdinacija_Baze
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Doktori> Doktori { get; set; }
-        public DbSet<kartoni> kartoni { get; set; }
+        public DbSet<Karton> Karton { get; set; }
+        public DbSet<Korisnik> Korisnik { get; set; }
+        public DbSet<Nalaz> Nalaz { get; set; }
+        public DbSet<Odjel> Odjel { get; set; }
+        public DbSet<Oprema> Oprema { get; set; }
         public DbSet<Pacijenti> Pacijenti { get; set; }
-        public DbSet<Pregledi> Pregledi { get; set; }
-        public DbSet<Termini> Termini { get; set; }
-        public DbSet<Users> Users { get; set; }
+        public DbSet<Pregled> Pregled { get; set; }
+        public DbSet<Privilegije> Privilegije { get; set; }
+        public DbSet<Soba> Soba { get; set; }
+        public DbSet<Temini> Temini { get; set; }
+        public DbSet<Uposlenik> Uposlenik { get; set; }
     }
 }

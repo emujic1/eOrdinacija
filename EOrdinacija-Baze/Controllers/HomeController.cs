@@ -35,27 +35,18 @@ namespace EOrdinacija_Baze.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Login(Users u)
+        public ActionResult Login(Korisnik u)
         {
             if (ModelState.IsValid) 
             {
                 
-                using (BazaPodatakaEntities dc = new BazaPodatakaEntities()) {
-                    var v = dc.Users.Where(a => a.Username.Equals(u.Username) && a.Password.Equals(u.Password)).FirstOrDefault();
+                using (eOrdinacijaEntities dc = new eOrdinacijaEntities()) {
+                    var v = dc.Korisnik.Where(a => a.Username.Equals(u.Username) && a.Password.Equals(u.Password)).FirstOrDefault();
                     if (v != null)
                     {
-                        var c = dc.Doktori.Where(a => a.UserID.Equals(v.UserID)).FirstOrDefault();
-                        if (c!=null)
-                        {
-                            ViewBag.ime = c.Ime_;
-                            Session["LogedUser"] = v.Username.ToString();
-                          string id_user = c.IdDoktora.ToString();
-                          return RedirectToAction("Index", new RouteValueDictionary( new { controller = "Doktor", action = "Index", id_user = id_user }));
-                        }
-                        else  {
-                            Session["LogedUser"] = v.Username.ToString();
-                            return RedirectToAction("Index", "Pacijent");
-                        }
+                       
+                        return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Korisnik", action = "Index", id = v.IdKorisnika }));
+                       
                     }
                     else {
                         ViewBag.Message = "Pogrešni podaci";

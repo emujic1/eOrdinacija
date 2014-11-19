@@ -1,75 +1,153 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="BazaPodatakaModelStoreContainer" CdmEntityContainer="BazaPodatakaEntities">
-    <EntitySetMapping Name="Doktori">
-      <EntityTypeMapping TypeName="BazaPodatakaModel.Doktori">
-        <MappingFragment StoreEntitySet="Doktori">
-          <ScalarProperty Name="IdDoktora" ColumnName="IdDoktora" />
-          <ScalarProperty Name="Ime_" ColumnName="Ime " />
-          <ScalarProperty Name="Prezime" ColumnName="Prezime" />
-          <ScalarProperty Name="Datum_rodjenja" ColumnName="Datum rodjenja" />
-          <ScalarProperty Name="Mjesto_rodjenja" ColumnName="Mjesto rodjenja" />
-          <ScalarProperty Name="Titula" ColumnName="Titula" />
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
+  <EntityContainerMapping StorageEntityContainer="eOrdinacijaModelStoreContainer" CdmEntityContainer="eOrdinacijaEntities">
+    <EntitySetMapping Name="Karton">
+      <EntityTypeMapping TypeName="eOrdinacijaModel.Karton">
+        <MappingFragment StoreEntitySet="Karton">
+          <ScalarProperty Name="IdKartona" ColumnName="IdKartona" />
+          <ScalarProperty Name="IdPacijenta" ColumnName="IdPacijenta" />
+          <ScalarProperty Name="Ekg_slika" ColumnName="Ekg_slika" />
+          <ScalarProperty Name="Misljenje_specijaliste" ColumnName="Misljenje_specijaliste" />
+          <ScalarProperty Name="Datum_zadnje_ismjene" ColumnName="Datum_zadnje_ismjene" />
+          <ScalarProperty Name="Dijagnoza" ColumnName="Dijagnoza" />
+          <ScalarProperty Name="Primjedba" ColumnName="Primjedba" />
+          <ScalarProperty Name="Sposobnost_kretanja" ColumnName="Sposobnost_kretanja" />
+          <ScalarProperty Name="Zarazna_bolest" ColumnName="Zarazna_bolest" />
+          <ScalarProperty Name="Karton_on_off" ColumnName="Karton_on_off" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="kartoni">
-      <EntityTypeMapping TypeName="BazaPodatakaModel.kartoni">
-        <MappingFragment StoreEntitySet="kartoni">
-          <ScalarProperty Name="IdKartona" ColumnName="IdKartona" />
-          <ScalarProperty Name="IdDoktora" ColumnName="IdDoktora" />
+    <EntitySetMapping Name="Korisnik">
+      <EntityTypeMapping TypeName="eOrdinacijaModel.Korisnik">
+        <MappingFragment StoreEntitySet="Korisnik">
+          <ScalarProperty Name="IdKorisnika" ColumnName="IdKorisnika" />
+          <ScalarProperty Name="Ime" ColumnName="Ime" />
+          <ScalarProperty Name="Prezime" ColumnName="Prezime" />
+          <ScalarProperty Name="Ime_oca" ColumnName="Ime_oca" />
+          <ScalarProperty Name="Broj_licne" ColumnName="Broj_licne" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Datum_rodjenja" ColumnName="Datum_rodjenja" />
+          <ScalarProperty Name="Mjesto_rodjenja" ColumnName="Mjesto_rodjenja" />
+          <ScalarProperty Name="Prebivalište" ColumnName="Prebivalište" />
+          <ScalarProperty Name="Username" ColumnName="Username" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="Telefon" ColumnName="Telefon" />
+          <ScalarProperty Name="JMBG" ColumnName="JMBG" />
+          <ScalarProperty Name="IdPrivilegije" ColumnName="IdPrivilegije" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Nalaz">
+      <EntityTypeMapping TypeName="eOrdinacijaModel.Nalaz">
+        <MappingFragment StoreEntitySet="Nalaz">
+          <ScalarProperty Name="idNalaza" ColumnName="idNalaza" />
+          <ScalarProperty Name="IdUposlenika" ColumnName="IdUposlenika" />
           <ScalarProperty Name="IdPacijenta" ColumnName="IdPacijenta" />
-          <ScalarProperty Name="Ekg_slika" ColumnName="Ekg slika" />
-          <ScalarProperty Name="Misljenje_specijaliste" ColumnName="Misljenje specijaliste" />
-          <ScalarProperty Name="Datum_zadnje_promjene" ColumnName="Datum zadnje promjene" />
-          <ScalarProperty Name="Dijagnoza" ColumnName="Dijagnoza" />
-          <ScalarProperty Name="Primjedba" ColumnName="Primjedba" />
+          <ScalarProperty Name="Tip" ColumnName="Tip" />
+          <ScalarProperty Name="Vrijednost" ColumnName="Vrijednost" />
+          <ScalarProperty Name="Norma" ColumnName="Norma" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Odjel">
+      <EntityTypeMapping TypeName="eOrdinacijaModel.Odjel">
+        <MappingFragment StoreEntitySet="Odjel">
+          <ScalarProperty Name="IdOdjela" ColumnName="IdOdjela" />
+          <ScalarProperty Name="TipOdjela" ColumnName="TipOdjela" />
+          <ScalarProperty Name="BrojSoba" ColumnName="BrojSoba" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Oprema">
+      <EntityTypeMapping TypeName="eOrdinacijaModel.Oprema">
+        <MappingFragment StoreEntitySet="Oprema">
+          <ScalarProperty Name="IdOpreme" ColumnName="IdOpreme" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="Proizvodjac" ColumnName="Proizvodjac" />
+          <ScalarProperty Name="Model" ColumnName="Model" />
+          <ScalarProperty Name="Godina_proizvodnje" ColumnName="Godina_proizvodnje" />
+          <ScalarProperty Name="Opis" ColumnName="Opis" />
+          <ScalarProperty Name="Cjena" ColumnName="Cjena" />
+          <ScalarProperty Name="idPregleda" ColumnName="idPregleda" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
     <EntitySetMapping Name="Pacijenti">
-      <EntityTypeMapping TypeName="BazaPodatakaModel.Pacijenti">
+      <EntityTypeMapping TypeName="eOrdinacijaModel.Pacijenti">
         <MappingFragment StoreEntitySet="Pacijenti">
-          <ScalarProperty Name="IdPacijenta" ColumnName="IdPacijenta" />
-          <ScalarProperty Name="Ime" ColumnName="Ime" />
-          <ScalarProperty Name="Prezime" ColumnName="Prezime" />
-          <ScalarProperty Name="Datum_rođenja" ColumnName="Datum rođenja" />
-          <ScalarProperty Name="Licna_karta" ColumnName="Licna karta" />
-          <ScalarProperty Name="Mjesto_rodjenja" ColumnName="Mjesto rodjenja" />
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-          <ScalarProperty Name="Mjesto_prebivališta" ColumnName="Mjesto prebivališta" />
+          <ScalarProperty Name="idPacijenta" ColumnName="idPacijenta" />
+          <ScalarProperty Name="idKorisnika" ColumnName="idKorisnika" />
+          <ScalarProperty Name="idSobe" ColumnName="idSobe" />
+          <ScalarProperty Name="Zaposlen" ColumnName="Zaposlen" />
+          <ScalarProperty Name="Poslodavac" ColumnName="Poslodavac" />
+          <ScalarProperty Name="Osiguran" ColumnName="Osiguran" />
+          <ScalarProperty Name="DatumIstekaOsiguranja" ColumnName="DatumIstekaOsiguranja" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Pregledi">
-      <EntityTypeMapping TypeName="BazaPodatakaModel.Pregledi">
-        <MappingFragment StoreEntitySet="Pregledi">
-          <ScalarProperty Name="IdPregleda" ColumnName="IdPregleda" />
-          <ScalarProperty Name="Pregled_izvrsio" ColumnName="Pregled izvrsio" />
-          <ScalarProperty Name="Pacijent" ColumnName="Pacijent" />
-          <ScalarProperty Name="Datum_pregleda" ColumnName="Datum pregleda" />
-          <ScalarProperty Name="Broj_kartona" ColumnName="Broj kartona" />
-          <ScalarProperty Name="Cjena" ColumnName="Cjena" />
+    <EntitySetMapping Name="Pregled">
+      <EntityTypeMapping TypeName="eOrdinacijaModel.Pregled">
+        <MappingFragment StoreEntitySet="Pregled">
+          <ScalarProperty Name="idPregleda" ColumnName="idPregleda" />
+          <ScalarProperty Name="Datum" ColumnName="Datum" />
+          <ScalarProperty Name="Razlog_posjete" ColumnName="Razlog_posjete" />
+          <ScalarProperty Name="Simptomi" ColumnName="Simptomi" />
+          <ScalarProperty Name="Dijagnoza" ColumnName="Dijagnoza" />
+          <ScalarProperty Name="Oprema" ColumnName="Oprema" />
+          <ScalarProperty Name="idPacijenta" ColumnName="idPacijenta" />
+          <ScalarProperty Name="IdUposlenika" ColumnName="IdUposlenika" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Termini">
-      <EntityTypeMapping TypeName="BazaPodatakaModel.Termini">
-        <MappingFragment StoreEntitySet="Termini">
+    <EntitySetMapping Name="Privilegije">
+      <EntityTypeMapping TypeName="eOrdinacijaModel.Privilegije">
+        <MappingFragment StoreEntitySet="Privilegije">
+          <ScalarProperty Name="idPrivilegije" ColumnName="idPrivilegije" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="Opis" ColumnName="Opis" />
+          <ScalarProperty Name="add_doktor" ColumnName="add_doktor" />
+          <ScalarProperty Name="add_pacijent" ColumnName="add_pacijent" />
+          <ScalarProperty Name="del_doktor" ColumnName="del_doktor" />
+          <ScalarProperty Name="del_pacijent" ColumnName="del_pacijent" />
+          <ScalarProperty Name="modify_doktor" ColumnName="modify_doktor" />
+          <ScalarProperty Name="modify_pacijent" ColumnName="modify_pacijent" />
+          <ScalarProperty Name="add_new_privilegije" ColumnName="add_new_privilegije" />
+          <ScalarProperty Name="pregled_kartona" ColumnName="pregled_kartona" />
+          <ScalarProperty Name="modify_kartona" ColumnName="modify_kartona" />
+          <ScalarProperty Name="ažuriranje_opreme" ColumnName="ažuriranje_opreme" />
+          <ScalarProperty Name="zakazivanje_termina" ColumnName="zakazivanje_termina" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Soba">
+      <EntityTypeMapping TypeName="eOrdinacijaModel.Soba">
+        <MappingFragment StoreEntitySet="Soba">
+          <ScalarProperty Name="IdSobe" ColumnName="IdSobe" />
+          <ScalarProperty Name="idOdjela" ColumnName="idOdjela" />
+          <ScalarProperty Name="BrojKreveta" ColumnName="BrojKreveta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Temini">
+      <EntityTypeMapping TypeName="eOrdinacijaModel.Temini">
+        <MappingFragment StoreEntitySet="Temini">
           <ScalarProperty Name="IdTermina" ColumnName="IdTermina" />
-          <ScalarProperty Name="IdDoktora" ColumnName="IdDoktora" />
-          <ScalarProperty Name="IdPacijenta" ColumnName="IdPacijenta" />
-          <ScalarProperty Name="DatumTermina" ColumnName="DatumTermina" />
+          <ScalarProperty Name="Tip" ColumnName="Tip" />
+          <ScalarProperty Name="Datum_termina" ColumnName="Datum_termina" />
+          <ScalarProperty Name="idUposlenika" ColumnName="idUposlenika" />
+          <ScalarProperty Name="idPacijenta" ColumnName="idPacijenta" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="BazaPodatakaModel.Users">
-        <MappingFragment StoreEntitySet="Users">
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-          <ScalarProperty Name="Username" ColumnName="Username" />
-          <ScalarProperty Name="Password" ColumnName="Password" />
+    <EntitySetMapping Name="Uposlenik">
+      <EntityTypeMapping TypeName="eOrdinacijaModel.Uposlenik">
+        <MappingFragment StoreEntitySet="Uposlenik">
+          <ScalarProperty Name="idUposlenika" ColumnName="idUposlenika" />
+          <ScalarProperty Name="Titula" ColumnName="Titula" />
+          <ScalarProperty Name="Zanimanje" ColumnName="Zanimanje" />
+          <ScalarProperty Name="Biografija" ColumnName="Biografija" />
+          <ScalarProperty Name="idKorisnika" ColumnName="idKorisnika" />
+          <ScalarProperty Name="idOdjela" ColumnName="idOdjela" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

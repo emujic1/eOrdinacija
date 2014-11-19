@@ -1,4 +1,4 @@
-﻿@model EOrdinacija_Baze.Users
+﻿@model EOrdinacija_Baze.Korisnik
 
 @{
     ViewBag.Title = "Login";
@@ -18,7 +18,7 @@
     }
     <table>
         <tr>
-            <td>@Html.LabelFor(a=> a.Username )</td>
+            <td>@Html.LabelFor(a=> a.Username)</td>
             <td>@Html.TextBoxFor(a=>a.Username)</td>
             <td>@Html.ValidationMessageFor(a=>a.Username)</td>
 
