@@ -11,7 +11,7 @@ namespace EOrdinacija_Baze
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class Korisnik
     {
         public Korisnik()
@@ -21,21 +21,40 @@ namespace EOrdinacija_Baze
         }
     
         public int IdKorisnika { get; set; }
+        [Required(ErrorMessage="Unesite ime")]
+        [Display(Name="Ime")]
         public string Ime { get; set; }
+        [Required(ErrorMessage = "Unesite prezime")]
+        [Display(Name = "Prezime")]
         public string Prezime { get; set; }
+        [Required(ErrorMessage = "Unesite ime oca")]
+        [Display(Name = "Ime oca")]
         public string Ime_oca { get; set; }
+        [Required(ErrorMessage = "Unesite broj lične karte")]
+        [Display(Name = "Broj lične karte")]
         public string Broj_licne { get; set; }
         public string Email { get; set; }
+        [Required(ErrorMessage = "Unesite datum rođenja")]
+        [Display(Name = "Datum rođenja")]
+        [DataType("Date")]
         public System.DateTime Datum_rodjenja { get; set; }
+        [Required(ErrorMessage = "Unesite mjesto rođenja")]
+        [Display(Name = "Mjesto rođenja")]
         public string Mjesto_rodjenja { get; set; }
+        [Required(ErrorMessage = "Unesite prebivalište")]
+        [Display(Name = "Prebivalište")]
         public string Prebivalište { get; set; }
+        [Required(ErrorMessage = "Unesite username")]
         public string Username { get; set; }
+        [Required(ErrorMessage = "Unesite password")]
+        [DataType("Password")]
         public string Password { get; set; }
-        public Nullable<int> Telefon { get; set; }
+        public string Telefon { get; set; }
+        [Required(ErrorMessage = "Unesite JMBG")]
         public string JMBG { get; set; }
-        public int IdPrivilegije { get; set; }
+        public int idRole { get; set; }
     
-        public virtual Privilegije Privilegije { get; set; }
+        public virtual Role Role { get; set; }
         public virtual ICollection<Pacijenti> Pacijenti { get; set; }
         public virtual ICollection<Uposlenik> Uposlenik { get; set; }
     }

@@ -12,25 +12,16 @@ namespace EOrdinacija_Baze
     using System;
     using System.Collections.Generic;
     
-    public partial class Privilegije
+    public partial class Uloge
     {
-        public Privilegije()
+        public Uloge()
         {
             this.Role = new HashSet<Role>();
         }
     
-        public int idPrivilegije { get; set; }
-        public bool add_doktor { get; set; }
-        public bool add_pacijent { get; set; }
-        public bool del_doktor { get; set; }
-        public bool del_pacijent { get; set; }
-        public bool modify_doktor { get; set; }
-        public bool modify_pacijent { get; set; }
-        public bool add_new_privilegije { get; set; }
-        public bool pregled_kartona { get; set; }
-        public bool modify_kartona { get; set; }
-        public bool ažuriranje_opreme { get; set; }
-        public bool zakazivanje_termina { get; set; }
+        public int idUloge { get; set; }
+        public string Naziv { get; set; }
+        public string Opis { get; set; }
     
         public virtual ICollection<Role> Role { get; set; }
     }

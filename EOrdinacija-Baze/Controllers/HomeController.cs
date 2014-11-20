@@ -37,15 +37,14 @@ namespace EOrdinacija_Baze.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(Korisnik u)
         {
-            if (ModelState.IsValid) 
-            {
+            
                 
-                using (eOrdinacijaEntities dc = new eOrdinacijaEntities()) {
+                using (eOrdinacijaEntities1 dc = new eOrdinacijaEntities1()) {
                     var v = dc.Korisnik.Where(a => a.Username.Equals(u.Username) && a.Password.Equals(u.Password)).FirstOrDefault();
                     if (v != null)
                     {
-                       
-                        return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Korisnik", action = "Index", id = v.IdKorisnika }));
+                        
+                        return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Korisnik", action = "Index", id = v.idRole }));
                        
                     }
                     else {
@@ -53,8 +52,7 @@ namespace EOrdinacija_Baze.Controllers
                         return View("Login");
                     }
                 }
-            }
-            return View(u);
+            
         }
         public ActionResult AfterLogin()
         {

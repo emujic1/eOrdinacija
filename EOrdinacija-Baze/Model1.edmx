@@ -14,15 +14,17 @@
           <EntitySet Name="Pacijenti" EntityType="eOrdinacijaModel.Store.Pacijenti" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Pregled" EntityType="eOrdinacijaModel.Store.Pregled" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Privilegije" EntityType="eOrdinacijaModel.Store.Privilegije" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Role" EntityType="eOrdinacijaModel.Store.Role" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Soba" EntityType="eOrdinacijaModel.Store.Soba" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Temini" EntityType="eOrdinacijaModel.Store.Temini" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Uloge" EntityType="eOrdinacijaModel.Store.Uloge" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Uposlenik" EntityType="eOrdinacijaModel.Store.Uposlenik" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Karton_Pacijenti" Association="eOrdinacijaModel.Store.FK_Karton_Pacijenti">
             <End Role="Pacijenti" EntitySet="Pacijenti" />
             <End Role="Karton" EntitySet="Karton" />
           </AssociationSet>
-          <AssociationSet Name="FK_Korisnik_Privilegije" Association="eOrdinacijaModel.Store.FK_Korisnik_Privilegije">
-            <End Role="Privilegije" EntitySet="Privilegije" />
+          <AssociationSet Name="FK_Korisnik_Role" Association="eOrdinacijaModel.Store.FK_Korisnik_Role">
+            <End Role="Role" EntitySet="Role" />
             <End Role="Korisnik" EntitySet="Korisnik" />
           </AssociationSet>
           <AssociationSet Name="FK_Nalaz_Pacijenti" Association="eOrdinacijaModel.Store.FK_Nalaz_Pacijenti">
@@ -52,6 +54,14 @@
           <AssociationSet Name="FK_Pregled_Uposlenik" Association="eOrdinacijaModel.Store.FK_Pregled_Uposlenik">
             <End Role="Uposlenik" EntitySet="Uposlenik" />
             <End Role="Pregled" EntitySet="Pregled" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_Privilegije" Association="eOrdinacijaModel.Store.FK_Role_Privilegije">
+            <End Role="Privilegije" EntitySet="Privilegije" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_Uloge" Association="eOrdinacijaModel.Store.FK_Role_Uloge">
+            <End Role="Uloge" EntitySet="Uloge" />
+            <End Role="Role" EntitySet="Role" />
           </AssociationSet>
           <AssociationSet Name="FK_Soba_Odjel" Association="eOrdinacijaModel.Store.FK_Soba_Odjel">
             <End Role="Odjel" EntitySet="Odjel" />
@@ -104,9 +114,9 @@
           <Property Name="Prebivalište" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Username" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="Password" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Telefon" Type="int" />
+          <Property Name="Telefon" Type="varchar" MaxLength="20" />
           <Property Name="JMBG" Type="varchar" MaxLength="13" />
-          <Property Name="IdPrivilegije" Type="int" Nullable="false" />
+          <Property Name="idRole" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Nalaz">
           <Key>
@@ -170,8 +180,6 @@
             <PropertyRef Name="idPrivilegije" />
           </Key>
           <Property Name="idPrivilegije" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Naziv" Type="varchar" Nullable="false" MaxLength="50" />
-          <Property Name="Opis" Type="varchar" Nullable="false" MaxLength="50" />
           <Property Name="add_doktor" Type="bit" Nullable="false" />
           <Property Name="add_pacijent" Type="bit" Nullable="false" />
           <Property Name="del_doktor" Type="bit" Nullable="false" />
@@ -183,6 +191,14 @@
           <Property Name="modify_kartona" Type="bit" Nullable="false" />
           <Property Name="ažuriranje_opreme" Type="bit" Nullable="false" />
           <Property Name="zakazivanje_termina" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="idRole" />
+          </Key>
+          <Property Name="idRole" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IdPrivilegije" Type="int" Nullable="false" />
+          <Property Name="IdUloge" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Soba">
           <Key>
@@ -201,6 +217,14 @@
           <Property Name="Datum_termina" Type="date" Nullable="false" />
           <Property Name="idUposlenika" Type="int" Nullable="false" />
           <Property Name="idPacijenta" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Uloge">
+          <Key>
+            <PropertyRef Name="idUloge" />
+          </Key>
+          <Property Name="idUloge" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="Opis" Type="varchar" Nullable="false" MaxLength="50" />
         </EntityType>
         <EntityType Name="Uposlenik">
           <Key>
@@ -225,15 +249,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Korisnik_Privilegije">
-          <End Role="Privilegije" Type="eOrdinacijaModel.Store.Privilegije" Multiplicity="1" />
+        <Association Name="FK_Korisnik_Role">
+          <End Role="Role" Type="eOrdinacijaModel.Store.Role" Multiplicity="1" />
           <End Role="Korisnik" Type="eOrdinacijaModel.Store.Korisnik" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Privilegije">
-              <PropertyRef Name="idPrivilegije" />
+            <Principal Role="Role">
+              <PropertyRef Name="idRole" />
             </Principal>
             <Dependent Role="Korisnik">
-              <PropertyRef Name="IdPrivilegije" />
+              <PropertyRef Name="idRole" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -321,6 +345,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Role_Privilegije">
+          <End Role="Privilegije" Type="eOrdinacijaModel.Store.Privilegije" Multiplicity="1" />
+          <End Role="Role" Type="eOrdinacijaModel.Store.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Privilegije">
+              <PropertyRef Name="idPrivilegije" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="IdPrivilegije" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_Uloge">
+          <End Role="Uloge" Type="eOrdinacijaModel.Store.Uloge" Multiplicity="1" />
+          <End Role="Role" Type="eOrdinacijaModel.Store.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uloge">
+              <PropertyRef Name="idUloge" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="IdUloge" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Soba_Odjel">
           <End Role="Odjel" Type="eOrdinacijaModel.Store.Odjel" Multiplicity="1" />
           <End Role="Soba" Type="eOrdinacijaModel.Store.Soba" Multiplicity="*" />
@@ -386,7 +434,7 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="eOrdinacijaModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityContainer Name="eOrdinacijaEntities" p1:LazyLoadingEnabled="true">
+        <EntityContainer Name="eOrdinacijaEntities1" p1:LazyLoadingEnabled="true">
           <EntitySet Name="Karton" EntityType="eOrdinacijaModel.Karton" />
           <EntitySet Name="Korisnik" EntityType="eOrdinacijaModel.Korisnik" />
           <EntitySet Name="Nalaz" EntityType="eOrdinacijaModel.Nalaz" />
@@ -395,15 +443,17 @@
           <EntitySet Name="Pacijenti" EntityType="eOrdinacijaModel.Pacijenti" />
           <EntitySet Name="Pregled" EntityType="eOrdinacijaModel.Pregled" />
           <EntitySet Name="Privilegije" EntityType="eOrdinacijaModel.Privilegije" />
+          <EntitySet Name="Role" EntityType="eOrdinacijaModel.Role" />
           <EntitySet Name="Soba" EntityType="eOrdinacijaModel.Soba" />
           <EntitySet Name="Temini" EntityType="eOrdinacijaModel.Temini" />
+          <EntitySet Name="Uloge" EntityType="eOrdinacijaModel.Uloge" />
           <EntitySet Name="Uposlenik" EntityType="eOrdinacijaModel.Uposlenik" />
           <AssociationSet Name="FK_Karton_Pacijenti" Association="eOrdinacijaModel.FK_Karton_Pacijenti">
             <End Role="Pacijenti" EntitySet="Pacijenti" />
             <End Role="Karton" EntitySet="Karton" />
           </AssociationSet>
-          <AssociationSet Name="FK_Korisnik_Privilegije" Association="eOrdinacijaModel.FK_Korisnik_Privilegije">
-            <End Role="Privilegije" EntitySet="Privilegije" />
+          <AssociationSet Name="FK_Korisnik_Role" Association="eOrdinacijaModel.FK_Korisnik_Role">
+            <End Role="Role" EntitySet="Role" />
             <End Role="Korisnik" EntitySet="Korisnik" />
           </AssociationSet>
           <AssociationSet Name="FK_Pacijenti_qKorisnik" Association="eOrdinacijaModel.FK_Pacijenti_qKorisnik">
@@ -450,6 +500,14 @@
             <End Role="Uposlenik" EntitySet="Uposlenik" />
             <End Role="Pregled" EntitySet="Pregled" />
           </AssociationSet>
+          <AssociationSet Name="FK_Role_Privilegije" Association="eOrdinacijaModel.FK_Role_Privilegije">
+            <End Role="Privilegije" EntitySet="Privilegije" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_Uloge" Association="eOrdinacijaModel.FK_Role_Uloge">
+            <End Role="Uloge" EntitySet="Uloge" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
           <AssociationSet Name="FK_Temini_Uposlenik" Association="eOrdinacijaModel.FK_Temini_Uposlenik">
             <End Role="Uposlenik" EntitySet="Uposlenik" />
             <End Role="Temini" EntitySet="Temini" />
@@ -486,10 +544,10 @@
           <Property Name="Prebivalište" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Username" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Telefon" Type="Int32" />
+          <Property Name="Telefon" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
           <Property Name="JMBG" Type="String" MaxLength="13" Unicode="false" FixedLength="false" />
-          <Property Name="IdPrivilegije" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Privilegije" Relationship="eOrdinacijaModel.FK_Korisnik_Privilegije" FromRole="Korisnik" ToRole="Privilegije" />
+          <Property Name="idRole" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Role" Relationship="eOrdinacijaModel.FK_Korisnik_Role" FromRole="Korisnik" ToRole="Role" />
           <NavigationProperty Name="Pacijenti" Relationship="eOrdinacijaModel.FK_Pacijenti_qKorisnik" FromRole="Korisnik" ToRole="Pacijenti" />
           <NavigationProperty Name="Uposlenik" Relationship="eOrdinacijaModel.FK_Uposlenik_Korisnik1" FromRole="Korisnik" ToRole="Uposlenik" />
         </EntityType>
@@ -569,8 +627,6 @@
             <PropertyRef Name="idPrivilegije" />
           </Key>
           <Property Name="idPrivilegije" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-          <Property Name="Naziv" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-          <Property Name="Opis" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
           <Property Name="add_doktor" Type="Boolean" Nullable="false" />
           <Property Name="add_pacijent" Type="Boolean" Nullable="false" />
           <Property Name="del_doktor" Type="Boolean" Nullable="false" />
@@ -582,7 +638,18 @@
           <Property Name="modify_kartona" Type="Boolean" Nullable="false" />
           <Property Name="ažuriranje_opreme" Type="Boolean" Nullable="false" />
           <Property Name="zakazivanje_termina" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Korisnik" Relationship="eOrdinacijaModel.FK_Korisnik_Privilegije" FromRole="Privilegije" ToRole="Korisnik" />
+          <NavigationProperty Name="Role" Relationship="eOrdinacijaModel.FK_Role_Privilegije" FromRole="Privilegije" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="idRole" />
+          </Key>
+          <Property Name="idRole" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="IdPrivilegije" Type="Int32" Nullable="false" />
+          <Property Name="IdUloge" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Korisnik" Relationship="eOrdinacijaModel.FK_Korisnik_Role" FromRole="Role" ToRole="Korisnik" />
+          <NavigationProperty Name="Privilegije" Relationship="eOrdinacijaModel.FK_Role_Privilegije" FromRole="Role" ToRole="Privilegije" />
+          <NavigationProperty Name="Uloge" Relationship="eOrdinacijaModel.FK_Role_Uloge" FromRole="Role" ToRole="Uloge" />
         </EntityType>
         <EntityType Name="Soba">
           <Key>
@@ -605,6 +672,15 @@
           <Property Name="idPacijenta" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Pacijenti" Relationship="eOrdinacijaModel.FK_Temini_Pacijenti" FromRole="Temini" ToRole="Pacijenti" />
           <NavigationProperty Name="Uposlenik" Relationship="eOrdinacijaModel.FK_Temini_Uposlenik" FromRole="Temini" ToRole="Uposlenik" />
+        </EntityType>
+        <EntityType Name="Uloge">
+          <Key>
+            <PropertyRef Name="idUloge" />
+          </Key>
+          <Property Name="idUloge" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+          <Property Name="Naziv" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="Opis" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Role" Relationship="eOrdinacijaModel.FK_Role_Uloge" FromRole="Uloge" ToRole="Role" />
         </EntityType>
         <EntityType Name="Uposlenik">
           <Key>
@@ -634,15 +710,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Korisnik_Privilegije">
-          <End Role="Privilegije" Type="eOrdinacijaModel.Privilegije" Multiplicity="1" />
+        <Association Name="FK_Korisnik_Role">
+          <End Role="Role" Type="eOrdinacijaModel.Role" Multiplicity="1" />
           <End Role="Korisnik" Type="eOrdinacijaModel.Korisnik" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Privilegije">
-              <PropertyRef Name="idPrivilegije" />
+            <Principal Role="Role">
+              <PropertyRef Name="idRole" />
             </Principal>
             <Dependent Role="Korisnik">
-              <PropertyRef Name="IdPrivilegije" />
+              <PropertyRef Name="idRole" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -778,6 +854,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Role_Privilegije">
+          <End Role="Privilegije" Type="eOrdinacijaModel.Privilegije" Multiplicity="1" />
+          <End Role="Role" Type="eOrdinacijaModel.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Privilegije">
+              <PropertyRef Name="idPrivilegije" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="IdPrivilegije" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_Uloge">
+          <End Role="Uloge" Type="eOrdinacijaModel.Uloge" Multiplicity="1" />
+          <End Role="Role" Type="eOrdinacijaModel.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Uloge">
+              <PropertyRef Name="idUloge" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="IdUloge" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Temini_Uposlenik">
           <End Role="Uposlenik" Type="eOrdinacijaModel.Uposlenik" Multiplicity="1" />
           <End Role="Temini" Type="eOrdinacijaModel.Temini" Multiplicity="*" />
@@ -795,7 +895,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="eOrdinacijaModelStoreContainer" CdmEntityContainer="eOrdinacijaEntities">
+        <EntityContainerMapping StorageEntityContainer="eOrdinacijaModelStoreContainer" CdmEntityContainer="eOrdinacijaEntities1">
           <EntitySetMapping Name="Karton">
             <EntityTypeMapping TypeName="eOrdinacijaModel.Karton">
               <MappingFragment StoreEntitySet="Karton">
@@ -828,7 +928,7 @@
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Telefon" ColumnName="Telefon" />
                 <ScalarProperty Name="JMBG" ColumnName="JMBG" />
-                <ScalarProperty Name="IdPrivilegije" ColumnName="IdPrivilegije" />
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -898,8 +998,6 @@
             <EntityTypeMapping TypeName="eOrdinacijaModel.Privilegije">
               <MappingFragment StoreEntitySet="Privilegije">
                 <ScalarProperty Name="idPrivilegije" ColumnName="idPrivilegije" />
-                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
-                <ScalarProperty Name="Opis" ColumnName="Opis" />
                 <ScalarProperty Name="add_doktor" ColumnName="add_doktor" />
                 <ScalarProperty Name="add_pacijent" ColumnName="add_pacijent" />
                 <ScalarProperty Name="del_doktor" ColumnName="del_doktor" />
@@ -911,6 +1009,15 @@
                 <ScalarProperty Name="modify_kartona" ColumnName="modify_kartona" />
                 <ScalarProperty Name="ažuriranje_opreme" ColumnName="ažuriranje_opreme" />
                 <ScalarProperty Name="zakazivanje_termina" ColumnName="zakazivanje_termina" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Role">
+            <EntityTypeMapping TypeName="eOrdinacijaModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="idRole" ColumnName="idRole" />
+                <ScalarProperty Name="IdPrivilegije" ColumnName="IdPrivilegije" />
+                <ScalarProperty Name="IdUloge" ColumnName="IdUloge" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -931,6 +1038,15 @@
                 <ScalarProperty Name="Datum_termina" ColumnName="Datum_termina" />
                 <ScalarProperty Name="idUposlenika" ColumnName="idUposlenika" />
                 <ScalarProperty Name="idPacijenta" ColumnName="idPacijenta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Uloge">
+            <EntityTypeMapping TypeName="eOrdinacijaModel.Uloge">
+              <MappingFragment StoreEntitySet="Uloge">
+                <ScalarProperty Name="idUloge" ColumnName="idUloge" />
+                <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

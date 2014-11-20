@@ -13,10 +13,10 @@ namespace EOrdinacija_Baze
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class eOrdinacijaEntities : DbContext
+    public partial class eOrdinacijaEntities1 : DbContext
     {
-        public eOrdinacijaEntities()
-            : base("name=eOrdinacijaEntities")
+        public eOrdinacijaEntities1()
+            : base("name=eOrdinacijaEntities1")
         {
         }
     
@@ -33,8 +33,10 @@ namespace EOrdinacija_Baze
         public DbSet<Pacijenti> Pacijenti { get; set; }
         public DbSet<Pregled> Pregled { get; set; }
         public DbSet<Privilegije> Privilegije { get; set; }
+        public DbSet<Role> Role { get; set; }
         public DbSet<Soba> Soba { get; set; }
         public DbSet<Temini> Temini { get; set; }
+        public DbSet<Uloge> Uloge { get; set; }
         public DbSet<Uposlenik> Uposlenik { get; set; }
     }
 }

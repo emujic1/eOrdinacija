@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="eOrdinacijaModelStoreContainer" CdmEntityContainer="eOrdinacijaEntities">
+  <EntityContainerMapping StorageEntityContainer="eOrdinacijaModelStoreContainer" CdmEntityContainer="eOrdinacijaEntities1">
     <EntitySetMapping Name="Karton">
       <EntityTypeMapping TypeName="eOrdinacijaModel.Karton">
         <MappingFragment StoreEntitySet="Karton">
@@ -33,7 +33,7 @@
           <ScalarProperty Name="Password" ColumnName="Password" />
           <ScalarProperty Name="Telefon" ColumnName="Telefon" />
           <ScalarProperty Name="JMBG" ColumnName="JMBG" />
-          <ScalarProperty Name="IdPrivilegije" ColumnName="IdPrivilegije" />
+          <ScalarProperty Name="idRole" ColumnName="idRole" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -103,8 +103,6 @@
       <EntityTypeMapping TypeName="eOrdinacijaModel.Privilegije">
         <MappingFragment StoreEntitySet="Privilegije">
           <ScalarProperty Name="idPrivilegije" ColumnName="idPrivilegije" />
-          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
-          <ScalarProperty Name="Opis" ColumnName="Opis" />
           <ScalarProperty Name="add_doktor" ColumnName="add_doktor" />
           <ScalarProperty Name="add_pacijent" ColumnName="add_pacijent" />
           <ScalarProperty Name="del_doktor" ColumnName="del_doktor" />
@@ -116,6 +114,15 @@
           <ScalarProperty Name="modify_kartona" ColumnName="modify_kartona" />
           <ScalarProperty Name="ažuriranje_opreme" ColumnName="ažuriranje_opreme" />
           <ScalarProperty Name="zakazivanje_termina" ColumnName="zakazivanje_termina" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Role">
+      <EntityTypeMapping TypeName="eOrdinacijaModel.Role">
+        <MappingFragment StoreEntitySet="Role">
+          <ScalarProperty Name="idRole" ColumnName="idRole" />
+          <ScalarProperty Name="IdPrivilegije" ColumnName="IdPrivilegije" />
+          <ScalarProperty Name="IdUloge" ColumnName="IdUloge" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -136,6 +143,15 @@
           <ScalarProperty Name="Datum_termina" ColumnName="Datum_termina" />
           <ScalarProperty Name="idUposlenika" ColumnName="idUposlenika" />
           <ScalarProperty Name="idPacijenta" ColumnName="idPacijenta" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Uloge">
+      <EntityTypeMapping TypeName="eOrdinacijaModel.Uloge">
+        <MappingFragment StoreEntitySet="Uloge">
+          <ScalarProperty Name="idUloge" ColumnName="idUloge" />
+          <ScalarProperty Name="Naziv" ColumnName="Naziv" />
+          <ScalarProperty Name="Opis" ColumnName="Opis" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
