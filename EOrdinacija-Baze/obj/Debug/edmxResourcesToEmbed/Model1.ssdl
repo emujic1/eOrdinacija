@@ -1,6 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="eOrdinacijaModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
   <EntityContainer Name="eOrdinacijaModelStoreContainer">
+    <EntitySet Name="Event" EntityType="eOrdinacijaModel.Store.Event" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Karton" EntityType="eOrdinacijaModel.Store.Karton" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Korisnik" EntityType="eOrdinacijaModel.Store.Korisnik" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Nalaz" EntityType="eOrdinacijaModel.Store.Nalaz" store:Type="Tables" Schema="dbo" />
@@ -11,6 +12,7 @@
     <EntitySet Name="Privilegije" EntityType="eOrdinacijaModel.Store.Privilegije" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Role" EntityType="eOrdinacijaModel.Store.Role" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Soba" EntityType="eOrdinacijaModel.Store.Soba" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="sysdiagrams" EntityType="eOrdinacijaModel.Store.sysdiagrams" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Temini" EntityType="eOrdinacijaModel.Store.Temini" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Uloge" EntityType="eOrdinacijaModel.Store.Uloge" store:Type="Tables" Schema="dbo" />
     <EntitySet Name="Uposlenik" EntityType="eOrdinacijaModel.Store.Uposlenik" store:Type="Tables" Schema="dbo" />
@@ -62,6 +64,10 @@
       <End Role="Odjel" EntitySet="Odjel" />
       <End Role="Soba" EntitySet="Soba" />
     </AssociationSet>
+    <AssociationSet Name="FK_Temini_Event" Association="eOrdinacijaModel.Store.FK_Temini_Event">
+      <End Role="Event" EntitySet="Event" />
+      <End Role="Temini" EntitySet="Temini" />
+    </AssociationSet>
     <AssociationSet Name="FK_Temini_Pacijenti" Association="eOrdinacijaModel.Store.FK_Temini_Pacijenti">
       <End Role="Pacijenti" EntitySet="Pacijenti" />
       <End Role="Temini" EntitySet="Temini" />
@@ -79,6 +85,15 @@
       <End Role="Uposlenik" EntitySet="Uposlenik" />
     </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Event">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Opis" Type="text" />
+    <Property Name="Pocetak" Type="date" Nullable="false" />
+    <Property Name="Kraj" Type="date" Nullable="false" />
+  </EntityType>
   <EntityType Name="Karton">
     <Key>
       <PropertyRef Name="IdKartona" />
@@ -110,7 +125,7 @@
     <Property Name="Username" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="Password" Type="varchar" Nullable="false" MaxLength="50" />
     <Property Name="Telefon" Type="varchar" MaxLength="20" />
-    <Property Name="JMBG" Type="varchar" MaxLength="13" />
+    <Property Name="JMBG" Type="varchar" Nullable="false" MaxLength="13" />
     <Property Name="idRole" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Nalaz">
@@ -155,7 +170,6 @@
     <Property Name="Zaposlen" Type="bit" Nullable="false" />
     <Property Name="Poslodavac" Type="varchar" MaxLength="50" />
     <Property Name="Osiguran" Type="bit" Nullable="false" />
-    <Property Name="DatumIstekaOsiguranja" Type="date" />
   </EntityType>
   <EntityType Name="Pregled">
     <Key>
@@ -199,19 +213,29 @@
     <Key>
       <PropertyRef Name="IdSobe" />
     </Key>
-    <Property Name="IdSobe" Type="int" Nullable="false" />
+    <Property Name="IdSobe" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
     <Property Name="idOdjela" Type="int" Nullable="false" />
     <Property Name="BrojKreveta" Type="int" Nullable="false" />
+    <Property Name="brojSobe" Type="varchar" Nullable="false" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" Nullable="false" MaxLength="128" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
   <EntityType Name="Temini">
     <Key>
       <PropertyRef Name="IdTermina" />
     </Key>
     <Property Name="IdTermina" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-    <Property Name="Tip" Type="varchar" Nullable="false" MaxLength="50" />
-    <Property Name="Datum_termina" Type="date" Nullable="false" />
     <Property Name="idUposlenika" Type="int" Nullable="false" />
     <Property Name="idPacijenta" Type="int" Nullable="false" />
+    <Property Name="idEventa" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="Uloge">
     <Key>
@@ -373,6 +397,18 @@
       </Principal>
       <Dependent Role="Soba">
         <PropertyRef Name="idOdjela" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Temini_Event">
+    <End Role="Event" Type="eOrdinacijaModel.Store.Event" Multiplicity="1" />
+    <End Role="Temini" Type="eOrdinacijaModel.Store.Temini" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Event">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Temini">
+        <PropertyRef Name="idEventa" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

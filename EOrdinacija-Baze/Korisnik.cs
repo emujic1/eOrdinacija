@@ -12,6 +12,7 @@ namespace EOrdinacija_Baze
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web.Mvc;
     public partial class Korisnik
     {
         public Korisnik()
@@ -33,24 +34,30 @@ namespace EOrdinacija_Baze
         [Required(ErrorMessage = "Unesite broj lične karte")]
         [Display(Name = "Broj lične karte")]
         public string Broj_licne { get; set; }
+        [Display(Name = "Email adresa")]
+        [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
+        [DataType(DataType.Date)]
         [Required(ErrorMessage = "Unesite datum rođenja")]
         [Display(Name = "Datum rođenja")]
-        [DataType("Date")]
+        [Remote("ProvjeraDatuma","Korisnik",HttpMethod = "POST",ErrorMessage="Datum mora biti u poslosti.")]
         public System.DateTime Datum_rodjenja { get; set; }
         [Required(ErrorMessage = "Unesite mjesto rođenja")]
         [Display(Name = "Mjesto rođenja")]
         public string Mjesto_rodjenja { get; set; }
-        [Required(ErrorMessage = "Unesite prebivalište")]
-        [Display(Name = "Prebivalište")]
+        [Required(ErrorMessage = "Unesite mjesto prebivališta")]
+        [Display(Name = "Mjesto prebivališta")]
         public string Prebivalište { get; set; }
         [Required(ErrorMessage = "Unesite username")]
+        [Display(Name = "Username")]
+        [Remote("PostojiUsername","Korisnik", HttpMethod="POST" , ErrorMessage="Username vec postoji , odaberite drugo.")]
         public string Username { get; set; }
-        [Required(ErrorMessage = "Unesite password")]
-        [DataType("Password")]
+        [Required(ErrorMessage="Unesite password")]
+        [StringLength(100, ErrorMessage = "Password mora biti najmanje dug {2} karaktera a najviše {1} .", MinimumLength = 6)]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
         public string Telefon { get; set; }
-        [Required(ErrorMessage = "Unesite JMBG")]
+        [Required(ErrorMessage="Unesite JMBG")]
         public string JMBG { get; set; }
         public int idRole { get; set; }
     

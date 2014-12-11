@@ -4,20 +4,23 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="42f4b1e53d4b4ce283d64ed08b381913" Name="Diagram1">
+      <Diagram DiagramId="11bbe5361d3a47fdb0b2e7b586a35f3f" Name="Diagram1">
+        <EntityTypeShape EntityType="eOrdinacijaModel.Event" Width="1.5" PointX="8.25" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="eOrdinacijaModel.Karton" Width="1.5" PointX="7.5" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="eOrdinacijaModel.Korisnik" Width="1.5" PointX="0.75" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="eOrdinacijaModel.Nalaz" Width="1.5" PointX="7.5" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="eOrdinacijaModel.Odjel" Width="1.5" PointX="0.75" PointY="9.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="eOrdinacijaModel.Oprema" Width="1.5" PointX="12.75" PointY="7.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="eOrdinacijaModel.Pacijenti" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="eOrdinacijaModel.Oprema" Width="1.5" PointX="12.75" PointY="7" IsExpanded="true" />
+        <EntityTypeShape EntityType="eOrdinacijaModel.Pacijenti" Width="1.5" PointX="5.25" PointY="8.75" IsExpanded="true" />
         <EntityTypeShape EntityType="eOrdinacijaModel.Pregled" Width="1.5" PointX="10.5" PointY="6.875" IsExpanded="true" />
         <EntityTypeShape EntityType="eOrdinacijaModel.Privilegije" Width="1.5" PointX="1.5" PointY="17.375" IsExpanded="true" />
         <EntityTypeShape EntityType="eOrdinacijaModel.Role" Width="1.5" PointX="1.5" PointY="14.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="eOrdinacijaModel.Soba" Width="1.5" PointX="3" PointY="9.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="eOrdinacijaModel.Soba" Width="1.5" PointX="3" PointY="9.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="eOrdinacijaModel.sysdiagrams" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="eOrdinacijaModel.Temini" Width="1.5" PointX="10.5" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="eOrdinacijaModel.Uloge" Width="1.5" PointX="1.5" PointY="21.625" IsExpanded="true" />
         <EntityTypeShape EntityType="eOrdinacijaModel.Uposlenik" Width="1.5" PointX="3" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="eOrdinacijaModel.FK_Temini_Event" ManuallyRouted="false" />
         <AssociationConnector Association="eOrdinacijaModel.FK_Karton_Pacijenti" ManuallyRouted="false" />
         <AssociationConnector Association="eOrdinacijaModel.FK_Korisnik_Role" ManuallyRouted="false" />
         <AssociationConnector Association="eOrdinacijaModel.FK_Pacijenti_qKorisnik" ManuallyRouted="false" />

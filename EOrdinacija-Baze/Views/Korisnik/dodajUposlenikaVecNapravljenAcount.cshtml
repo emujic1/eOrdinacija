@@ -1,0 +1,66 @@
+﻿@model IEnumerable<EOrdinacija_Baze.Korisnik>
+
+@{
+    ViewBag.Title = "dodajUposlenikaVecNapravljenAcount";
+    Layout = "~/Views/Shared/LayoutKorisnik.cshtml";
+}
+<p>
+    @using (Html.BeginForm("dodajUposlenikaVecNapravljenAcount", "Korisnik", FormMethod.Get))
+    { 
+    <table>
+        <tr>
+        <td> Unesi ime </td>
+        <td> @Html.TextBox("ime") </td>
+       </tr>
+        <tr>
+            <td></td>
+        <td><input type="submit" value="Pronađi" /></td>
+            </tr>
+    </table>
+    
+    }
+</p>
+
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Ime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prezime)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ime_oca)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Username)
+        </th>
+       
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.Ime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prezime)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ime_oca)
+        </td>
+       
+        <td>
+            @Html.DisplayFor(modelItem => item.Username)
+        </td>
+       
+        <td>
+            @Html.ActionLink("Dodaj", "DodajUposlenikaSaAcountom", new {  id=item.IdKorisnika }) |
+    
+        </td>
+    </tr>
+}
+
+</table>

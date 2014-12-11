@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -11,8 +12,7 @@ namespace EOrdinacija_Baze.Controllers
     {
         public ActionResult Index()
         {
-            ViewBag.Message = "Modify this template to jump-start your ASP.NET MVC application.";
-
+            Session["LogiraniKorisnik"] = null;
             return View();
         }
 
@@ -31,20 +31,20 @@ namespace EOrdinacija_Baze.Controllers
         }
         public ActionResult Login() 
         {
+            Session["LogiraniKorisnik"] = null;
             return View();
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public ActionResult Login(Korisnik u)
         {
             
                 
-                using (eOrdinacijaEntities1 dc = new eOrdinacijaEntities1()) {
+                using (eOrdinacijaEntities dc = new eOrdinacijaEntities()) {
                     var v = dc.Korisnik.Where(a => a.Username.Equals(u.Username) && a.Password.Equals(u.Password)).FirstOrDefault();
                     if (v != null)
                     {
-                        
-                        return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Korisnik", action = "Index", id = v.idRole }));
+                        Session["LogiraniKorisnik"] = v.IdKorisnika; 
+                        return RedirectToAction("Index", new RouteValueDictionary(new { controller = "Korisnik", action = "Index", id = v.IdKorisnika }));
                        
                     }
                     else {
@@ -65,6 +65,20 @@ namespace EOrdinacija_Baze.Controllers
                 return RedirectToAction("Index");
             }
 
+        }
+        [HttpPost]
+        public JsonResult PostojiUsername(string UserName)
+        {
+
+            eOrdinacijaEntities db = new eOrdinacijaEntities();
+            var user = db.Korisnik.Where(a=>a.Username.Contains(UserName)).FirstOrDefault();
+
+            return Json(user == null);
+        }
+        [HttpPost]
+        public JsonResult ProvjeraDatuma(DateTime Datum_rodjenja ) {
+
+            return Json(Datum_rodjenja < DateTime.Now);
         }
         
         }

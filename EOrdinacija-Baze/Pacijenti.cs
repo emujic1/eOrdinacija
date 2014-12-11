@@ -11,7 +11,7 @@ namespace EOrdinacija_Baze
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class Pacijenti
     {
         public Pacijenti()
@@ -24,11 +24,13 @@ namespace EOrdinacija_Baze
     
         public int idPacijenta { get; set; }
         public int idKorisnika { get; set; }
+        [Display(Name="Broj sobe")]
         public Nullable<int> idSobe { get; set; }
+
         public bool Zaposlen { get; set; }
+        [Required(ErrorMessage="Unesite poslodavca")]
         public string Poslodavac { get; set; }
         public bool Osiguran { get; set; }
-        public Nullable<System.DateTime> DatumIstekaOsiguranja { get; set; }
     
         public virtual ICollection<Karton> Karton { get; set; }
         public virtual Korisnik Korisnik { get; set; }

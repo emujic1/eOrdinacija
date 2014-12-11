@@ -11,7 +11,7 @@ namespace EOrdinacija_Baze
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class Soba
     {
         public Soba()
@@ -21,7 +21,10 @@ namespace EOrdinacija_Baze
     
         public int IdSobe { get; set; }
         public int idOdjela { get; set; }
+        [Display(Name="Broj kreveta")]
         public int BrojKreveta { get; set; }
+        [Display(Name = "Broj sobe")]
+        public string brojSobe { get; set; }
     
         public virtual Odjel Odjel { get; set; }
         public virtual ICollection<Pacijenti> Pacijenti { get; set; }

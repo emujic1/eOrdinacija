@@ -1,0 +1,123 @@
+﻿@model EOrdinacija_Baze.Privilegije
+
+@{
+    ViewBag.Title = "IzmjenaPrivilegije";
+    Layout = "~/Views/Shared/LayoutKorisnik.cshtml";
+}
+
+<h2>Izmjeni privilegije</h2>
+
+@using (Html.BeginForm("IzmjeniPrivilegiju","Korisnik",FormMethod.Post)) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Privilegije</legend>
+
+        
+        <div style="visibility:hidden">
+            @Html.EditorFor(model => model.idPrivilegije)
+            @Html.ValidationMessageFor(model => model.idPrivilegije)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.add_doktor)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.add_doktor)
+            @Html.ValidationMessageFor(model => model.add_doktor)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.add_pacijent)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.add_pacijent)
+            @Html.ValidationMessageFor(model => model.add_pacijent)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.del_doktor)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.del_doktor)
+            @Html.ValidationMessageFor(model => model.del_doktor)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.del_pacijent)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.del_pacijent)
+            @Html.ValidationMessageFor(model => model.del_pacijent)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.modify_doktor)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.modify_doktor)
+            @Html.ValidationMessageFor(model => model.modify_doktor)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.modify_pacijent)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.modify_pacijent)
+            @Html.ValidationMessageFor(model => model.modify_pacijent)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.add_new_privilegije)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.add_new_privilegije)
+            @Html.ValidationMessageFor(model => model.add_new_privilegije)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.pregled_kartona)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.pregled_kartona)
+            @Html.ValidationMessageFor(model => model.pregled_kartona)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.modify_kartona)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.modify_kartona)
+            @Html.ValidationMessageFor(model => model.modify_kartona)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.ažuriranje_opreme)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.ažuriranje_opreme)
+            @Html.ValidationMessageFor(model => model.ažuriranje_opreme)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.zakazivanje_termina)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.zakazivanje_termina)
+            @Html.ValidationMessageFor(model => model.zakazivanje_termina)
+        </div>
+
+        <p>
+            <input type="submit" value="Save" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Nazad", "UpravljanjePrivilegijama")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

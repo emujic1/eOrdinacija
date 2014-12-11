@@ -96,3 +96,5 @@ C:\Users\Enes\Desktop\Baze_podataka-projekat\GitHub\eOrdinacija\eOrdinacija\EOrd
 C:\Users\Enes\Desktop\Baze_podataka-projekat\GitHub\eOrdinacija\eOrdinacija\EOrdinacija-Baze\obj\Debug\EOrdinacija-Baze.csprojResolveAssemblyReference.cache
 C:\Users\Enes\Desktop\Baze_podataka-projekat\GitHub\eOrdinacija\eOrdinacija\EOrdinacija-Baze\obj\Debug\EOrdinacija-Baze.dll
 C:\Users\Enes\Desktop\Baze_podataka-projekat\GitHub\eOrdinacija\eOrdinacija\EOrdinacija-Baze\obj\Debug\EOrdinacija-Baze.pdb
+C:\Users\Enes\Desktop\Baze_podataka-projekat\GitHub\eOrdinacija\eOrdinacija\EOrdinacija-Baze\bin\DHTMLX.dll
+C:\Users\Enes\Desktop\Baze_podataka-projekat\GitHub\eOrdinacija\eOrdinacija\EOrdinacija-Baze\bin\DHTMLX.xml

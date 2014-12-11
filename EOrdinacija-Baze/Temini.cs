@@ -15,11 +15,11 @@ namespace EOrdinacija_Baze
     public partial class Temini
     {
         public int IdTermina { get; set; }
-        public string Tip { get; set; }
-        public System.DateTime Datum_termina { get; set; }
         public int idUposlenika { get; set; }
         public int idPacijenta { get; set; }
+        public int idEventa { get; set; }
     
+        public virtual Event Event { get; set; }
         public virtual Pacijenti Pacijenti { get; set; }
         public virtual Uposlenik Uposlenik { get; set; }
     }

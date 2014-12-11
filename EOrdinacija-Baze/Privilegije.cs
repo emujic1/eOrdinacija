@@ -11,7 +11,7 @@ namespace EOrdinacija_Baze
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class Privilegije
     {
         public Privilegije()
@@ -20,16 +20,27 @@ namespace EOrdinacija_Baze
         }
     
         public int idPrivilegije { get; set; }
+        [Display(Name="Dodaj doktora")]
         public bool add_doktor { get; set; }
+        [Display(Name = "Dodaj pacijenta")]
         public bool add_pacijent { get; set; }
+        [Display(Name = "Briši doktora")]
         public bool del_doktor { get; set; }
+        [Display(Name = "Briši pacijenta")]
         public bool del_pacijent { get; set; }
+        [Display(Name = "Izmjeni doktora")]
         public bool modify_doktor { get; set; }
+        [Display(Name = "Izmjeni pacijenta")]
         public bool modify_pacijent { get; set; }
+        [Display(Name = "Izmjena privilegije")]
         public bool add_new_privilegije { get; set; }
+        [Display(Name = "Pregled kartona")]
         public bool pregled_kartona { get; set; }
+        [Display(Name = "Izmjena kartona")]
         public bool modify_kartona { get; set; }
+        [Display(Name = "Ažuriranje opreme")]
         public bool ažuriranje_opreme { get; set; }
+        [Display(Name = "Zakazivanje termina")]
         public bool zakazivanje_termina { get; set; }
     
         public virtual ICollection<Role> Role { get; set; }

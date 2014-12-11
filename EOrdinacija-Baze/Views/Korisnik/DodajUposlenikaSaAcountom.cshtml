@@ -1,0 +1,192 @@
+﻿@model EOrdinacija_Baze.KorisnikUposlenikModel
+
+
+@{
+    Layout = "~/Views/Shared/LayoutKorisnik.cshtml";
+    HtmlHelper.ClientValidationEnabled = true;
+
+}
+
+<h2>Dodaj Uposlenika</h2>
+
+@if (ViewBag.greska != null) { <p style="border:1px , red ">@ViewBag.greska</p> }
+
+@using (Html.BeginForm("SacuvajUposlenika", "Korisnik", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <table>
+
+         <tr style="visibility:hidden">
+            <td>@Html.LabelFor(model => model.Korisnik.IdKorisnika)</td>
+            <td>  @Html.EditorFor(model => model.Korisnik.IdKorisnika)
+            @Html.ValidationMessageFor(model => model.Korisnik.IdKorisnika)</td>
+
+        </tr>
+
+        <tr>
+        <td class="editor-label">
+            @Html.LabelFor(model => model.Korisnik.Ime)
+        </td>
+        <td class="editor-field">
+            @Html.EditorFor(model => model.Korisnik.Ime)
+            @Html.ValidationMessageFor(model => model.Korisnik.Ime)
+        </td>
+        </tr>
+        <tr>
+        <td class="editor-label">
+            @Html.LabelFor(model => model.Korisnik.Prezime)
+        </td>
+        <td class="editor-field">
+            @Html.EditorFor(model => model.Korisnik.Prezime)
+            @Html.ValidationMessageFor(model => model.Korisnik.Prezime)
+        </td>
+        </tr>
+        <tr>
+        <td class="editor-label">
+            @Html.LabelFor(model => model.Korisnik.Ime_oca)
+        </td>
+        <td class="editor-field">
+            @Html.EditorFor(model => model.Korisnik.Ime_oca)
+            @Html.ValidationMessageFor(model => model.Korisnik.Ime_oca)
+        </td>
+            </tr>
+        <tr>
+        <td class="editor-label">
+            @Html.LabelFor(model => model.Korisnik.Broj_licne)
+        </td>
+        <td class="editor-field">
+            @Html.EditorFor(model => model.Korisnik.Broj_licne)
+            @Html.ValidationMessageFor(model => model.Korisnik.Broj_licne)
+        </td>
+        </tr>
+        <tr>
+        <td class="editor-label">
+            @Html.LabelFor(model => model.Korisnik.Email)
+        </td>
+        <td class="editor-field">
+            @Html.EditorFor(model => model.Korisnik.Email)
+            @Html.ValidationMessageFor(model => model.Korisnik.Email)
+        </td>
+    </tr>
+        <tr>
+        <td class="editor-label">
+            @Html.LabelFor(model => model.Korisnik.Datum_rodjenja)
+        </td>
+        <td class="editor-field">
+            @Html.EditorFor(model => model.Korisnik.Datum_rodjenja)
+            @Html.ValidationMessageFor(model => model.Korisnik.Datum_rodjenja)
+        </td>
+            </tr>
+        <tr>
+        <td class="editor-label">
+            @Html.LabelFor(model => model.Korisnik.Mjesto_rodjenja)
+        </td>
+        <td class="editor-field">
+            @Html.EditorFor(model => model.Korisnik.Mjesto_rodjenja)
+            @Html.ValidationMessageFor(model => model.Korisnik.Mjesto_rodjenja)
+        </td>
+            </tr>
+        <tr>
+        <td class="editor-label">
+            @Html.LabelFor(model => model.Korisnik.Prebivalište)
+        </td>
+        <td class="editor-field">
+            @Html.EditorFor(model => model.Korisnik.Prebivalište)
+            @Html.ValidationMessageFor(model => model.Korisnik.Prebivalište)
+        </td>
+            </tr>
+        <tr>
+        <td class="editor-label">
+            @Html.LabelFor(model => model.Korisnik.Username)
+        </td>
+        <td class="editor-field">
+            @Html.EditorFor(model => model.Korisnik.Username)
+            @Html.ValidationMessageFor(model => model.Korisnik.Username)
+        </td>
+            </tr>
+        <tr>
+        <td class="editor-label">
+            @Html.LabelFor(model => model.Korisnik.Password)
+        </td>
+        <td class="editor-field">
+            @Html.EditorFor(model => model.Korisnik.Password)
+            @Html.ValidationMessageFor(model => model.Korisnik.Password)
+        </td>
+            </tr>
+        <tr>
+        <td class="editor-label">
+            @Html.LabelFor(model => model.Korisnik.Telefon)
+        </td>
+        <td class="editor-field">
+            @Html.EditorFor(model => model.Korisnik.Telefon)
+            @Html.ValidationMessageFor(model => model.Korisnik.Telefon)
+        </td>
+            </tr>
+        <tr>
+        <td class="editor-label">
+            @Html.LabelFor(model => model.Korisnik.JMBG)
+        </td>
+        <td class="editor-field">
+            @Html.EditorFor(model => model.Korisnik.JMBG)
+            @Html.ValidationMessageFor(model => model.Korisnik.JMBG)
+        </td>
+            </tr>
+        <tr>        
+        <td class="editor-label">
+            @Html.LabelFor(model => model.Uposlenik.Titula)
+        </td>
+        <td class="editor-field">
+            @Html.EditorFor(model => model.Uposlenik.Titula)
+            @Html.ValidationMessageFor(model => model.Uposlenik.Titula)
+        </td>
+            </tr>
+        <tr>
+        <td class="editor-label">
+            @Html.LabelFor(model => model.Uposlenik.Zanimanje)
+        </td>
+        <td class="editor-field">
+            @Html.EditorFor(model => model.Uposlenik.Zanimanje)
+            @Html.ValidationMessageFor(model => model.Uposlenik.Zanimanje)
+        </td>
+            </tr>
+        <tr>
+        <td class="editor-label">
+            @Html.LabelFor(model => model.Uposlenik.Biografija)
+        </td>
+        <td class="editor-field">
+            @Html.EditorFor(model => model.Uposlenik.Biografija)
+            @Html.ValidationMessageFor(model => model.Uposlenik.Biografija)
+        </td>
+            </tr>
+        <tr>
+        <td class="editor-label">
+            @Html.LabelFor(model => model.Uposlenik.idOdjela)
+        </td>
+        <td class="editor-field">
+            @if (ViewBag.odjeli != null)
+            {
+               @Html.DropDownListFor(model => model.Odjel.IdOdjela,
+                ViewBag.odjeli as SelectList, "Odaberi odjel", new { style="width: 310px ; height: 31px" } );
+            }
+        </td>
+            </tr>
+        <tr>
+        <td></td>
+        <td>
+            <input type="submit" value="Dodaj" />
+        </td>
+            </tr>
+      
+
+    </table>
+}
+
+<p>
+    @Html.ActionLink("Nazad", "HomePage")
+</p>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

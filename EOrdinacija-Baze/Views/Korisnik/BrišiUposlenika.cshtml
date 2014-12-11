@@ -1,0 +1,68 @@
+﻿@model IEnumerable<EOrdinacija_Baze.Korisnik>
+
+@{
+    Layout = "~/Views/Shared/LayoutKorisnik.cshtml";
+}
+
+<h2>Briši uposlenika</h2>
+
+<p>
+    @using (Html.BeginForm("BrišiUposlenika","Korisnik",FormMethod.Get)) { 
+    <table>
+        <tr>
+        <td> Unesi ime </td>
+        <td> @Html.TextBox("ime") </td>
+       </tr>
+        <tr>
+            <td></td>
+        <td><input type="submit" value="Pronađi" /></td>
+            </tr>
+    </table>
+    
+    }
+</p>
+<table border="1px">
+    <tr>
+        
+        <th style="width: 80px">
+            @Html.DisplayNameFor(model => model.Ime)
+        </th>
+        <th style="width: 80px">
+            @Html.DisplayNameFor(model => model.Prezime)
+        </th>
+        <th style="width: 80px">
+            @Html.DisplayNameFor(model => model.Ime_oca)
+        </th>       
+        <th style="width: 80px">
+            @Html.DisplayNameFor(model => model.Username)
+        </th>
+        
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        
+        <td style="width: 80px">
+            @Html.DisplayFor(modelItem => item.Ime)
+        </td>
+        <td style="width: 80px">
+            @Html.DisplayFor(modelItem => item.Prezime)
+        </td>
+        <td style="width: 80px">
+            @Html.DisplayFor(modelItem => item.Ime_oca)
+        </td>
+      
+        <td style="width: 80px">
+            @Html.DisplayFor(modelItem => item.Username)
+        </td>
+        
+        <td >           
+          <b><red>  @Html.ActionLink("Izbriši", "ObrišiKorisnika", new {  id=item.IdKorisnika  }) </red> </b>
+        </td>
+    </tr>
+}
+
+</table>
+
+<p>@Html.ActionLink("Nazad","HomePage")</p>
