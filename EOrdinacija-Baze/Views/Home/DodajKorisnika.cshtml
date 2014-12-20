@@ -1,0 +1,131 @@
+﻿@model EOrdinacija_Baze.Korisnik
+
+@{
+    ViewBag.Title = "DodajKorisnika";
+
+}
+
+<h2>Osobne informacija</h2>
+<br>
+@{  if (ViewBag.greska != null) { 
+   <p style="border:1px solid red"> @ViewBag.greska </p>
+}
+}
+@using (Html.BeginForm("SaveKorisnik","Home",FormMethod.Post)) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Korisnik</legend>
+
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Ime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Ime)
+            @Html.ValidationMessageFor(model => model.Ime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Prezime)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Prezime)
+            @Html.ValidationMessageFor(model => model.Prezime)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Ime_oca)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Ime_oca)
+            @Html.ValidationMessageFor(model => model.Ime_oca)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Broj_licne)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Broj_licne)
+            @Html.ValidationMessageFor(model => model.Broj_licne)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Email)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Datum_rodjenja)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Datum_rodjenja)
+            @Html.ValidationMessage("CustomError")
+
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Mjesto_rodjenja)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Mjesto_rodjenja)
+            @Html.ValidationMessageFor(model => model.Mjesto_rodjenja)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Prebivalište)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Prebivalište)
+            @Html.ValidationMessageFor(model => model.Prebivalište)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Username)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Username)
+            @Html.ValidationMessage("CustomError1")
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Password)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Password)
+            @Html.ValidationMessageFor(model => model.Password)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Telefon)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Telefon)
+            @Html.ValidationMessageFor(model => model.Telefon)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.JMBG)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.JMBG)
+            @Html.ValidationMessageFor(model => model.JMBG)
+        </div>
+
+        <p>
+            <input type="submit" value="Spremi" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Nazad","Login","Home")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -15,8 +15,8 @@ namespace EOrdinacija_Baze
     public partial class Temini
     {
         public int IdTermina { get; set; }
-        public int idUposlenika { get; set; }
-        public int idPacijenta { get; set; }
+        public Nullable<int> idUposlenika { get; set; }
+        public Nullable<int> idPacijenta { get; set; }
         public int idEventa { get; set; }
     
         public virtual Event Event { get; set; }

@@ -1,0 +1,98 @@
+﻿@model EOrdinacija_Baze.Karton
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>ispuniKarton</title>
+</head>
+<body>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    
+    @using (Html.BeginForm("SaveKarton","Korisnik",FormMethod.Post)) {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+    
+        
+    <table>
+        <tr>
+            <td style="visibility:hidden">
+                @Html.EditorFor(model => model.IdPacijenta)
+                @Html.ValidationMessageFor(model => model.IdPacijenta)
+            </td>
+            </tr>
+            <tr>
+    
+            <td class="editor-label">
+                @Html.LabelFor(model => model.Misljenje_specijaliste)
+            </td>
+            <td class="editor-field">
+                @Html.EditorFor(model => model.Misljenje_specijaliste)
+                @Html.ValidationMessageFor(model => model.Misljenje_specijaliste)
+            </td>
+             </tr>
+            <tr>    
+            <td class="editor-label">
+                @Html.LabelFor(model => model.Datum_zadnje_ismjene)
+            </td>
+            <td class="editor-field">
+                @Html.EditorFor(model => model.Datum_zadnje_ismjene)
+                @Html.ValidationMessageFor(model => model.Datum_zadnje_ismjene)
+            </td>
+             </tr>
+            <tr>
+            <td class="editor-label">
+                @Html.LabelFor(model => model.Dijagnoza)
+            </td>
+            <td class="editor-field">
+                @Html.EditorFor(model => model.Dijagnoza)
+                @Html.ValidationMessageFor(model => model.Dijagnoza)
+            </td>
+             </tr>
+            <tr>
+            <td class="editor-label">
+                @Html.LabelFor(model => model.Primjedba)
+            </td>
+            <td class="editor-field">
+                @Html.EditorFor(model => model.Primjedba)
+                @Html.ValidationMessageFor(model => model.Primjedba)
+            </td>
+             </tr>
+            <tr>
+            <td class="editor-label">
+                @Html.LabelFor(model => model.Sposobnost_kretanja)
+            </td>
+            <td class="editor-field">
+                @Html.EditorFor(model => model.Sposobnost_kretanja)
+                @Html.ValidationMessageFor(model => model.Sposobnost_kretanja)
+            </td>
+             </tr>
+            <tr>
+            <td class="editor-label">
+                @Html.LabelFor(model => model.Zarazna_bolest)
+            </td>
+            <td class="editor-field">
+                @Html.EditorFor(model => model.Zarazna_bolest)
+                @Html.ValidationMessageFor(model => model.Zarazna_bolest)
+            </td>
+             </tr>
+            
+            <tr>
+            
+            <td><td></td>    <input type="submit" value="Spremi" /></td>
+                </tr>
+           
+
+    </table>
+    }
+    
+    
+</body>
+</html>

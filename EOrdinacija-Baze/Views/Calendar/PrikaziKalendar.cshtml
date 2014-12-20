@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "~/Views/Shared/LayoutKorisnik.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Pregled termina</title>
+    <style>
+        body
+        {
+            background-color:#eee;
+        }
+    </style>
+  <p><b>  @Html.ActionLink("Nazad", "HomePage", "Korisnik") </b></p>
+    @if (ViewBag.greška != null) { 
+     <div style="color:red"> @ViewBag.greška </div>
+     @Page.Response.Redirect(Page.Request.Url.ToString(), true);
+            
+    }
+</head>
+<body>
+    <div style="height:700px;width:900px;margin:0 auto">
+       
+         
+        
+        @Html.Raw(Model.Render())
+       
+
+    </div>
+</body>
+</html>

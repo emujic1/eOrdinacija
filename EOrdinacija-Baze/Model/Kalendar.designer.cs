@@ -147,7 +147,7 @@ namespace EOrdinacija_Baze.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pocetak", DbType="Date NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Pocetak", DbType="DateTime NOT NULL")]
 		public System.DateTime Pocetak
 		{
 			get
@@ -167,7 +167,7 @@ namespace EOrdinacija_Baze.Model
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Kraj", DbType="Date NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Kraj", DbType="DateTime NOT NULL")]
 		public System.DateTime Kraj
 		{
 			get

@@ -11,7 +11,8 @@ namespace EOrdinacija_Baze
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.Web.Mvc;
+    using System.ComponentModel.DataAnnotations;
     public partial class Odjel
     {
         public Odjel()
@@ -21,7 +22,12 @@ namespace EOrdinacija_Baze
         }
     
         public int IdOdjela { get; set; }
+        [Remote("ProvjeraTipaOdjela","Korisnik",ErrorMessage="Odjel vec postoji")]
+        [Required(ErrorMessage="Unesite polje")]
+        [Display(Name="Tip sobe")]
         public string TipOdjela { get; set; }
+        [Required(ErrorMessage = "Unesite polje")]
+        [Display(Name="Broj soba u odjelu")]
         public int BrojSoba { get; set; }
     
         public virtual ICollection<Soba> Soba { get; set; }

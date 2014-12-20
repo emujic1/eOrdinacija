@@ -25,7 +25,8 @@ scheduler.locale={
 		week_tab: "周",
 		month_tab: "月",
 		new_event: "新建日程",
-		icon_save: "保存",
+		icon_
+: "保存",
 		icon_cancel: "关闭",
 		icon_details: "详细",
 		icon_edit: "编辑",

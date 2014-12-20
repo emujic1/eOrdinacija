@@ -11,6 +11,7 @@ namespace EOrdinacija_Baze
 {
     using System;
     using System.Collections.Generic;
+    using System.Web.Mvc;
     using System.ComponentModel.DataAnnotations;
     public partial class Soba
     {
@@ -18,14 +19,19 @@ namespace EOrdinacija_Baze
         {
             this.Pacijenti = new HashSet<Pacijenti>();
         }
-    
+
         public int IdSobe { get; set; }
+        [Required(ErrorMessage = "Polje obavezno!")]
+        [Display(Name="Odjel")]
+        [Remote("ProvjeriSobe", "Korisnik", ErrorMessage = "Odjel je popunjen")]
         public int idOdjela { get; set; }
-        [Display(Name="Broj kreveta")]
+        [Display(Name = "Broj kreveta")]
+        [Required(ErrorMessage = "Polje obavezno!")]
         public int BrojKreveta { get; set; }
+        [Required(ErrorMessage="Polje obavezno!")]
         [Display(Name = "Broj sobe")]
         public string brojSobe { get; set; }
-    
+   
         public virtual Odjel Odjel { get; set; }
         public virtual ICollection<Pacijenti> Pacijenti { get; set; }
     }

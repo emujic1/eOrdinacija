@@ -1,0 +1,173 @@
+﻿@model EOrdinacija_Baze.PregledKartonOprema
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>IzvršiPregled</title>
+<style>
+    .labela {
+        height: 50px;
+        width: 240px;
+    
+    }
+
+
+</style>
+</head>
+<body>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    
+    @using (Html.BeginForm("SavePregled", "Korisnik", FormMethod.Post, new {enctype="multipart/form-data"}))
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+    
+        
+         <table> 
+             <tr>
+                 <td class="labela"></td>
+            <td style="visibility:hidden" id="idPacijenta">
+                @Html.EditorFor(model => model.Pregled.idPacijenta)
+                @Html.ValidationMessageFor(model => model.Pregled.idPacijenta)
+            </td>
+                </tr>
+              
+            <tr>
+            <td class="labela">
+                @Html.LabelFor(model => model.Pregled.Razlog_posjete)
+            </td>
+            <td class="editor-field">
+                @Html.EditorFor(model => model.Pregled.Razlog_posjete)
+                @Html.ValidationMessageFor(model => model.Pregled.Razlog_posjete)
+            </td>
+                </tr>
+                <tr>
+            <td class="labela">
+                @Html.LabelFor(model => model.Pregled.Simptomi)
+            </td>
+            <td class="editor-field">
+                @Html.EditorFor(model => model.Pregled.Simptomi)
+                @Html.ValidationMessageFor(model => model.Pregled.Simptomi)
+            </td>
+    </tr>
+               
+              </table>
+               <b> <p style="margin-left:130px; padding:40px">Karton pacijenta</p></b>
+
+                <table>
+              <tr>
+            <td class="labela">
+                @Html.LabelFor(model => model.Karton.Misljenje_specijaliste)
+            </td>
+            <td class="editor-field">
+                @Html.EditorFor(model => model.Karton.Misljenje_specijaliste)
+                @Html.ValidationMessageFor(model => model.Karton.Misljenje_specijaliste)
+            </td>
+             </tr>
+           
+            <tr>
+            <td class="labela">
+                @Html.LabelFor(model => model.Karton.Dijagnoza)
+            </td>
+            <td class="editor-field">
+                @Html.EditorFor(model => model.Karton.Dijagnoza)
+                @Html.ValidationMessageFor(model => model.Karton.Dijagnoza)
+            </td>
+             </tr>
+            <tr>
+            <td class="labela">
+                @Html.LabelFor(model => model.Karton.Primjedba)
+            </td>
+            <td class="editor-field">
+                @Html.EditorFor(model => model.Karton.Primjedba)
+                @Html.ValidationMessageFor(model => model.Karton.Primjedba)
+            </td>
+             </tr>
+            <tr>
+            <td class="labela">
+                @Html.LabelFor(model => model.Karton.Sposobnost_kretanja)
+            </td>
+            <td class="editor-field">
+                @Html.EditorFor(model => model.Karton.Sposobnost_kretanja)
+                @Html.ValidationMessageFor(model => model.Karton.Sposobnost_kretanja)
+            </td>
+             </tr>
+            <tr>
+            <td class="labela">
+                @Html.LabelFor(model => model.Karton.Zarazna_bolest)
+            </td>
+            <td class="editor-field">
+                @Html.EditorFor(model => model.Karton.Zarazna_bolest)
+                @Html.ValidationMessageFor(model => model.Karton.Zarazna_bolest)
+            </td>
+             </tr>  
+               <tr>
+                   <td class="labela">@Html.Label("Odaberite EKG sliku")</td>
+                   <td class="editor-field">
+                       @Html.TextBoxFor(model => model.Slika.File, new { type="file" })
+                   </td>
+
+               </tr> 
+       
+        </table>
+        
+                <b> <p style="margin-left:130px; padding:40px">Korištena oprema</p></b>
+
+        <table>
+            <tr>
+        <td class="labela">
+            @Html.Label("Oprema: ")
+        </td>
+        <td class="labela">
+            @if (ViewBag.oprema != null)
+            {
+               @Html.DropDownListFor(model => model.Oprema.IdOpreme,
+                ViewBag.oprema as SelectList, "Odaberi opremu",new { style="width:310px ; height:30px" } );
+            }
+        </td>
+         </tr>
+            <tr>
+                <td class="labela">
+                    @Html.LabelFor(model=>model.PotrosenaOprema.Kolićina)
+                </td>
+                <td class="editor-field">
+                @Html.EditorFor(model => model.PotrosenaOprema.Kolićina)
+                @Html.ValidationMessageFor(model => model.PotrosenaOprema.Kolićina)
+            </td>
+            </tr>
+             <tr>
+                <td class="labela">
+                    @Html.LabelFor(model=>model.PotrosenaOprema.Jedinica)
+                </td>
+              <td class="editor-field">
+            @if (ViewBag.jedinice != null)
+            {
+               @Html.DropDownListFor(model => model.PotrosenaOprema.Jedinica,
+                ViewBag.jedinice as SelectList,new { style="width:310px ; height:30px" } );
+            }
+        </td>
+            </tr>
+        </table>
+                  
+            <p>
+                <input type="submit" value="Spremi" />
+            </p>
+       
+    }
+    
+    <div>
+        @Html.ActionLink("Nazad", "HomePage")
+    </div>
+</body>
+</html>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    }

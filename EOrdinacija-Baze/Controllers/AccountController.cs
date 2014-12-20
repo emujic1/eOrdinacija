@@ -19,6 +19,7 @@ namespace EOrdinacija_Baze.Controllers
     {
         //
         // GET: /Account/Login
+      
 
         [AllowAnonymous]
         public ActionResult Login(string returnUrl)
@@ -40,7 +41,9 @@ namespace EOrdinacija_Baze.Controllers
                 return RedirectToLocal(returnUrl);
             }
 
-            // If we got this far, something failed, redisplay form
+            // If we got this far, something failed, redisplay 
+
+
             ModelState.AddModelError("", "The user name or password provided is incorrect.");
             return View(model);
         }

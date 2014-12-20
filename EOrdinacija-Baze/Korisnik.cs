@@ -12,7 +12,9 @@ namespace EOrdinacija_Baze
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.Web;
     using System.Web.Mvc;
+    
     public partial class Korisnik
     {
         public Korisnik()
@@ -20,10 +22,10 @@ namespace EOrdinacija_Baze
             this.Pacijenti = new HashSet<Pacijenti>();
             this.Uposlenik = new HashSet<Uposlenik>();
         }
-    
+
         public int IdKorisnika { get; set; }
-        [Required(ErrorMessage="Unesite ime")]
-        [Display(Name="Ime")]
+        [Required(ErrorMessage = "Unesite ime")]
+        [Display(Name = "Ime")]
         public string Ime { get; set; }
         [Required(ErrorMessage = "Unesite prezime")]
         [Display(Name = "Prezime")]
@@ -40,8 +42,8 @@ namespace EOrdinacija_Baze
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Unesite datum rođenja")]
         [Display(Name = "Datum rođenja")]
-        [Remote("ProvjeraDatuma","Korisnik",HttpMethod = "POST",ErrorMessage="Datum mora biti u poslosti.")]
-        public System.DateTime Datum_rodjenja { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/mm/yyyy}", ApplyFormatInEditMode = true)]
+        public System.DateTime? Datum_rodjenja { get; set; }
         [Required(ErrorMessage = "Unesite mjesto rođenja")]
         [Display(Name = "Mjesto rođenja")]
         public string Mjesto_rodjenja { get; set; }
@@ -50,18 +52,17 @@ namespace EOrdinacija_Baze
         public string Prebivalište { get; set; }
         [Required(ErrorMessage = "Unesite username")]
         [Display(Name = "Username")]
-        [Remote("PostojiUsername","Korisnik", HttpMethod="POST" , ErrorMessage="Username vec postoji , odaberite drugo.")]
         public string Username { get; set; }
-        [Required(ErrorMessage="Unesite password")]
+        [Required(ErrorMessage = "Unesite password")]
         [StringLength(100, ErrorMessage = "Password mora biti najmanje dug {2} karaktera a najviše {1} .", MinimumLength = 6)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
         public string Telefon { get; set; }
-        [Required(ErrorMessage="Unesite JMBG")]
+        [Required(ErrorMessage = "Unesite JMBG")]
         public string JMBG { get; set; }
-        public int idRole { get; set; }
+        public int idPrivilegije { get; set; }
     
-        public virtual Role Role { get; set; }
+        public virtual Privilegije Privilegije { get; set; }
         public virtual ICollection<Pacijenti> Pacijenti { get; set; }
         public virtual ICollection<Uposlenik> Uposlenik { get; set; }
     }

@@ -18,6 +18,7 @@ namespace EOrdinacija_Baze
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+            routes.MapRoute("UradiPregled", "Korisnik/{UradiPregled}/{id}", new { controller = "Korisnik", action = "UradiPregled" });
         }
     }
 }

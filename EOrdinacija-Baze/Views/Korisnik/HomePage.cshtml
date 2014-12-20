@@ -3,7 +3,7 @@
     ViewBag.Title = "HomePage";
     Layout = "~/Views/Shared/LayoutKorisnik.cshtml";
 }
-
+<div style="color:rgb(54, 187, 65); text-align:center; text-transform: uppercase;"><b>@ViewBag.poruka</b></div>
 
 <body>
     <header>
@@ -14,8 +14,10 @@
                 <div class="float-right">
                     <nav>
                         <ul id="menu">
-                            @if (ViewBag.izm_priv == true) { <li>@Html.ActionLink("Privilegije", "UpravljanjePrivilegijama", "Korisnik")</li> }
-                             @if (ViewBag.addTermin == true) { <li>@Html.ActionLink("Termini", "Index", "Calendar")</li> }
+
+                            @if (ViewBag.izm_priv == true) { <li>@Html.ActionLink("Privilegije", "UpravljanjePrivilegijama", "Korisnik")</li>}
+                            @if (ViewBag.add_oprema == true) { <li>@Html.ActionLink("Oprema","dodajOpremu","Korisnik")</li>}
+                             @if (ViewBag.addTermin == true) { <li>@Html.ActionLink("Zakaži termin", "AddTermin", "Korisnik")</li> }
                             @if (ViewBag.add_pacijent == true) { <li>@Html.ActionLink("Dodaj pacijenta", "DodajPacijenta", "Korisnik")</li> }
                             @if (ViewBag.del_doktor == true) { <li>@Html.ActionLink("Briši uposlenika", "BrišiUposlenika", "Korisnik")</li> }
                             @if (ViewBag.add_doktor == true) { <li>@Html.ActionLink("Dodaj uposlenika", "DodajUposlenika", "Korisnik")</li> }
@@ -24,17 +26,19 @@
                     </nav>
                 </div>
             </div>
-        
+		
     </header>
 
     @if(ViewBag.doktor==true){
-     <div style="height:700px;width:900px;margin:80px auto">
+     <div style="height:1200px;width:900px;margin:80px auto" id="pokazi" >
        
          @Html.Raw(Model.Render())
        
 
     </div>
+    
     }
+ 
         </body>
 @section Scripts{
     @Scripts.Render("~/bundles/jqueryval")

@@ -11,20 +11,28 @@ namespace EOrdinacija_Baze
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class Karton
     {
         public int IdKartona { get; set; }
-        public int IdPacijenta { get; set; }
-        public byte[] Ekg_slika { get; set; }
+        public Nullable<int> IdPacijenta { get; set; }
+        [Required(ErrorMessage="Unesite polje")]
+        [Display(Name="Mišljenje sprecijaliste")]
         public string Misljenje_specijaliste { get; set; }
+        [Required(ErrorMessage = "Unesite polje")]
+        [Display(Name="Datum zadnje izmjene")]
         public System.DateTime Datum_zadnje_ismjene { get; set; }
+        [Required(ErrorMessage = "Unesite polje")]
         public string Dijagnoza { get; set; }
         public string Primjedba { get; set; }
+        [Required(ErrorMessage = "Unesite polje")]
+        [Display(Name="Sposobnost kretanja")]
         public string Sposobnost_kretanja { get; set; }
+        [Display(Name = "Zarazna bolest")]
         public string Zarazna_bolest { get; set; }
-        public bool Karton_on_off { get; set; }
+        public Nullable<int> Slika { get; set; }
     
+        public virtual Image Image { get; set; }
         public virtual Pacijenti Pacijenti { get; set; }
     }
 }

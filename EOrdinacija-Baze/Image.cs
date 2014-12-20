@@ -11,18 +11,21 @@ namespace EOrdinacija_Baze
 {
     using System;
     using System.Collections.Generic;
+    using System.Web;
     
-    public partial class Uloge
+    public partial class Image
     {
-        public Uloge()
+        public Image()
         {
-            this.Role = new HashSet<Role>();
+            this.Karton = new HashSet<Karton>();
         }
     
-        public int idUloge { get; set; }
-        public string Naziv { get; set; }
-        public string Opis { get; set; }
-    
-        public virtual ICollection<Role> Role { get; set; }
+        public int ImageId { get; set; }
+        public int ImageSize { get; set; }
+        public string FileName { get; set; }
+        public byte[] ImageData { get; set; }
+
+        public HttpPostedFileBase File { get; set; }
+        public virtual ICollection<Karton> Karton { get; set; }
     }
 }

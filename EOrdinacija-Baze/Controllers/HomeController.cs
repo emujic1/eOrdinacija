@@ -35,6 +35,7 @@ namespace EOrdinacija_Baze.Controllers
             return View();
         }
         [HttpPost]
+
         public ActionResult Login(Korisnik u)
         {
             
@@ -67,18 +68,76 @@ namespace EOrdinacija_Baze.Controllers
 
         }
         [HttpPost]
-        public JsonResult PostojiUsername(string UserName)
+        [ValidateAntiForgeryToken]
+        public ActionResult SaveKorisnik(Korisnik u)
+        {
+            eOrdinacijaEntities db = new eOrdinacijaEntities();
+
+            if (u.Datum_rodjenja > DateTime.Now)
+            {
+                ModelState.AddModelError("CustomError", "Datum mora biti u budučnosti");
+                return View("DodajKorisnika");
+
+            }
+            var user = db.Korisnik.Where(a => a.Username.Contains(u.Username)).FirstOrDefault();
+
+            if (user != null)
+            {
+                ModelState.AddModelError("CustomError1", "Username vec postoji");
+                return View("DodajKorisnika");
+
+            }
+
+            db.Privilegije.Add(new Privilegije
+            {
+                add_doktor = false,
+                add_pacijent = false,
+                del_doktor = false,
+                del_pacijent = false,
+                modify_doktor = false,
+                modify_kartona = false,
+                modify_pacijent = false,
+                add_new_privilegije = false,
+                pregled_kartona = false,
+                ažuriranje_opreme = false,
+                zakazivanje_termina = false,
+                imePrivilegije = u.Username
+            });
+            db.SaveChanges();
+            Privilegije p = db.Privilegije.Where(a => a.imePrivilegije == u.Username).FirstOrDefault();
+            try
+            {
+
+                db.Korisnik.Add(new Korisnik
+                {
+                    Ime = u.Ime,
+                    Prezime = u.Prezime,
+                    Ime_oca = u.Ime_oca,
+                    Prebivalište = u.Prebivalište,
+                    Email = u.Email,
+                    Broj_licne = u.Broj_licne,
+                    Datum_rodjenja = u.Datum_rodjenja,
+                    Mjesto_rodjenja = u.Mjesto_rodjenja,
+                    idPrivilegije = p.idPrivilegije,
+                    JMBG = u.JMBG,
+                    Password = u.Password,
+                    Username = u.Username,
+                    Telefon = u.Telefon
+                });
+                db.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                return View("DodajKorisnika");
+            }
+            ViewBag.poruka = "Korisnik uspješno spremljen";
+            return View("Login");
+
+        }
+        public ActionResult Registracija()
         {
 
-            eOrdinacijaEntities db = new eOrdinacijaEntities();
-            var user = db.Korisnik.Where(a=>a.Username.Contains(UserName)).FirstOrDefault();
-
-            return Json(user == null);
-        }
-        [HttpPost]
-        public JsonResult ProvjeraDatuma(DateTime Datum_rodjenja ) {
-
-            return Json(Datum_rodjenja < DateTime.Now);
+            return View("DodajKorisnika");
         }
         
         }

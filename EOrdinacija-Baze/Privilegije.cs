@@ -16,11 +16,11 @@ namespace EOrdinacija_Baze
     {
         public Privilegije()
         {
-            this.Role = new HashSet<Role>();
+            this.Korisnik = new HashSet<Korisnik>();
         }
-    
+
         public int idPrivilegije { get; set; }
-        [Display(Name="Dodaj doktora")]
+        [Display(Name = "Dodaj doktora")]
         public bool add_doktor { get; set; }
         [Display(Name = "Dodaj pacijenta")]
         public bool add_pacijent { get; set; }
@@ -42,7 +42,8 @@ namespace EOrdinacija_Baze
         public bool ažuriranje_opreme { get; set; }
         [Display(Name = "Zakazivanje termina")]
         public bool zakazivanje_termina { get; set; }
+        public string imePrivilegije { get; set; }
     
-        public virtual ICollection<Role> Role { get; set; }
+        public virtual ICollection<Korisnik> Korisnik { get; set; }
     }
 }

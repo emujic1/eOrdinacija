@@ -1,0 +1,52 @@
+﻿@model EOrdinacija_Baze.Oprema
+
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PotroseniLijek</title>
+    <script type="text/javascript">
+        function DajRezultate() {
+            var id = document.getElementById("select").childNodes[1].value;
+
+            var booksDiv = $("#pokazi");
+            $.ajax({
+                type: 'POST',
+                url: '/Korisnik/DajLijek',
+                data: { id : id } ,
+                success: function (data) {
+                    booksDiv.html("");
+                    booksDiv.html(data);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(xhr.status);
+                    alert(thrownError);
+                }
+            });
+        }       
+    </script>
+</head>
+<body>
+  <table>
+         <tr>
+                 <td >
+            @Html.Label("Lijek:")
+        </td>
+             <td  id ="select">
+            @if (ViewBag.lijekovi != null)
+            {
+               @Html.DropDownListFor(model => model.IdOpreme,
+                ViewBag.lijekovi as SelectList, "Odaberi", new { onchange = "DajRezultate()" , style = "width:210px ; height:30px" })
+            }
+        </td>
+       </tr>
+
+  </table> 
+</body>
+</html>

@@ -1,0 +1,17 @@
+﻿@model EOrdinacija_Baze.Image
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Slika</title>
+</head>
+<body>
+    <img src="data:image/png;base64,@Convert.ToBase64String(Model.ImageData,0,Model.ImageData.Length)" />
+</body>
+</html>

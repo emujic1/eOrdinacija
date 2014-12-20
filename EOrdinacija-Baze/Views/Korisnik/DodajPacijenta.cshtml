@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "DodajPacijenta";
     Layout = "~/Views/Shared/LayoutKorisnik.cshtml";
+    HtmlHelper.ClientValidationEnabled = true;
 }
 
 <h2>DodajPacijenta</h2>
@@ -67,7 +68,7 @@
         </td>
         <td class="editor-field">
             @Html.EditorFor(model => model.Korisnik.Datum_rodjenja)
-            @Html.ValidationMessageFor(model => model.Korisnik.Datum_rodjenja)
+            @Html.ValidationMessage("CustomError")
         </td>
         </tr>
             <tr>
@@ -94,7 +95,7 @@
         </td>
         <td class="editor-field">
             @Html.EditorFor(model => model.Korisnik.Username)
-            @Html.ValidationMessageFor(model => model.Korisnik.Username)
+            @Html.ValidationMessage("CustomError1")
         </td>
                 </tr>
             <tr>

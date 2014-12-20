@@ -1,0 +1,102 @@
+﻿@model EOrdinacija_Baze.Karton
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>PregledajKarton</title>
+    <style>   
+          .labela {
+        height: 50px;
+        width: 240px;
+    
+    }
+        </style>
+
+</head>
+<body>
+    <table>
+        <tr>
+    
+        <td class="labela">
+             @Html.DisplayNameFor(model => model.IdKartona)
+        </td>
+        <td class="display-field">
+            @Html.DisplayFor(model => model.IdKartona)
+        </td>
+            </tr>
+        <tr>
+        <td class="labela">
+             @Html.DisplayNameFor(model => model.IdPacijenta)
+        </td>
+        <td class="display-field">
+             @ViewBag.pacijent
+        </td>
+    </tr>
+        <tr>
+        <td class="labela">
+             @Html.DisplayNameFor(model => model.Misljenje_specijaliste)
+        </td>
+        <td class="display-field">
+            @Html.DisplayFor(model => model.Misljenje_specijaliste)
+        </td>
+    </tr>
+        <tr>
+        <td class="labela">
+             @Html.DisplayNameFor(model => model.Datum_zadnje_ismjene)
+        </td>
+        <td class="display-field">
+            @Html.DisplayFor(model => model.Datum_zadnje_ismjene)
+        </td>
+    </tr>
+        <tr>
+        <td class="labela">
+             @Html.DisplayNameFor(model => model.Dijagnoza)
+        </td>
+        <td class="display-field">
+            @Html.DisplayFor(model => model.Dijagnoza)
+        </td>
+    </tr>
+        <tr>
+        <td class="labela">
+             @Html.DisplayNameFor(model => model.Primjedba)
+        </td>
+        <td class="display-field">
+            @Html.DisplayFor(model => model.Primjedba)
+        </td>
+    </tr>
+        <tr>
+        <td class="labela">
+             @Html.DisplayNameFor(model => model.Sposobnost_kretanja)
+        </td>
+        <td class="display-field">
+            @Html.DisplayFor(model => model.Sposobnost_kretanja)
+        </td>
+    </tr>
+        <tr>
+        <td class="labela">
+             @Html.DisplayNameFor(model => model.Zarazna_bolest)
+        </td>
+        <td class="display-field">
+            @Html.DisplayFor(model => model.Zarazna_bolest)
+        </td>
+    </tr>
+        <tr>
+           <td class="labela">
+             Ekg slika
+        </td>
+        <td>
+            <a href="@Url.Action("VidiSliku", "Korisnik", new { id = Model.Image.ImageId })" target="_blank">Klikni za prikaz</a>
+            </td>
+    </tr>
+ </table>
+  <p>
+        @Html.ActionLink("Nazad", "HomePage")
+    </p>
+</body>
+</html>

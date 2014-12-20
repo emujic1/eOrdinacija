@@ -1,0 +1,82 @@
+﻿@{
+    ViewBag.Title = "dodajOpremu";
+    Layout = "~/Views/Shared/LayoutKorisnik.cshtml";
+}
+<script type="text/javascript">
+    function DodajSobu() {
+        var booksDiv = $("#pokazi");
+        $.ajax({
+            type: 'POST',
+            url: '/Korisnik/DodajSobu',
+
+            success: function (data) {
+                booksDiv.html("");
+                booksDiv.html(data);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    };
+    function DodajOdjel() {
+        var booksDiv = $("#pokazi");
+        $.ajax({
+            type: 'POST',
+            url: '/Korisnik/DodajOdjel',
+            success: function (data) {
+                booksDiv.html("");
+                booksDiv.html(data);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    };
+    function DodajLijek() {
+        var booksDiv = $("#pokazi");
+        $.ajax({
+            type: 'POST',
+            url: '/Korisnik/DodajLijek',
+            success: function (data) {
+                booksDiv.html("");
+                booksDiv.html(data);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    };
+    function PotrošeniLijek() {
+        var booksDiv = $("#pokazi");
+        $.ajax({
+            type: 'POST',
+            url: '/Korisnik/PotroseniLijek',
+            success: function (data) {
+                booksDiv.html("");
+                booksDiv.html(data);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    }
+  </script> 
+
+
+
+
+<h2>Dodaj opremu</h2>
+<body>
+<table>
+<td><input type="button" value="Dodaj sobu" onclick="DodajSobu()" /></td>
+<td><input type="button" value="Dodaj odjel" onclick="DodajOdjel()" /></td>
+<td><input type="button" value="Dodaj lijek" onclick="DodajLijek()"</td>
+<td><input type="button" value="Potrošeno lijeka" onclick="PotrošeniLijek()"</td>
+</table>
+<p id="pokazi"></p>
+    <div>@Html.ActionLink("Nazad","HomePage")</div>
+</body>

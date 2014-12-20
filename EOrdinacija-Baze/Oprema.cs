@@ -11,18 +11,28 @@ namespace EOrdinacija_Baze
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class Oprema
     {
-        public int IdOpreme { get; set; }
-        public string Naziv { get; set; }
-        public string Proizvodjac { get; set; }
-        public string Model { get; set; }
-        public Nullable<int> Godina_proizvodnje { get; set; }
-        public string Opis { get; set; }
-        public decimal Cjena { get; set; }
-        public int idPregleda { get; set; }
+        public Oprema()
+        {
+            this.Potroseno = new HashSet<Potroseno>();
+        }
     
-        public virtual Pregled Pregled { get; set; }
+        public int IdOpreme { get; set; }
+        [Required(ErrorMessage="Unesite polje")]
+        public string Naziv { get; set; }
+        [Required(ErrorMessage = "Unesite polje")]
+        [Display(Name="Proizvoðaæ")]
+        public string Proizvodjac { get; set; }
+        [Required(ErrorMessage = "Unesite polje")]
+        [Display(Name = "Godina proizvodnje")]
+        public Nullable<int> Godina_proizvodnje { get; set; }
+        [Required(ErrorMessage="Unesite polje")]
+        public string Opis { get; set; }
+        [Required(ErrorMessage = "Unesite polje")]
+        public decimal Cjena { get; set; }
+    
+        public virtual ICollection<Potroseno> Potroseno { get; set; }
     }
 }

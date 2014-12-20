@@ -1,29 +1,16 @@
 ﻿@model IEnumerable<EOrdinacija_Baze.Korisnik>
+
 @{
+    ViewBag.Title = "Izaberi doktora za rezervisanje termina";
     Layout = "~/Views/Shared/LayoutKorisnik.cshtml";
 }
-
-<!DOCTYPE html>
-<html>
-<head>
-
-    <title>Pregled termina</title>
-    <style>
-        body
-        {
-            background-color:#eee;
-        }
-    </style>
- 
-</head>
-<body>
-   
-    <p>
-    @using (Html.BeginForm("PretragaUposlenika", "Calendar", FormMethod.Get))
+<h3>Odaberite pacijenta za rezervisanje termina</h3>
+<p>
+    @using (Html.BeginForm("AddTermin", "Korisnik", FormMethod.Get))
     { 
     <table>
         <tr>
-        <td> Unesi ime uposlenika </td>
+        <td> Unesi ime pacijenta </td>
         <td> @Html.TextBox("ime") </td>
        </tr>
         <tr>
@@ -72,15 +59,14 @@
        
         <td>
             @Html.ActionLink(
-            "Prikaži kalendar",
-            "PrikaziKalendar",
+            "Odredi termin",
+            "Index",
             "Calendar" , 
             new {  id = item.IdKorisnika },
-            null) 
+            null) |
     
         </td>
     </tr>
 }
+
 </table>
-</body>
-</html>

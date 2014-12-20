@@ -24,11 +24,9 @@ namespace EOrdinacija_Baze
     
         public int idPacijenta { get; set; }
         public int idKorisnika { get; set; }
-        [Display(Name="Broj sobe")]
+        [Display(Name="Soba")]
         public Nullable<int> idSobe { get; set; }
-
         public bool Zaposlen { get; set; }
-        [Required(ErrorMessage="Unesite poslodavca")]
         public string Poslodavac { get; set; }
         public bool Osiguran { get; set; }
     

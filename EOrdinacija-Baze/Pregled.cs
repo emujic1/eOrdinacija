@@ -11,25 +11,22 @@ namespace EOrdinacija_Baze
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class Pregled
     {
-        public Pregled()
-        {
-            this.Oprema1 = new HashSet<Oprema>();
-        }
-    
         public int idPregleda { get; set; }
         public System.DateTime Datum { get; set; }
+        [Required(ErrorMessage="Unesite polje")]
+        [Display(Name="Razlog posjete")]
+        [DataType(DataType.MultilineText)]
         public string Razlog_posjete { get; set; }
         public string Simptomi { get; set; }
-        public string Dijagnoza { get; set; }
         public Nullable<int> Oprema { get; set; }
         public int idPacijenta { get; set; }
         public int IdUposlenika { get; set; }
     
-        public virtual ICollection<Oprema> Oprema1 { get; set; }
         public virtual Pacijenti Pacijenti { get; set; }
+        public virtual Potroseno Potroseno { get; set; }
         public virtual Uposlenik Uposlenik { get; set; }
     }
 }

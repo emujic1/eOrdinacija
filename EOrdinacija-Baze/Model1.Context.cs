@@ -26,19 +26,18 @@ namespace EOrdinacija_Baze
         }
     
         public DbSet<Event> Event { get; set; }
+        public DbSet<Image> Image { get; set; }
         public DbSet<Karton> Karton { get; set; }
         public DbSet<Korisnik> Korisnik { get; set; }
         public DbSet<Nalaz> Nalaz { get; set; }
         public DbSet<Odjel> Odjel { get; set; }
         public DbSet<Oprema> Oprema { get; set; }
         public DbSet<Pacijenti> Pacijenti { get; set; }
+        public DbSet<Potroseno> Potroseno { get; set; }
         public DbSet<Pregled> Pregled { get; set; }
         public DbSet<Privilegije> Privilegije { get; set; }
-        public DbSet<Role> Role { get; set; }
         public DbSet<Soba> Soba { get; set; }
-        public DbSet<sysdiagrams> sysdiagrams { get; set; }
         public DbSet<Temini> Temini { get; set; }
-        public DbSet<Uloge> Uloge { get; set; }
         public DbSet<Uposlenik> Uposlenik { get; set; }
     }
 }

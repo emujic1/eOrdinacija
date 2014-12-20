@@ -12,19 +12,19 @@ namespace EOrdinacija_Baze
     using System;
     using System.Collections.Generic;
     
-    public partial class Role
+    public partial class Potroseno
     {
-        public Role()
+        public Potroseno()
         {
-            this.Korisnik = new HashSet<Korisnik>();
+            this.Pregled = new HashSet<Pregled>();
         }
     
-        public int idRole { get; set; }
-        public int IdPrivilegije { get; set; }
-        public int IdUloge { get; set; }
+        public int IdPotoseno { get; set; }
+        public int Oprema { get; set; }
+        public int Kolićina { get; set; }
+        public string Jedinica { get; set; }
     
-        public virtual ICollection<Korisnik> Korisnik { get; set; }
-        public virtual Privilegije Privilegije { get; set; }
-        public virtual Uloge Uloge { get; set; }
+        public virtual Oprema Oprema1 { get; set; }
+        public virtual ICollection<Pregled> Pregled { get; set; }
     }
 }

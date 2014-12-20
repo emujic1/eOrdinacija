@@ -1,0 +1,38 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <title>DajLijek</title>
+</head>
+<body>
+    <div>
+        <table>
+       <tr><td>Potrošeno danas :</td>
+           <td>@ViewBag.jucer</td>
+           <td>mg</td>
+
+       </tr>
+       <tr><td>Potrošeno protekle sedmice :</td>
+           <td>@ViewBag.sedmica</td>
+           <td>mg</td>
+
+       </tr>
+            <tr><td>Potrošeno proteklog mjeseca :</td>
+           <td>@ViewBag.mjesec</td>
+            <td>mg</td>
+
+       </tr>
+            <tr><td>Potrošeno protekle godine :</td>
+           <td>@ViewBag.godina</td>
+                <td>mg</td>
+       </tr>
+   </table>
+    </div>
+</body>
+</html>

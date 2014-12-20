@@ -1,0 +1,65 @@
+﻿@model EOrdinacija_Baze.Soba
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DodajSobu</title>
+</head>
+<body>
+    <script src="~/Scripts/jquery-1.8.2.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+    
+    @using (Html.BeginForm("SaveSoba","Korisnik",FormMethod.Post)) {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+    
+        <table>
+    
+            <tr>
+            <td class="editor-label">
+                @Html.LabelFor(model => model.BrojKreveta)
+            </td>
+            <td class="editor-field">
+                @Html.EditorFor(model => model.BrojKreveta)
+                @Html.ValidationMessageFor(model => model.BrojKreveta)
+            </td>
+            </tr>
+            <tr>
+            <td class="editor-label">
+                @Html.LabelFor(model => model.brojSobe)
+            </td>
+            <td class="editor-field">
+                @Html.EditorFor(model => model.brojSobe)
+                @Html.ValidationMessageFor(model => model.brojSobe)
+            </td>
+            </tr>
+            <tr>
+             <td class="editor-label">
+            @Html.LabelFor(model => model.idOdjela)
+        </td>
+        <td class="editor-field">
+            @if (ViewBag.odjeli != null)
+            {
+               @Html.DropDownListFor(model => model.idOdjela,
+                ViewBag.odjeli as SelectList, "Odaberi odjel",new { style="width:310px ; height:30px" } );
+            }
+             @Html.ValidationMessageFor(model => model.idOdjela)
+        </td>
+            </tr>
+       </table>
+            <p>
+                <input type="submit" value="Spremi" />
+            </p>
+        
+    }
+    
+   
+</body>
+</html>
