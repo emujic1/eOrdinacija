@@ -11,10 +11,19 @@
     HtmlHelper.ClientValidationEnabled = true;
     
 }
+<div style="color:rgb(54, 187, 65); text-align:center; text-transform: uppercase;"><b>@TempData["KorisnikIzmjenjen"]</b></div>
+<div style="color:red; text-align:center; text-transform: uppercase;"><b>@TempData["Upozorenje"]</b></div>
+
 
 <h2>Dodaj Uposlenika</h2>
+
 @if (ViewBag.uzAcount==null){
-<p>@Html.ActionLink("Dodaj na osnovu vec napravljenog korisničkog računa","dodajUposlenikaVecNapravljenAcount","Korisnik")</p>
+
+    <p><ul id="menu">
+    <li>@Html.ActionLink("Dodaj na osnovu vec napravljenog korisničkog računa","dodajUposlenikaVecNapravljenAcount","Korisnik")</li>
+    <li>@Html.ActionLink("Izmjeni/obriši uposlenika","BrišiUposlenika","Korisnik")</li>        
+        </ul></p>
+    
 }
 @if (ViewBag.greska != null) { <p style="border:1px red">@ViewBag.greska</p> }
 

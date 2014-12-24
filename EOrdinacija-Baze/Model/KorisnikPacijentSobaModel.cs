@@ -10,5 +10,7 @@ namespace EOrdinacija_Baze
         public Korisnik Korisnik { get; set; }
         public Soba Soba { get; set; }
         public Pacijenti Pacijent { get; set; }
+
+        public List<Soba> Sobe { get; set; }
     }
 }

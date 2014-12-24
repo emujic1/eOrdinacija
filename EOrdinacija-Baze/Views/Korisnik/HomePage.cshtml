@@ -3,8 +3,43 @@
     ViewBag.Title = "HomePage";
     Layout = "~/Views/Shared/LayoutKorisnik.cshtml";
 }
-<div style="color:rgb(54, 187, 65); text-align:center; text-transform: uppercase;"><b>@ViewBag.poruka</b></div>
+<div style="color:rgb(54, 187, 65); text-align:center; text-transform: uppercase;"><b>@ViewBag.dodanDoktor </b></div>
+<script type="text/javascript">
+    function Onama()
+    {
+        var booksDiv = $("#onama");
+        $.ajax({
+            type: 'POST',
+            url: '/Korisnik/Onama',
+            success: function (data) {
+                booksDiv.html("");
+                booksDiv.html(data);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    }
+    function DajKarton()
+    {
+        var booksDiv = $("#pokazi");
+        $.ajax({
+            type: 'POST',
+            url: '/Korisnik/DajKarton',
+            success: function (data) {
+                booksDiv.html("");
+                booksDiv.html(data);
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                alert(xhr.status);
+                alert(thrownError);
+            }
+        });
+    }
 
+
+</script>
 <body>
     <header>
 <div class="content-wrapper">
@@ -14,12 +49,35 @@
                 <div class="float-right">
                     <nav>
                         <ul id="menu">
+                             @if (ViewBag.korisnik != null || ViewBag.pacijent != null)
+                             { <li>@Html.ActionLink("Početna", "HomePage", "Korisnik")</li>
+                                                               <li>@Ajax.ActionLink("O nama", "Onama", "Korisnik", new AjaxOptions
+                                                              {
+                                                                  HttpMethod = "GET",
+                                                                  InsertionMode = InsertionMode.Replace,
+                                                                  UpdateTargetId = "onama",
 
+                                                              })</li> 
+                                 if (ViewBag.pacijent != null)
+                                 { <li>@Ajax.ActionLink("Pregledaj karton", "DajKarton", "Korisnik", new AjaxOptions
+                                                               {
+                                                                   HttpMethod = "GET",
+                                                                   InsertionMode = InsertionMode.Replace,
+                                                                   UpdateTargetId = "pokazi",
+                                                               })</li> 
+                             <li>@Ajax.ActionLink("Pregledaj raspored","DajRasporedPacijenta","Korisnik",new AjaxOptions
+                                                               {
+                                                                   HttpMethod = "GET",
+                                                                   InsertionMode = InsertionMode.Replace,
+                                                                   UpdateTargetId = "onama",
+                                                               })</li>
+                             }
+                                                                       
+                             }
                             @if (ViewBag.izm_priv == true) { <li>@Html.ActionLink("Privilegije", "UpravljanjePrivilegijama", "Korisnik")</li>}
                             @if (ViewBag.add_oprema == true) { <li>@Html.ActionLink("Oprema","dodajOpremu","Korisnik")</li>}
                              @if (ViewBag.addTermin == true) { <li>@Html.ActionLink("Zakaži termin", "AddTermin", "Korisnik")</li> }
                             @if (ViewBag.add_pacijent == true) { <li>@Html.ActionLink("Dodaj pacijenta", "DodajPacijenta", "Korisnik")</li> }
-                            @if (ViewBag.del_doktor == true) { <li>@Html.ActionLink("Briši uposlenika", "BrišiUposlenika", "Korisnik")</li> }
                             @if (ViewBag.add_doktor == true) { <li>@Html.ActionLink("Dodaj uposlenika", "DodajUposlenika", "Korisnik")</li> }
                             <li>@Html.ActionLink("Logout", "Logout", "Korisnik")</li>
                         </ul>
@@ -28,8 +86,37 @@
             </div>
 		
     </header>
+   <div id="onama">
 
-    @if(ViewBag.doktor==true){
+    @if( ViewBag.pacijent != null  || ViewBag.korisnik != null ){      
+        
+        <div class="content-wrapper" >
+            <p>
+                <img src="~/Images/logo.jpg" />
+            </p>
+        </div>
+  
+        
+<ol class="round">
+    <li class="one">
+        
+        
+    </li>
+
+    <li class="two">
+        
+    </li>
+
+    <li class="three">
+        
+    </li>
+</ol>
+
+                                 }
+       </div>
+
+    @if (ViewBag.doktor == true)
+    {
      <div style="height:1200px;width:900px;margin:80px auto" id="pokazi" >
        
          @Html.Raw(Model.Render())

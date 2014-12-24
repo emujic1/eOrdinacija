@@ -7,15 +7,36 @@ using System.Web.Mvc;
 using System.ComponentModel.DataAnnotations;
 using DHTMLX.Scheduler.Data;
 using EOrdinacija_Baze;
+using System.Globalization;
 
 namespace eOrdinacija_Baze.Controllers
 {
     public class KorisnikController : Controller
     {
          static int idKorisnika;
-      
+
+         public ActionResult Onama() {
+             return PartialView("Onama");
+         }
         
+        public ActionResult DajKarton()
+         {
+             eOrdinacijaEntities db = new eOrdinacijaEntities();
+             Pacijenti p = db.Pacijenti.Where(a => a.idKorisnika == idKorisnika).FirstOrDefault();
+             Karton k = db.Karton.Where(a => a.IdPacijenta == p.idPacijenta).FirstOrDefault();
+             if (k != null)
+                 return View("PregledajKarton", k);
+             else
+             {
+                 string poruka = @"alert('Vas karton je prazan');
+                  window.location.reload()";
+                 return JavaScript(poruka);
+             }
+         }
+
         public ActionResult HomePage() {
+
+            ViewBag.dodanDoktor = TempData["DodanUposlenik"];
 
 
            
@@ -56,6 +77,13 @@ namespace eOrdinacija_Baze.Controllers
             if (k.Privilegije.ažuriranje_opreme)
             {
                 add_oprema = true;
+            }
+            if (k.Pacijenti.Count > 0) {
+                ViewBag.pacijent = "Trenutno je pacijent";
+            }
+            if (k.Pacijenti.Count == 0 && k.Uposlenik.Count == 0) 
+            {
+                ViewBag.korisnik = "Trenutno je korisnik";
             }
             if (k.Uposlenik.Count != 0)
             {
@@ -134,7 +162,55 @@ namespace eOrdinacija_Baze.Controllers
                 return View();
                 
         }
+        public ActionResult DajRasporedPacijenta() 
+        {
+         
+            var scheduler = new DHXScheduler(this);
 
+
+                eOrdinacijaEntities dc =new eOrdinacijaEntities();
+
+                Pacijenti u = dc.Pacijenti.Where(a => a.idKorisnika.Equals(idKorisnika)).FirstOrDefault();
+
+                List<Temini> termini = dc.Temini.Where(a => a.idPacijenta == u.idPacijenta).ToList();
+
+                var items = new List<object>();
+
+                foreach (var t in termini)
+                {
+
+
+                    items.Add(new { id = t.Event.Id, text = t.Event.Opis, start_date = t.Event.Pocetak, end_date = t.Event.Kraj });
+
+                }
+                var data = new SchedulerAjaxData(items);
+
+                scheduler.Data.Parse(items);
+                scheduler.Skin = DHXScheduler.Skins.Terrace;
+
+                scheduler.Config.multi_day = true;
+
+                scheduler.Config.drag_move = false;
+                scheduler.Config.drag_resize = false;
+                
+                scheduler.Config.first_hour = 7;
+                scheduler.Config.last_hour = 21;
+                scheduler.Config.xml_date = "%d/%m/%Y %H:%i";
+
+                scheduler.EnableDataprocessor = false;
+                scheduler.Config.buttons_right = new LightboxButtonList {
+            LightboxButtonList.Cancel
+        };
+                scheduler.Config.buttons_left = new LightboxButtonList{
+                
+                };
+                scheduler.Config.icons_select = new EventButtonList
+                {
+
+                };              
+                    
+                return PartialView(scheduler);
+        }
         
         
         public ActionResult Index(int id)
@@ -273,12 +349,30 @@ namespace eOrdinacija_Baze.Controllers
                 return View("DodajUposlenika");
 
             }
-            ViewBag.poruka = "Uposlenik uspješno spašen";
+            TempData["DodanUposlenik"] = "Uposlenik uspješno spašen";
             return RedirectToAction("HomePage");
+        }
+        public ActionResult BrišiPacijenta(string ime) 
+        {
+            eOrdinacijaEntities db = new eOrdinacijaEntities();
+
+            var korisnici = from m in db.Korisnik.Where(a => a.Pacijenti.Count > 0)
+                            select m;
+
+
+            if (!String.IsNullOrEmpty(ime))
+            {
+
+                korisnici = db.Korisnik.Where(a => a.Ime.Contains(ime) && a.Pacijenti.Count > 0);
+
+            }
+            return View(korisnici);
         }
         public ActionResult BrišiUposlenika(string ime) { 
         
+
             eOrdinacijaEntities db = new eOrdinacijaEntities();
+            
             var korisnici = from m in db.Korisnik.Where(a=>a.Uposlenik.Count>0)
                              select m;
            
@@ -291,25 +385,213 @@ namespace eOrdinacija_Baze.Controllers
             return View(korisnici);
         
         }
+        public ActionResult ObrišiKorisnikaPacijenta(int id) {
+            eOrdinacijaEntities db = new eOrdinacijaEntities();
+            if (db.Korisnik.Find(idKorisnika).Privilegije.del_pacijent == false)
+            {
+                TempData["Greska"] = "Žao nam je , nemate privilegiju brisanja pacijenta";
+                return RedirectToAction("DodajPacijenta");
+            }
+
+
+            try
+            {
+                Korisnik o = db.Korisnik.Find(id);
+                Pacijenti uposlenik = db.Pacijenti.Where(a => a.idKorisnika.Equals(id)).FirstOrDefault();
+
+                if (uposlenik.Pregled.Count > 0)
+                {
+                    TempData["Greska"] = "Pacijent ima zakazane termine!";
+                    return RedirectToAction("DodajPacijenta");
+                }
+                db.Pacijenti.Remove(uposlenik);
+                db.Korisnik.Remove(o);
+                db.SaveChanges();
+                TempData["KorisnikIzmjenjen"] = "Pacijent uspješno obrisan";
+                return RedirectToAction("DodajPacijenta");
+            }
+            catch (Exception e)
+            {
+
+                return RedirectToAction("BrišiPacijenta");
+            }
+        }
         public ActionResult ObrišiKorisnikaiUposlenika(int id)
         {
             eOrdinacijaEntities db = new eOrdinacijaEntities();
+            if (db.Korisnik.Find(idKorisnika).Privilegije.del_doktor == false)
+            {
+                TempData["KorisnikIzmjenjen"] = "Žao nam je , nemate privilegiju brisanja uposlenika";
+                return RedirectToAction("DodajUposlenika");
+            }
 
+            
             try
             {
                 Korisnik o = db.Korisnik.Find(id);
                 Uposlenik uposlenik = db.Uposlenik.Where(a => a.idKorisnika.Equals(id)).FirstOrDefault();
 
+                if (uposlenik.Pregled.Count > 0) 
+                {
+                    TempData["Upozorenje"] = "Uposlenik ima zakazane termine!";
+                    return RedirectToAction("DodajUposlenika");
+                }
                 db.Uposlenik.Remove(uposlenik);
                 db.Korisnik.Remove(o);              
                 db.SaveChanges();
-                return RedirectToAction("BrišiUposlenika");
+                TempData["KorisnikIzmjenjen"] = "Uposlenik uspješno obrisan";
+                return RedirectToAction("DodajUposlenika");
             }
             catch (Exception e) {
 
                 return RedirectToAction("BrišiUposlenika");
             }
         }
+        public ActionResult IzmjeniKorisnikaPacijenta(int id)
+        {
+            eOrdinacijaEntities db = new eOrdinacijaEntities();
+            if (db.Korisnik.Find(idKorisnika).Privilegije.modify_pacijent == false)
+            {
+                TempData["Greska"] = "Žao nam je , nemate privilegiju izmjene uposlenika";
+                return RedirectToAction("DodajPacijenta");
+            }
+
+            Korisnik o = db.Korisnik.Find(id);
+            Pacijenti uposlenik = db.Pacijenti.Where(a => a.idKorisnika.Equals(id)).FirstOrDefault();
+           
+            ViewBag.odjeli = new SelectList(db.Odjel, "IdOdjela", "TipOdjela");
+         //   o.Datum_rodjenja = DateTime.ParseExact(o.Datum_rodjenja.ToString(), "MM/dd/yyyy", CultureInfo.InvariantCulture);
+            KorisnikPacijentSobaModel kum = new KorisnikPacijentSobaModel();
+            kum.Korisnik = o;
+            kum.Pacijent = uposlenik;
+          
+            ViewBag.odjeli = new SelectList(db.Odjel, "IdOdjela", "TipOdjela");
+            string[] jedinice = new string[] { "Odaberi" };
+            ViewBag.sobe = new SelectList(jedinice);
+            kum.Sobe = db.Soba.ToList();
+
+            return View("IzmjeniKorisnikaPacijenta", kum);
+        }
+        [HttpPost]
+        public ActionResult SpremiIzmjenjenogPacijenta(KorisnikPacijentSobaModel kum) 
+        {
+            eOrdinacijaEntities db = new eOrdinacijaEntities();
+            if (kum.Korisnik.Datum_rodjenja > DateTime.Now)
+            {
+                ModelState.AddModelError("CustomError", "Datum mora biti u budučnosti");
+                ViewBag.odjeli = new SelectList(db.Odjel, "IdOdjela", "TipOdjela");
+                return View("IzmjeniKorisnikaPacijenta");
+
+            }
+            var user = db.Korisnik.Where(a => a.Username == kum.Korisnik.Username && a.IdKorisnika != kum.Korisnik.IdKorisnika).FirstOrDefault();
+
+            if (user != null)
+            {
+                ModelState.AddModelError("CustomError1", "Username vec postoji");
+                ViewBag.odjeli = new SelectList(db.Odjel, "IdOdjela", "TipOdjela");
+                return View("IzmjeniKorisnikaPacijenta");
+
+            }
+
+            Korisnik k = db.Korisnik.Find(kum.Korisnik.IdKorisnika);
+            Pacijenti u = db.Pacijenti.Find(kum.Pacijent.idPacijenta);
+
+
+
+            k.Ime = kum.Korisnik.Ime;
+            k.Prezime = kum.Korisnik.Prezime;
+            k.Ime_oca = kum.Korisnik.Ime_oca;
+            k.Broj_licne = kum.Korisnik.Broj_licne;
+            k.Email = kum.Korisnik.Email;
+            k.Datum_rodjenja = kum.Korisnik.Datum_rodjenja;
+            k.Mjesto_rodjenja = kum.Korisnik.Mjesto_rodjenja;
+            k.Prebivalište = kum.Korisnik.Prebivalište;
+            k.Username = kum.Korisnik.Username;
+            k.Password = kum.Korisnik.Password;
+            k.Telefon = kum.Korisnik.Telefon;
+            k.JMBG = kum.Korisnik.JMBG;
+            k.idPrivilegije = kum.Korisnik.idPrivilegije;
+
+            u.idSobe = Convert.ToInt32(kum.Soba.IdSobe);
+            u.Zaposlen = kum.Pacijent.Zaposlen;
+            u.Poslodavac = kum.Pacijent.Poslodavac;
+            u.Osiguran = kum.Pacijent.Osiguran;
+
+            db.SaveChanges();
+
+            TempData["KorisnikIzmjenjen"] = "Korisnik uspješno izmjenjen";
+            return RedirectToAction("DodajPacijenta");
+        }
+        public ActionResult IzmjeniKorisnikaiUposlenika(int id)
+        {
+            eOrdinacijaEntities db = new eOrdinacijaEntities();
+            if (db.Korisnik.Find(idKorisnika).Privilegije.modify_doktor == false) 
+            {
+                TempData["KorisnikIzmjenjen"] = "Žao nam je , nemate privilegiju izmjene uposlenika";
+                return RedirectToAction("DodajUposlenika");
+            }
+            
+            Korisnik o = db.Korisnik.Find(id);
+            Uposlenik uposlenik = db.Uposlenik.Where(a => a.idKorisnika.Equals(id)).FirstOrDefault();
+            ViewBag.odjeli = new SelectList(db.Odjel, "IdOdjela", "TipOdjela",uposlenik.idOdjela);
+
+            KorisnikUposlenikModel kum = new KorisnikUposlenikModel();
+            kum.Korisnik = o;
+            kum.Uposlenik = uposlenik;
+            return View("IzmjeniKorisnikaiUposlenika", kum);
+        
+        }
+        public ActionResult IzmjeniUposlenika(KorisnikUposlenikModel kum) 
+        {
+            eOrdinacijaEntities db = new eOrdinacijaEntities();
+            if (kum.Korisnik.Datum_rodjenja > DateTime.Now)
+            {
+                ModelState.AddModelError("CustomError", "Datum mora biti u budučnosti");
+                ViewBag.odjeli = new SelectList(db.Odjel, "IdOdjela", "TipOdjela",kum.Uposlenik.idOdjela);
+                return View("IzmjeniKorisnikaiUposlenika");
+
+            }
+            var user = db.Korisnik.Where(a => a.Username ==kum.Korisnik.Username && a.IdKorisnika != kum.Korisnik.IdKorisnika).FirstOrDefault();
+
+            if (user != null)
+            {
+                ModelState.AddModelError("CustomError1", "Username vec postoji");
+                ViewBag.odjeli = new SelectList(db.Odjel, "IdOdjela", "TipOdjela",kum.Uposlenik.idOdjela);
+                return View("IzmjeniKorisnikaiUposlenika");
+
+            }
+
+            Korisnik k = db.Korisnik.Find(kum.Korisnik.IdKorisnika);
+            Uposlenik u = db.Uposlenik.Find(kum.Uposlenik.idUposlenika);
+
+            
+
+            k.Ime = kum.Korisnik.Ime;
+            k.Prezime = kum.Korisnik.Prezime;
+            k.Ime_oca = kum.Korisnik.Ime_oca;
+            k.Broj_licne = kum.Korisnik.Broj_licne;
+            k.Email = kum.Korisnik.Email;
+            k.Datum_rodjenja = kum.Korisnik.Datum_rodjenja;
+            k.Mjesto_rodjenja = kum.Korisnik.Mjesto_rodjenja;
+            k.Prebivalište = kum.Korisnik.Prebivalište;
+            k.Username = kum.Korisnik.Username;
+            k.Password = kum.Korisnik.Password;
+            k.Telefon = kum.Korisnik.Telefon;
+            k.JMBG = kum.Korisnik.JMBG;
+            k.idPrivilegije = kum.Korisnik.idPrivilegije;
+
+            u.idOdjela = kum.Odjel.IdOdjela;
+            u.Titula = kum.Uposlenik.Titula;
+            u.Zanimanje = kum.Uposlenik.Zanimanje;
+            u.Biografija = kum.Uposlenik.Biografija;
+
+            db.SaveChanges();
+
+            TempData["KorisnikIzmjenjen"] = "Korisnik uspješno izmjenjen";
+            return RedirectToAction("DodajUposlenika");
+        }
+
+
         public ActionResult UpravljanjePrivilegijama(string ime) {
 
             eOrdinacijaEntities db = new eOrdinacijaEntities();
@@ -353,6 +635,97 @@ namespace eOrdinacija_Baze.Controllers
  
 
             return RedirectToAction("UpravljanjePrivilegijama");
+        }
+        public ActionResult dodajPacijentasaAcountom(string ime)
+        {
+            eOrdinacijaEntities db = new eOrdinacijaEntities();
+            var korisnici = from m in db.Korisnik.Where(a => a.Pacijenti.Count == 0 && a.Uposlenik.Count == 0)
+                            select m;
+
+
+            if (!String.IsNullOrEmpty(ime))
+            {
+
+                korisnici = db.Korisnik.Where(a => a.Ime.Contains(ime) && a.Pacijenti.Count == 0 && a.Uposlenik.Count == 0);
+
+            }
+            return View("dodajPacijentasaAcountom", korisnici);
+        }
+        public ActionResult PacijentaSaAcountom(int id) 
+        {
+            eOrdinacijaEntities db = new eOrdinacijaEntities();
+            Korisnik k = db.Korisnik.Find(id);
+            KorisnikPacijentSobaModel kum = new KorisnikPacijentSobaModel();
+            kum.Korisnik = k;
+            ViewBag.odjeli = new SelectList(db.Odjel, "IdOdjela", "TipOdjela");
+            string[] jedinice = new string[] { "Odaberi" };
+            ViewBag.sobe = new SelectList(jedinice);
+            kum.Sobe = db.Soba.ToList();
+            return View("PacijentaSaAcountom", kum);
+        }
+        [HttpPost]
+        public ActionResult SpremiPacijentaSaAcountom(KorisnikPacijentSobaModel kum) 
+        {
+            eOrdinacijaEntities db = new eOrdinacijaEntities();
+            try
+            {
+                if (kum.Korisnik.Datum_rodjenja > DateTime.Now)
+                {
+                    ModelState.AddModelError("CustomError", "Datum mora biti u budučnosti");
+                    ViewBag.odjeli = new SelectList(db.Odjel, "IdOdjela", "TipOdjela");
+                    return View("PacijentaSaAcountom", kum);
+
+                }
+                var user = db.Korisnik.Where(a => a.Username == kum.Korisnik.Username && a.IdKorisnika != kum.Korisnik.IdKorisnika).FirstOrDefault();
+
+                if (user != null)
+                {
+                    ModelState.AddModelError("CustomError1", "Username vec postoji");
+                    ViewBag.odjeli = new SelectList(db.Odjel, "IdOdjela", "TipOdjela");
+                    return View("PacijentaSaAcountom", kum);
+
+                }
+
+                Korisnik k = db.Korisnik.Find(kum.Korisnik.IdKorisnika);
+                k.Broj_licne = kum.Korisnik.Broj_licne;
+                k.Datum_rodjenja = kum.Korisnik.Datum_rodjenja;
+                k.Email = kum.Korisnik.Email;
+                k.Ime = kum.Korisnik.Ime;
+                k.Ime_oca = kum.Korisnik.Ime_oca;
+                k.JMBG = kum.Korisnik.JMBG;
+                k.Mjesto_rodjenja = kum.Korisnik.Mjesto_rodjenja;
+                k.Password = kum.Korisnik.Password;
+                k.Prebivalište = kum.Korisnik.Prebivalište;
+                k.Prezime = kum.Korisnik.Prezime;
+                k.Telefon = kum.Korisnik.Telefon;
+                k.Username = kum.Korisnik.Username;
+                k.idPrivilegije = kum.Korisnik.idPrivilegije;
+                db.SaveChanges();
+
+
+                db.Pacijenti.Add(new Pacijenti
+                {
+                    Zaposlen = kum.Pacijent.Zaposlen,
+                    Poslodavac = kum.Pacijent.Poslodavac,
+                    Osiguran = kum.Pacijent.Osiguran,
+                    idKorisnika = Convert.ToInt32(kum.Korisnik.IdKorisnika),
+                    idSobe = Convert.ToInt32(kum.Soba.IdSobe)
+                });
+                db.SaveChanges();
+
+                TempData["DodanUposlenik"] = "Pacijent uspješno spašen";
+
+                return RedirectToAction("HomePage");
+
+
+            }
+            catch (Exception e)
+            {
+                ViewBag.greska = "Greška , pokušajte ponovo!";
+                return View("dodajPacijentasaAcountom");
+
+            }
+        
         }
         public ActionResult dodajUposlenikaVecNapravljenAcount(string ime) 
         {
@@ -428,6 +801,8 @@ namespace eOrdinacija_Baze.Controllers
                     });
                 db.SaveChanges();
 
+                TempData["DodanUposlenik"] = "Uposlenik uspješno spašen";
+
                 return RedirectToAction("HomePage");
 
 
@@ -440,13 +815,18 @@ namespace eOrdinacija_Baze.Controllers
             }
         
         }
+       
 
         public ActionResult DodajPacijenta() {
 
             eOrdinacijaEntities db =  new eOrdinacijaEntities();
+            ViewBag.odjeli = new SelectList(db.Odjel, "IdOdjela", "TipOdjela");
+            string[] jedinice = new string[] { "Odaberi" };
+            ViewBag.sobe = new SelectList(jedinice);
 
-            ViewBag.sobe = new SelectList(db.Soba, "IdSobe", "brojSobe");
-            return View();
+            KorisnikPacijentSobaModel kum = new KorisnikPacijentSobaModel();
+            kum.Sobe = db.Soba.ToList();
+            return View(kum);
         }
         [HttpPost]
         public ActionResult DodajPacijenta(KorisnikPacijentSobaModel kum) 
@@ -539,6 +919,8 @@ namespace eOrdinacija_Baze.Controllers
                 return View("DodajPacijenta");
 
             }
+        TempData["DodanUposlenik"] = "Pacijent uspješno spašen";
+
             return RedirectToAction("HomePage");
             
         }
@@ -853,7 +1235,15 @@ namespace eOrdinacija_Baze.Controllers
             if (p != null || p == 0) return true;
             else return false;
         }
-       
+
+        public void DajSobe(int id) 
+        {
+            eOrdinacijaEntities db = new eOrdinacijaEntities();
+           TempData["sobe"] = db.Soba.Where(a=>a.idOdjela==id).ToList();
+            
+
+        }
     }
+
 }
 

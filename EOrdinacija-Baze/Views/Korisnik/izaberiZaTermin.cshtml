@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<EOrdinacija_Baze.Korisnik>
 
 @{
-    ViewBag.Title = "Izaberi doktora za rezervisanje termina";
+    ViewBag.Title = "Izaberi pacijenta za rezervisanje termina";
     Layout = "~/Views/Shared/LayoutKorisnik.cshtml";
 }
-<h3>Odaberite pacijenta za rezervisanje termina</h3>
+<h3>Odaberite uposlenika za rezervisanje termina</h3>
 <p>
     @using (Html.BeginForm("AddTermin", "Korisnik", FormMethod.Get))
     { 
@@ -68,5 +68,9 @@
         </td>
     </tr>
 }
-
 </table>
+<div>
+    @Html.ActionLink("Nazad", "HomePage")
+</div>
+
+

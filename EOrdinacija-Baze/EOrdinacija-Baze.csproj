@@ -581,6 +581,14 @@
     <Content Include="Views\Korisnik\DodajLijek.cshtml" />
     <Content Include="Views\Korisnik\PotroseniLijek.cshtml" />
     <Content Include="Views\Korisnik\DajLijek.cshtml" />
+    <Content Include="Views\Korisnik\DajSobe.cshtml" />
+    <Content Include="Views\Korisnik\Onama.cshtml" />
+    <Content Include="Views\Korisnik\IzmjeniKorisnikaiUposlenika.cshtml" />
+    <Content Include="Views\Korisnik\dodajPacijentasaAcountom.cshtml" />
+    <Content Include="Views\Korisnik\PacijentaSaAcountom.cshtml" />
+    <Content Include="Views\Korisnik\BrišiPacijenta.cshtml" />
+    <Content Include="Views\Korisnik\IzmjeniKorisnikaPacijenta.cshtml" />
+    <Content Include="Views\Korisnik\DajRasporedPacijenta.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

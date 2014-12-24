@@ -1,0 +1,23 @@
+﻿@model DHTMLX.Scheduler.DHXScheduler
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>DajRasporedPacijenta</title>
+</head>
+<body>
+    
+        <div style="height:700px;width:900px;margin:80px auto" id="pokazi" >
+       
+         @Html.Raw(Model.Render())
+       
+
+    </div>
+</body>
+</html>

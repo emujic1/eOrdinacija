@@ -11,7 +11,7 @@ namespace EOrdinacija_Baze
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
     public partial class Uposlenik
     {
         public Uposlenik()
@@ -24,6 +24,7 @@ namespace EOrdinacija_Baze
         public int idUposlenika { get; set; }
         public string Titula { get; set; }
         public string Zanimanje { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Biografija { get; set; }
         public int idKorisnika { get; set; }
         public Nullable<int> idOdjela { get; set; }

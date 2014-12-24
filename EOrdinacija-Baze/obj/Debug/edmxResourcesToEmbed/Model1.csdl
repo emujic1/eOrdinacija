@@ -2,30 +2,33 @@
 <Schema Namespace="eOrdinacijaModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
   <EntityContainer Name="eOrdinacijaEntities" p1:LazyLoadingEnabled="true">
     <EntitySet Name="Event" EntityType="eOrdinacijaModel.Event" />
+    <EntitySet Name="Image" EntityType="eOrdinacijaModel.Image" />
     <EntitySet Name="Karton" EntityType="eOrdinacijaModel.Karton" />
     <EntitySet Name="Korisnik" EntityType="eOrdinacijaModel.Korisnik" />
     <EntitySet Name="Nalaz" EntityType="eOrdinacijaModel.Nalaz" />
     <EntitySet Name="Odjel" EntityType="eOrdinacijaModel.Odjel" />
     <EntitySet Name="Oprema" EntityType="eOrdinacijaModel.Oprema" />
     <EntitySet Name="Pacijenti" EntityType="eOrdinacijaModel.Pacijenti" />
+    <EntitySet Name="Potroseno" EntityType="eOrdinacijaModel.Potroseno" />
     <EntitySet Name="Pregled" EntityType="eOrdinacijaModel.Pregled" />
     <EntitySet Name="Privilegije" EntityType="eOrdinacijaModel.Privilegije" />
-    <EntitySet Name="Role" EntityType="eOrdinacijaModel.Role" />
     <EntitySet Name="Soba" EntityType="eOrdinacijaModel.Soba" />
-    <EntitySet Name="sysdiagrams" EntityType="eOrdinacijaModel.sysdiagrams" />
     <EntitySet Name="Temini" EntityType="eOrdinacijaModel.Temini" />
-    <EntitySet Name="Uloge" EntityType="eOrdinacijaModel.Uloge" />
     <EntitySet Name="Uposlenik" EntityType="eOrdinacijaModel.Uposlenik" />
     <AssociationSet Name="FK_Temini_Event" Association="eOrdinacijaModel.FK_Temini_Event">
       <End Role="Event" EntitySet="Event" />
       <End Role="Temini" EntitySet="Temini" />
     </AssociationSet>
+    <AssociationSet Name="FK_Karton_Image" Association="eOrdinacijaModel.FK_Karton_Image">
+      <End Role="Image" EntitySet="Image" />
+      <End Role="Karton" EntitySet="Karton" />
+    </AssociationSet>
     <AssociationSet Name="FK_Karton_Pacijenti" Association="eOrdinacijaModel.FK_Karton_Pacijenti">
       <End Role="Pacijenti" EntitySet="Pacijenti" />
       <End Role="Karton" EntitySet="Karton" />
     </AssociationSet>
-    <AssociationSet Name="FK_Korisnik_Role" Association="eOrdinacijaModel.FK_Korisnik_Role">
-      <End Role="Role" EntitySet="Role" />
+    <AssociationSet Name="FK_Korisnik_Privilegije" Association="eOrdinacijaModel.FK_Korisnik_Privilegije">
+      <End Role="Privilegije" EntitySet="Privilegije" />
       <End Role="Korisnik" EntitySet="Korisnik" />
     </AssociationSet>
     <AssociationSet Name="FK_Pacijenti_qKorisnik" Association="eOrdinacijaModel.FK_Pacijenti_qKorisnik">
@@ -52,9 +55,9 @@
       <End Role="Odjel" EntitySet="Odjel" />
       <End Role="Uposlenik" EntitySet="Uposlenik" />
     </AssociationSet>
-    <AssociationSet Name="FK_Oprema_Pregled" Association="eOrdinacijaModel.FK_Oprema_Pregled">
-      <End Role="Pregled" EntitySet="Pregled" />
+    <AssociationSet Name="FK_Potroseno_Oprema" Association="eOrdinacijaModel.FK_Potroseno_Oprema">
       <End Role="Oprema" EntitySet="Oprema" />
+      <End Role="Potroseno" EntitySet="Potroseno" />
     </AssociationSet>
     <AssociationSet Name="FK_Pacijenti_Soba" Association="eOrdinacijaModel.FK_Pacijenti_Soba">
       <End Role="Soba" EntitySet="Soba" />
@@ -68,17 +71,13 @@
       <End Role="Pacijenti" EntitySet="Pacijenti" />
       <End Role="Temini" EntitySet="Temini" />
     </AssociationSet>
+    <AssociationSet Name="FK_Pregled_Potroseno" Association="eOrdinacijaModel.FK_Pregled_Potroseno">
+      <End Role="Potroseno" EntitySet="Potroseno" />
+      <End Role="Pregled" EntitySet="Pregled" />
+    </AssociationSet>
     <AssociationSet Name="FK_Pregled_Uposlenik" Association="eOrdinacijaModel.FK_Pregled_Uposlenik">
       <End Role="Uposlenik" EntitySet="Uposlenik" />
       <End Role="Pregled" EntitySet="Pregled" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Role_Privilegije" Association="eOrdinacijaModel.FK_Role_Privilegije">
-      <End Role="Privilegije" EntitySet="Privilegije" />
-      <End Role="Role" EntitySet="Role" />
-    </AssociationSet>
-    <AssociationSet Name="FK_Role_Uloge" Association="eOrdinacijaModel.FK_Role_Uloge">
-      <End Role="Uloge" EntitySet="Uloge" />
-      <End Role="Role" EntitySet="Role" />
     </AssociationSet>
     <AssociationSet Name="FK_Temini_Uposlenik" Association="eOrdinacijaModel.FK_Temini_Uposlenik">
       <End Role="Uposlenik" EntitySet="Uposlenik" />
@@ -91,24 +90,34 @@
     </Key>
     <Property Name="Id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
     <Property Name="Opis" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
-    <Property Name="Pocetak" Type="DateTime" Nullable="false" Precision="0" />
-    <Property Name="Kraj" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Pocetak" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Kraj" Type="DateTime" Nullable="false" Precision="3" />
     <NavigationProperty Name="Temini" Relationship="eOrdinacijaModel.FK_Temini_Event" FromRole="Event" ToRole="Temini" />
+  </EntityType>
+  <EntityType Name="Image">
+    <Key>
+      <PropertyRef Name="ImageId" />
+    </Key>
+    <Property Name="ImageId" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="ImageSize" Type="Int32" Nullable="false" />
+    <Property Name="FileName" Type="String" Nullable="false" MaxLength="200" Unicode="false" FixedLength="false" />
+    <Property Name="ImageData" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
+    <NavigationProperty Name="Karton" Relationship="eOrdinacijaModel.FK_Karton_Image" FromRole="Image" ToRole="Karton" />
   </EntityType>
   <EntityType Name="Karton">
     <Key>
       <PropertyRef Name="IdKartona" />
     </Key>
-    <Property Name="IdKartona" Type="Int32" Nullable="false" />
-    <Property Name="IdPacijenta" Type="Int32" Nullable="false" />
-    <Property Name="Ekg_slika" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="IdKartona" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="IdPacijenta" Type="Int32" />
     <Property Name="Misljenje_specijaliste" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
     <Property Name="Datum_zadnje_ismjene" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="Dijagnoza" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
     <Property Name="Primjedba" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
     <Property Name="Sposobnost_kretanja" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
     <Property Name="Zarazna_bolest" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-    <Property Name="Karton_on_off" Type="Boolean" Nullable="false" />
+    <Property Name="Slika" Type="Int32" />
+    <NavigationProperty Name="Image" Relationship="eOrdinacijaModel.FK_Karton_Image" FromRole="Karton" ToRole="Image" />
     <NavigationProperty Name="Pacijenti" Relationship="eOrdinacijaModel.FK_Karton_Pacijenti" FromRole="Karton" ToRole="Pacijenti" />
   </EntityType>
   <EntityType Name="Korisnik">
@@ -128,8 +137,8 @@
     <Property Name="Password" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
     <Property Name="Telefon" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
     <Property Name="JMBG" Type="String" Nullable="false" MaxLength="13" Unicode="false" FixedLength="false" />
-    <Property Name="idRole" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Role" Relationship="eOrdinacijaModel.FK_Korisnik_Role" FromRole="Korisnik" ToRole="Role" />
+    <Property Name="idPrivilegije" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Privilegije" Relationship="eOrdinacijaModel.FK_Korisnik_Privilegije" FromRole="Korisnik" ToRole="Privilegije" />
     <NavigationProperty Name="Pacijenti" Relationship="eOrdinacijaModel.FK_Pacijenti_qKorisnik" FromRole="Korisnik" ToRole="Pacijenti" />
     <NavigationProperty Name="Uposlenik" Relationship="eOrdinacijaModel.FK_Uposlenik_Korisnik1" FromRole="Korisnik" ToRole="Uposlenik" />
   </EntityType>
@@ -163,18 +172,16 @@
     <Property Name="IdOpreme" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
     <Property Name="Naziv" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
     <Property Name="Proizvodjac" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-    <Property Name="Model" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
     <Property Name="Godina_proizvodnje" Type="Int32" />
     <Property Name="Opis" Type="String" MaxLength="Max" Unicode="false" FixedLength="false" />
     <Property Name="Cjena" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
-    <Property Name="idPregleda" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Pregled" Relationship="eOrdinacijaModel.FK_Oprema_Pregled" FromRole="Oprema" ToRole="Pregled" />
+    <NavigationProperty Name="Potroseno" Relationship="eOrdinacijaModel.FK_Potroseno_Oprema" FromRole="Oprema" ToRole="Potroseno" />
   </EntityType>
   <EntityType Name="Pacijenti">
     <Key>
       <PropertyRef Name="idPacijenta" />
     </Key>
-    <Property Name="idPacijenta" Type="Int32" Nullable="false" />
+    <Property Name="idPacijenta" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
     <Property Name="idKorisnika" Type="Int32" Nullable="false" />
     <Property Name="idSobe" Type="Int32" />
     <Property Name="Zaposlen" Type="Boolean" Nullable="false" />
@@ -187,6 +194,17 @@
     <NavigationProperty Name="Pregled" Relationship="eOrdinacijaModel.FK_Pregled_Pacijenti" FromRole="Pacijenti" ToRole="Pregled" />
     <NavigationProperty Name="Temini" Relationship="eOrdinacijaModel.FK_Temini_Pacijenti" FromRole="Pacijenti" ToRole="Temini" />
   </EntityType>
+  <EntityType Name="Potroseno">
+    <Key>
+      <PropertyRef Name="IdPotoseno" />
+    </Key>
+    <Property Name="IdPotoseno" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
+    <Property Name="Oprema" Type="Int32" Nullable="false" />
+    <Property Name="Kolićina" Type="Int32" Nullable="false" />
+    <Property Name="Jedinica" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Oprema1" Relationship="eOrdinacijaModel.FK_Potroseno_Oprema" FromRole="Potroseno" ToRole="Oprema" />
+    <NavigationProperty Name="Pregled" Relationship="eOrdinacijaModel.FK_Pregled_Potroseno" FromRole="Potroseno" ToRole="Pregled" />
+  </EntityType>
   <EntityType Name="Pregled">
     <Key>
       <PropertyRef Name="idPregleda" />
@@ -195,12 +213,11 @@
     <Property Name="Datum" Type="DateTime" Nullable="false" Precision="0" />
     <Property Name="Razlog_posjete" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
     <Property Name="Simptomi" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
-    <Property Name="Dijagnoza" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
     <Property Name="Oprema" Type="Int32" />
     <Property Name="idPacijenta" Type="Int32" Nullable="false" />
     <Property Name="IdUposlenika" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Oprema1" Relationship="eOrdinacijaModel.FK_Oprema_Pregled" FromRole="Pregled" ToRole="Oprema" />
     <NavigationProperty Name="Pacijenti" Relationship="eOrdinacijaModel.FK_Pregled_Pacijenti" FromRole="Pregled" ToRole="Pacijenti" />
+    <NavigationProperty Name="Potroseno" Relationship="eOrdinacijaModel.FK_Pregled_Potroseno" FromRole="Pregled" ToRole="Potroseno" />
     <NavigationProperty Name="Uposlenik" Relationship="eOrdinacijaModel.FK_Pregled_Uposlenik" FromRole="Pregled" ToRole="Uposlenik" />
   </EntityType>
   <EntityType Name="Privilegije">
@@ -219,18 +236,8 @@
     <Property Name="modify_kartona" Type="Boolean" Nullable="false" />
     <Property Name="ažuriranje_opreme" Type="Boolean" Nullable="false" />
     <Property Name="zakazivanje_termina" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="Role" Relationship="eOrdinacijaModel.FK_Role_Privilegije" FromRole="Privilegije" ToRole="Role" />
-  </EntityType>
-  <EntityType Name="Role">
-    <Key>
-      <PropertyRef Name="idRole" />
-    </Key>
-    <Property Name="idRole" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-    <Property Name="IdPrivilegije" Type="Int32" Nullable="false" />
-    <Property Name="IdUloge" Type="Int32" Nullable="false" />
-    <NavigationProperty Name="Korisnik" Relationship="eOrdinacijaModel.FK_Korisnik_Role" FromRole="Role" ToRole="Korisnik" />
-    <NavigationProperty Name="Privilegije" Relationship="eOrdinacijaModel.FK_Role_Privilegije" FromRole="Role" ToRole="Privilegije" />
-    <NavigationProperty Name="Uloge" Relationship="eOrdinacijaModel.FK_Role_Uloge" FromRole="Role" ToRole="Uloge" />
+    <Property Name="imePrivilegije" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+    <NavigationProperty Name="Korisnik" Relationship="eOrdinacijaModel.FK_Korisnik_Privilegije" FromRole="Privilegije" ToRole="Korisnik" />
   </EntityType>
   <EntityType Name="Soba">
     <Key>
@@ -243,36 +250,17 @@
     <NavigationProperty Name="Odjel" Relationship="eOrdinacijaModel.FK_Soba_Odjel" FromRole="Soba" ToRole="Odjel" />
     <NavigationProperty Name="Pacijenti" Relationship="eOrdinacijaModel.FK_Pacijenti_Soba" FromRole="Soba" ToRole="Pacijenti" />
   </EntityType>
-  <EntityType Name="sysdiagrams">
-    <Key>
-      <PropertyRef Name="diagram_id" />
-    </Key>
-    <Property Name="name" Type="String" Nullable="false" MaxLength="128" Unicode="true" FixedLength="false" />
-    <Property Name="principal_id" Type="Int32" Nullable="false" />
-    <Property Name="diagram_id" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-    <Property Name="version" Type="Int32" />
-    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
-  </EntityType>
   <EntityType Name="Temini">
     <Key>
       <PropertyRef Name="IdTermina" />
     </Key>
     <Property Name="IdTermina" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-    <Property Name="idUposlenika" Type="Int32" Nullable="false" />
-    <Property Name="idPacijenta" Type="Int32" Nullable="false" />
+    <Property Name="idUposlenika" Type="Int32" />
+    <Property Name="idPacijenta" Type="Int32" />
     <Property Name="idEventa" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Event" Relationship="eOrdinacijaModel.FK_Temini_Event" FromRole="Temini" ToRole="Event" />
     <NavigationProperty Name="Pacijenti" Relationship="eOrdinacijaModel.FK_Temini_Pacijenti" FromRole="Temini" ToRole="Pacijenti" />
     <NavigationProperty Name="Uposlenik" Relationship="eOrdinacijaModel.FK_Temini_Uposlenik" FromRole="Temini" ToRole="Uposlenik" />
-  </EntityType>
-  <EntityType Name="Uloge">
-    <Key>
-      <PropertyRef Name="idUloge" />
-    </Key>
-    <Property Name="idUloge" Type="Int32" Nullable="false" p1:StoreGeneratedPattern="Identity" />
-    <Property Name="Naziv" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-    <Property Name="Opis" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
-    <NavigationProperty Name="Role" Relationship="eOrdinacijaModel.FK_Role_Uloge" FromRole="Uloge" ToRole="Role" />
   </EntityType>
   <EntityType Name="Uposlenik">
     <Key>
@@ -283,7 +271,7 @@
     <Property Name="Zanimanje" Type="String" Nullable="false" MaxLength="50" Unicode="false" FixedLength="false" />
     <Property Name="Biografija" Type="String" Nullable="false" MaxLength="Max" Unicode="false" FixedLength="false" />
     <Property Name="idKorisnika" Type="Int32" Nullable="false" />
-    <Property Name="idOdjela" Type="Int32" Nullable="false" />
+    <Property Name="idOdjela" Type="Int32" />
     <NavigationProperty Name="Korisnik" Relationship="eOrdinacijaModel.FK_Uposlenik_Korisnik1" FromRole="Uposlenik" ToRole="Korisnik" />
     <NavigationProperty Name="Nalaz" Relationship="eOrdinacijaModel.FK_Nalaz_Uposlenik" FromRole="Uposlenik" ToRole="Nalaz" />
     <NavigationProperty Name="Odjel" Relationship="eOrdinacijaModel.FK_Uposlenik_Odjel" FromRole="Uposlenik" ToRole="Odjel" />
@@ -302,8 +290,20 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_Karton_Image">
+    <End Role="Image" Type="eOrdinacijaModel.Image" Multiplicity="0..1" />
+    <End Role="Karton" Type="eOrdinacijaModel.Karton" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Image">
+        <PropertyRef Name="ImageId" />
+      </Principal>
+      <Dependent Role="Karton">
+        <PropertyRef Name="Slika" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Karton_Pacijenti">
-    <End Role="Pacijenti" Type="eOrdinacijaModel.Pacijenti" Multiplicity="1" />
+    <End Role="Pacijenti" Type="eOrdinacijaModel.Pacijenti" Multiplicity="0..1" />
     <End Role="Karton" Type="eOrdinacijaModel.Karton" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Pacijenti">
@@ -314,15 +314,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Korisnik_Role">
-    <End Role="Role" Type="eOrdinacijaModel.Role" Multiplicity="1" />
+  <Association Name="FK_Korisnik_Privilegije">
+    <End Role="Privilegije" Type="eOrdinacijaModel.Privilegije" Multiplicity="1" />
     <End Role="Korisnik" Type="eOrdinacijaModel.Korisnik" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Role">
-        <PropertyRef Name="idRole" />
+      <Principal Role="Privilegije">
+        <PropertyRef Name="idPrivilegije" />
       </Principal>
       <Dependent Role="Korisnik">
-        <PropertyRef Name="idRole" />
+        <PropertyRef Name="idPrivilegije" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -387,7 +387,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Uposlenik_Odjel">
-    <End Role="Odjel" Type="eOrdinacijaModel.Odjel" Multiplicity="1" />
+    <End Role="Odjel" Type="eOrdinacijaModel.Odjel" Multiplicity="0..1" />
     <End Role="Uposlenik" Type="eOrdinacijaModel.Uposlenik" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Odjel">
@@ -398,15 +398,15 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Oprema_Pregled">
-    <End Role="Pregled" Type="eOrdinacijaModel.Pregled" Multiplicity="1" />
-    <End Role="Oprema" Type="eOrdinacijaModel.Oprema" Multiplicity="*" />
+  <Association Name="FK_Potroseno_Oprema">
+    <End Role="Oprema" Type="eOrdinacijaModel.Oprema" Multiplicity="1" />
+    <End Role="Potroseno" Type="eOrdinacijaModel.Potroseno" Multiplicity="*" />
     <ReferentialConstraint>
-      <Principal Role="Pregled">
-        <PropertyRef Name="idPregleda" />
+      <Principal Role="Oprema">
+        <PropertyRef Name="IdOpreme" />
       </Principal>
-      <Dependent Role="Oprema">
-        <PropertyRef Name="idPregleda" />
+      <Dependent Role="Potroseno">
+        <PropertyRef Name="Oprema" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -435,7 +435,7 @@
     </ReferentialConstraint>
   </Association>
   <Association Name="FK_Temini_Pacijenti">
-    <End Role="Pacijenti" Type="eOrdinacijaModel.Pacijenti" Multiplicity="1" />
+    <End Role="Pacijenti" Type="eOrdinacijaModel.Pacijenti" Multiplicity="0..1" />
     <End Role="Temini" Type="eOrdinacijaModel.Temini" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Pacijenti">
@@ -443,6 +443,18 @@
       </Principal>
       <Dependent Role="Temini">
         <PropertyRef Name="idPacijenta" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pregled_Potroseno">
+    <End Role="Potroseno" Type="eOrdinacijaModel.Potroseno" Multiplicity="0..1" />
+    <End Role="Pregled" Type="eOrdinacijaModel.Pregled" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Potroseno">
+        <PropertyRef Name="IdPotoseno" />
+      </Principal>
+      <Dependent Role="Pregled">
+        <PropertyRef Name="Oprema" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -458,32 +470,8 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK_Role_Privilegije">
-    <End Role="Privilegije" Type="eOrdinacijaModel.Privilegije" Multiplicity="1" />
-    <End Role="Role" Type="eOrdinacijaModel.Role" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Privilegije">
-        <PropertyRef Name="idPrivilegije" />
-      </Principal>
-      <Dependent Role="Role">
-        <PropertyRef Name="IdPrivilegije" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK_Role_Uloge">
-    <End Role="Uloge" Type="eOrdinacijaModel.Uloge" Multiplicity="1" />
-    <End Role="Role" Type="eOrdinacijaModel.Role" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Uloge">
-        <PropertyRef Name="idUloge" />
-      </Principal>
-      <Dependent Role="Role">
-        <PropertyRef Name="IdUloge" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK_Temini_Uposlenik">
-    <End Role="Uposlenik" Type="eOrdinacijaModel.Uposlenik" Multiplicity="1" />
+    <End Role="Uposlenik" Type="eOrdinacijaModel.Uposlenik" Multiplicity="0..1" />
     <End Role="Temini" Type="eOrdinacijaModel.Temini" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="Uposlenik">

@@ -18,12 +18,15 @@ namespace EOrdinacija_Baze
         public Nullable<int> IdPacijenta { get; set; }
         [Required(ErrorMessage="Unesite polje")]
         [Display(Name="Mišljenje sprecijaliste")]
+        [DataType(DataType.MultilineText)]
         public string Misljenje_specijaliste { get; set; }
         [Required(ErrorMessage = "Unesite polje")]
         [Display(Name="Datum zadnje izmjene")]
         public System.DateTime Datum_zadnje_ismjene { get; set; }
         [Required(ErrorMessage = "Unesite polje")]
+        [DataType(DataType.MultilineText)]
         public string Dijagnoza { get; set; }
+        [DataType(DataType.MultilineText)]
         public string Primjedba { get; set; }
         [Required(ErrorMessage = "Unesite polje")]
         [Display(Name="Sposobnost kretanja")]

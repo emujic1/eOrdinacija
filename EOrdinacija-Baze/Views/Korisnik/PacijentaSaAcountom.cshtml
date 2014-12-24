@@ -1,31 +1,54 @@
-﻿@model EOrdinacija_Baze.KorisnikUposlenikModel
-
+﻿@model EOrdinacija_Baze.KorisnikPacijentSobaModel
 
 @{
+    ViewBag.Title = "DodajPacijenta";
     Layout = "~/Views/Shared/LayoutKorisnik.cshtml";
     HtmlHelper.ClientValidationEnabled = true;
-
 }
+<script type="text/javascript">
+    function PopuniSobe() {
+        var odjel = document.getElementById("odjel").childNodes[1];
+        var soba = document.getElementById("soba").childNodes[1];
+        var id = odjel.options[odjel.selectedIndex].value;
 
-<h2>Dodaj Uposlenika</h2>
+        for(i=0; i<soba.length; i++)
+        {
+            soba.remove(i);
+        }
 
-@if (ViewBag.greska != null) { <p style="border:1px , red ">@ViewBag.greska</p> }
+        @foreach(var s in Model.Sobe){
+               
+           <text>
 
-@using (Html.BeginForm("SacuvajUposlenika", "Korisnik", FormMethod.Post))
-{
+        if ('@s.idOdjela' == id) {
+            var option = document.createElement("option")
+            option.text = '@s.brojSobe';
+            option.value = '@s.IdSobe';
+            soba.appendChild(option);
+        }
+        </text>          
+        
+
+    }
+    }
+</script>
+
+<h2>Dodaj pacijenta</h2>
+
+
+@using (Html.BeginForm("SpremiPacijentaSaAcountom","Korisnik",FormMethod.Post)) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
-    <table>
+    <div style="visibility:hidden">@Html.EditorFor(a=>a.Korisnik.IdKorisnika)
+         @Html.EditorFor(a=>a.Korisnik.idPrivilegije)
+    </div>
+    
+        <table>
 
-         <tr style="visibility:hidden">
-            <td>@Html.LabelFor(model => model.Korisnik.IdKorisnika)</td>
-            <td>  @Html.EditorFor(model => model.Korisnik.IdKorisnika)
-            @Html.ValidationMessageFor(model => model.Korisnik.IdKorisnika)</td>
-
-        </tr>
-
+        
         <tr>
+
         <td class="editor-label">
             @Html.LabelFor(model => model.Korisnik.Ime)
         </td>
@@ -34,7 +57,7 @@
             @Html.ValidationMessageFor(model => model.Korisnik.Ime)
         </td>
         </tr>
-        <tr>
+            <tr>
         <td class="editor-label">
             @Html.LabelFor(model => model.Korisnik.Prezime)
         </td>
@@ -43,7 +66,7 @@
             @Html.ValidationMessageFor(model => model.Korisnik.Prezime)
         </td>
         </tr>
-        <tr>
+            <tr>
         <td class="editor-label">
             @Html.LabelFor(model => model.Korisnik.Ime_oca)
         </td>
@@ -51,8 +74,8 @@
             @Html.EditorFor(model => model.Korisnik.Ime_oca)
             @Html.ValidationMessageFor(model => model.Korisnik.Ime_oca)
         </td>
-            </tr>
-        <tr>
+        </tr>
+            <tr>
         <td class="editor-label">
             @Html.LabelFor(model => model.Korisnik.Broj_licne)
         </td>
@@ -61,7 +84,7 @@
             @Html.ValidationMessageFor(model => model.Korisnik.Broj_licne)
         </td>
         </tr>
-        <tr>
+            <tr>
         <td class="editor-label">
             @Html.LabelFor(model => model.Korisnik.Email)
         </td>
@@ -69,17 +92,17 @@
             @Html.EditorFor(model => model.Korisnik.Email)
             @Html.ValidationMessageFor(model => model.Korisnik.Email)
         </td>
-    </tr>
-        <tr>
+            </tr>
+            <tr>
         <td class="editor-label">
             @Html.LabelFor(model => model.Korisnik.Datum_rodjenja)
         </td>
         <td class="editor-field">
-            @Html.EditorFor(model => model.Korisnik.Datum_rodjenja)
+            @Html.EditorFor(model => model.Korisnik.Datum_rodjenja)
             @Html.ValidationMessage("CustomError")
         </td>
-            </tr>
-        <tr>
+        </tr>
+            <tr>
         <td class="editor-label">
             @Html.LabelFor(model => model.Korisnik.Mjesto_rodjenja)
         </td>
@@ -87,8 +110,8 @@
             @Html.EditorFor(model => model.Korisnik.Mjesto_rodjenja)
             @Html.ValidationMessageFor(model => model.Korisnik.Mjesto_rodjenja)
         </td>
-            </tr>
-        <tr>
+                </tr>
+            <tr>
         <td class="editor-label">
             @Html.LabelFor(model => model.Korisnik.Prebivalište)
         </td>
@@ -96,8 +119,8 @@
             @Html.EditorFor(model => model.Korisnik.Prebivalište)
             @Html.ValidationMessageFor(model => model.Korisnik.Prebivalište)
         </td>
-            </tr>
-        <tr>
+                </tr>
+            <tr>
         <td class="editor-label">
             @Html.LabelFor(model => model.Korisnik.Username)
         </td>
@@ -105,8 +128,8 @@
             @Html.EditorFor(model => model.Korisnik.Username)
             @Html.ValidationMessage("CustomError1")
         </td>
-            </tr>
-        <tr>
+                </tr>
+            <tr>
         <td class="editor-label">
             @Html.LabelFor(model => model.Korisnik.Password)
         </td>
@@ -114,8 +137,8 @@
             @Html.EditorFor(model => model.Korisnik.Password)
             @Html.ValidationMessageFor(model => model.Korisnik.Password)
         </td>
-            </tr>
-        <tr>
+                </tr>
+            <tr>
         <td class="editor-label">
             @Html.LabelFor(model => model.Korisnik.Telefon)
         </td>
@@ -123,8 +146,8 @@
             @Html.EditorFor(model => model.Korisnik.Telefon)
             @Html.ValidationMessageFor(model => model.Korisnik.Telefon)
         </td>
-            </tr>
-        <tr>
+                </tr>
+            <tr>
         <td class="editor-label">
             @Html.LabelFor(model => model.Korisnik.JMBG)
         </td>
@@ -132,61 +155,72 @@
             @Html.EditorFor(model => model.Korisnik.JMBG)
             @Html.ValidationMessageFor(model => model.Korisnik.JMBG)
         </td>
-            </tr>
-        <tr>        
-        <td class="editor-label">
-            @Html.LabelFor(model => model.Uposlenik.Titula)
-        </td>
-        <td class="editor-field">
-            @Html.EditorFor(model => model.Uposlenik.Titula)
-            @Html.ValidationMessageFor(model => model.Uposlenik.Titula)
-        </td>
-            </tr>
-        <tr>
-        <td class="editor-label">
-            @Html.LabelFor(model => model.Uposlenik.Zanimanje)
-        </td>
-        <td class="editor-field">
-            @Html.EditorFor(model => model.Uposlenik.Zanimanje)
-            @Html.ValidationMessageFor(model => model.Uposlenik.Zanimanje)
-        </td>
-            </tr>
-        <tr>
-        <td class="editor-label">
-            @Html.LabelFor(model => model.Uposlenik.Biografija)
-        </td>
-        <td class="editor-field">
-            @Html.EditorFor(model => model.Uposlenik.Biografija)
-            @Html.ValidationMessageFor(model => model.Uposlenik.Biografija)
-        </td>
-            </tr>
-        <tr>
-        <td class="editor-label">
-            @Html.LabelFor(model => model.Uposlenik.idOdjela)
-        </td>
-        <td class="editor-field">
+                </tr>
+             <tr class="editor-label">
+                <td>@Html.Label("Odaberi odjel")</td>
+                <td id="odjel">
             @if (ViewBag.odjeli != null)
             {
-               @Html.DropDownListFor(model => model.Odjel.IdOdjela,
-                ViewBag.odjeli as SelectList, "Odaberi odjel", new { style="width: 310px ; height: 31px" } );
+               @Html.DropDownList("Odaberi",ViewBag.odjeli as SelectList,new { onclick="PopuniSobe()", style="width:310px ; height:30px" });
             }
         </td>
             </tr>
-        <tr><td style="visibility:hidden">@Html.EditorFor(model=>model.Korisnik.idPrivilegije)</td></tr>
-        <tr>
-        <td></td>
-        <td>
-            <input type="submit" value="Dodaj" />
+            <tr>
+                 <td class="editor-label">
+            @Html.LabelFor(model => model.Soba.brojSobe)
         </td>
-            </tr>
-      
+             <td id ="soba">
+            @if (ViewBag.sobe != null)
+            {
+               @Html.DropDownListFor(model => model.Soba.IdSobe,
+                ViewBag.sobe as SelectList, "Odaberi sobu",new { style="width:310px ; height:30px" });
+            }
+        </td>
+       </tr>
+           
+            <tr>
 
+        <td class="editor-label">
+            @Html.LabelFor(model => model.Pacijent.Poslodavac)
+        </td>
+        <td class="editor-field">
+            @Html.EditorFor(model => model.Pacijent.Poslodavac)
+            @Html.ValidationMessageFor(model => model.Pacijent.Poslodavac)
+        </td>
+        </tr>
+             <tr>
+
+        <td class="editor-label">
+            @Html.LabelFor(model => model.Pacijent.Zaposlen)
+        </td>
+        <td class="editor-field">
+            @Html.EditorFor(model => model.Pacijent.Zaposlen)
+            @Html.ValidationMessageFor(model => model.Pacijent.Zaposlen)
+        </td>
+        </tr>
+            <tr>
+        <td class="editor-label">
+            @Html.LabelFor(model => model.Pacijent.Osiguran)
+        </td>
+        <td class="editor-field">
+            @Html.EditorFor(model => model.Pacijent.Osiguran)
+            @Html.ValidationMessageFor(model => model.Pacijent.Osiguran)
+        </td>
+                </tr>
+            <tr>
+                </tr>
+            <tr>
+       
+
+        <td></td>
+           <td> <input type="submit" value="Spremi" /></td>
+        </tr>
     </table>
 }
 
-<p>
-    @Html.ActionLink("Nazad", "DodajUposlenika")
-</p>
+<div>
+    @Html.ActionLink("Nazad", "HomePage")
+</div>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

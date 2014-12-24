@@ -6,7 +6,42 @@
     HtmlHelper.ClientValidationEnabled = true;
 }
 
-<h2>DodajPacijenta</h2>
+<script type="text/javascript">
+    function PopuniSobe() {
+        var odjel = document.getElementById("odjel").childNodes[1];
+        var soba = document.getElementById("soba").childNodes[1];
+        var id = odjel.options[odjel.selectedIndex].value;
+
+        for(i=0; i<soba.length; i++)
+        {
+            soba.remove(i);
+        }
+
+        @foreach(var s in Model.Sobe){
+               
+           <text>
+
+        if ('@s.idOdjela' == id) {
+            var option = document.createElement("option")
+            option.text = '@s.brojSobe';
+            option.value = '@s.IdSobe';
+            soba.appendChild(option);
+        }
+        </text>          
+        
+
+    }
+    }
+</script>
+<div style="color:red; text-align:center; text-transform: uppercase;"><b>@TempData["Greska"]</b></div>
+<div style="color:rgb(54, 187, 65); text-align:center; text-transform: uppercase;"><b>@TempData["KorisnikIzmjenjen"]</b></div>
+ 
+<h2>Dodaj pacijenta</h2>
+
+ <p><ul id="menu">
+    <li>@Html.ActionLink("Dodaj na osnovu vec napravljenog korisničkog računa","dodajPacijentasaAcountom","Korisnik")</li>
+    <li>@Html.ActionLink("Izmjeni/obriši pacijenta","BrišiPacijenta","Korisnik")</li>        
+        </ul></p>
 
 @using (Html.BeginForm("DodajPacijenta","Korisnik",FormMethod.Post)) {
     @Html.AntiForgeryToken()
@@ -125,11 +160,20 @@
             @Html.ValidationMessageFor(model => model.Korisnik.JMBG)
         </td>
                 </tr>
+            <tr class="editor-label">
+                <td>@Html.Label("Odaberi odjel")</td>
+                <td id="odjel">
+            @if (ViewBag.odjeli != null)
+            {
+               @Html.DropDownList("Odaberi",ViewBag.odjeli as SelectList,new { onclick="PopuniSobe()", style="width:310px ; height:30px" });
+            }
+        </td>
+            </tr>
             <tr>
                  <td class="editor-label">
             @Html.LabelFor(model => model.Soba.brojSobe)
         </td>
-             <td class="editor-field">
+             <td id ="soba">
             @if (ViewBag.sobe != null)
             {
                @Html.DropDownListFor(model => model.Soba.IdSobe,
@@ -173,7 +217,7 @@
        
 
         <td></td>
-           <td> <input type="submit" value="Create" /></td>
+           <td> <input type="submit" value="Spremi" /></td>
         </tr>
     </table>
 }

@@ -24,7 +24,7 @@ namespace EOrdinacija_Baze
         public int IdOdjela { get; set; }
         [Remote("ProvjeraTipaOdjela","Korisnik",ErrorMessage="Odjel vec postoji")]
         [Required(ErrorMessage="Unesite polje")]
-        [Display(Name="Tip sobe")]
+        [Display(Name="Tip odjela")]
         public string TipOdjela { get; set; }
         [Required(ErrorMessage = "Unesite polje")]
         [Display(Name="Broj soba u odjelu")]

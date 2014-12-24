@@ -25,11 +25,14 @@ namespace EOrdinacija_Baze
 
         public int IdKorisnika { get; set; }
         [Required(ErrorMessage = "Unesite ime")]
+        [RegularExpression(@"[A-Z]{1}[a-z]*$", ErrorMessage = "Ime nije dobro!")]
         [Display(Name = "Ime")]
         public string Ime { get; set; }
+        [RegularExpression(@"[A-Z]{1}[a-z]*$",ErrorMessage="Prezime nije dobro!")]
         [Required(ErrorMessage = "Unesite prezime")]
         [Display(Name = "Prezime")]
         public string Prezime { get; set; }
+        [RegularExpression(@"[A-Z]{1}[a-z]*$", ErrorMessage = "Ime oca nije dobro!")]
         [Required(ErrorMessage = "Unesite ime oca")]
         [Display(Name = "Ime oca")]
         public string Ime_oca { get; set; }
@@ -42,9 +45,10 @@ namespace EOrdinacija_Baze
         [DataType(DataType.Date)]
         [Required(ErrorMessage = "Unesite datum rođenja")]
         [Display(Name = "Datum rođenja")]
-        [DisplayFormat(DataFormatString = "{0:dd/mm/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime? Datum_rodjenja { get; set; }
         [Required(ErrorMessage = "Unesite mjesto rođenja")]
+        [RegularExpression(@"([A-Z]{1}[a-z]*$)|([A-Z]{1}[a-z]*\s[A-Z]{1}[a-z]*$)", ErrorMessage = "Mjesto rođenja nije dobro!")]
         [Display(Name = "Mjesto rođenja")]
         public string Mjesto_rodjenja { get; set; }
         [Required(ErrorMessage = "Unesite mjesto prebivališta")]
@@ -57,8 +61,10 @@ namespace EOrdinacija_Baze
         [StringLength(100, ErrorMessage = "Password mora biti najmanje dug {2} karaktera a najviše {1} .", MinimumLength = 6)]
         [DataType(DataType.Password)]
         public string Password { get; set; }
+        [DataType(DataType.PhoneNumber)]
         public string Telefon { get; set; }
         [Required(ErrorMessage = "Unesite JMBG")]
+        [RegularExpression(@"[0-9]{13}$", ErrorMessage = "Pogrešan JMBG")]
         public string JMBG { get; set; }
         public int idPrivilegije { get; set; }
     

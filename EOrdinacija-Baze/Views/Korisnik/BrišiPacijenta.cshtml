@@ -4,10 +4,11 @@
     Layout = "~/Views/Shared/LayoutKorisnik.cshtml";
 }
 
-<h2>Pronađi uposlenika</h2>
+<h2>Pronađi pacijenta</h2>
 
 <p>
-    @using (Html.BeginForm("BrišiUposlenika","Korisnik",FormMethod.Get)) { 
+    @using (Html.BeginForm("BrišiPacijenta", "Korisnik", FormMethod.Get))
+    { 
     <table>
         <tr>
         <td> Unesi ime </td>
@@ -58,8 +59,8 @@
         </td>
         
         <td >           
-          <b><red>  @Html.ActionLink("Izbriši", "ObrišiKorisnikaiUposlenika", new {  id=item.IdKorisnika  }) </red> </b>
-          <b><red>  @Html.ActionLink("Izmjeni", "IzmjeniKorisnikaiUposlenika", new {  id=item.IdKorisnika  }) </red> </b>
+          <b><red>  @Html.ActionLink("Izbriši", "ObrišiKorisnikaPacijenta", new {  id=item.IdKorisnika  }) </red> </b>
+          <b><red>  @Html.ActionLink("Izmjeni", "IzmjeniKorisnikaPacijenta", new {  id=item.IdKorisnika  }) </red> </b>
         </td>
     </tr>
 }

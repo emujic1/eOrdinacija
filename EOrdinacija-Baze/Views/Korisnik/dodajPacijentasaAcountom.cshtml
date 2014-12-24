@@ -1,16 +1,16 @@
 ﻿@model IEnumerable<EOrdinacija_Baze.Korisnik>
 
 @{
+    ViewBag.Title = "dodajPacijentaVecNapravljenAcount";
     Layout = "~/Views/Shared/LayoutKorisnik.cshtml";
 }
-
-<h2>Pronađi uposlenika</h2>
-
+<h2>Pretraga korisnika</h2>
 <p>
-    @using (Html.BeginForm("BrišiUposlenika","Korisnik",FormMethod.Get)) { 
+    @using (Html.BeginForm("dodajUposlenikaVecNapravljenAcount", "Korisnik", FormMethod.Get))
+    { 
     <table>
         <tr>
-        <td> Unesi ime </td>
+        <td> Unesi ime</td>
         <td> @Html.TextBox("ime") </td>
        </tr>
         <tr>
@@ -21,49 +21,47 @@
     
     }
 </p>
-<table border="1px">
+
+<table>
     <tr>
-        
-        <th style="width: 80px">
+        <th>
             @Html.DisplayNameFor(model => model.Ime)
         </th>
-        <th style="width: 80px">
+        <th>
             @Html.DisplayNameFor(model => model.Prezime)
         </th>
-        <th style="width: 80px">
+        <th>
             @Html.DisplayNameFor(model => model.Ime_oca)
-        </th>       
-        <th style="width: 80px">
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.Username)
         </th>
-        
+       
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
-        
-        <td style="width: 80px">
+       
+        <td>
             @Html.DisplayFor(modelItem => item.Ime)
         </td>
-        <td style="width: 80px">
+        <td>
             @Html.DisplayFor(modelItem => item.Prezime)
         </td>
-        <td style="width: 80px">
+        <td>
             @Html.DisplayFor(modelItem => item.Ime_oca)
         </td>
-      
-        <td style="width: 80px">
+       
+        <td>
             @Html.DisplayFor(modelItem => item.Username)
         </td>
-        
-        <td >           
-          <b><red>  @Html.ActionLink("Izbriši", "ObrišiKorisnikaiUposlenika", new {  id=item.IdKorisnika  }) </red> </b>
-          <b><red>  @Html.ActionLink("Izmjeni", "IzmjeniKorisnikaiUposlenika", new {  id=item.IdKorisnika  }) </red> </b>
+       
+        <td>
+            @Html.ActionLink("Dodaj", "PacijentaSaAcountom", new {  id=item.IdKorisnika }) |
+    
         </td>
     </tr>
 }
 
 </table>
-
-<p>@Html.ActionLink("Nazad","HomePage")</p>

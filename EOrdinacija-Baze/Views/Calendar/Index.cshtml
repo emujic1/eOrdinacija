@@ -17,7 +17,7 @@
  
 </head>
 <body>
-   
+   <h3>Odaberite pacijenta za rezervisanje termina</h3>
     <p>
     @using (Html.BeginForm("PretragaUposlenika", "Calendar", FormMethod.Get))
     { 
@@ -81,6 +81,10 @@
         </td>
     </tr>
 }
-</table>
+    </table>
+ <div>
+    @Html.ActionLink("Nazad", "AddTermin","Korisnik")
+</div>
+
 </body>
 </html>
